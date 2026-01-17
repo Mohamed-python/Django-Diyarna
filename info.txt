@@ -1,0 +1,46 @@
+.\Scripts\Activate.ps1
+
+انشاء مشروع كامل 
+django-admin startproject project .
+
+انشاء تطبيق
+python manage.py startapp home
+
+
+
+تشغيل المشروع
+python manage.py runserver
+
+
+انشاء سوبر يوزر 
+python manage.py createsuperuser
+
+-----------------------------
+python manage.py migrate
+
+
+
+
+###################################################
+###################################################
+تطبيق انشاء الجداول في الموديل 
+python manage.py makemigrations
+
+لو تمام نفذ ده للانشاء 
+python manage.py migrate
+
+
+
+
+
+{% static '' %}
+
+
+
+
+########################
+from django.contrib import messages
+
+messages.success(request, 'تم تسجيل التبرع بنجاح ❤️')
+messages.error(request, 'من فضلك اختر وسيلة دفع')
+messages.info(request, 'سيتم تحويلك لبوابة الدفع')

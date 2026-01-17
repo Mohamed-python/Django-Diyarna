@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+
+
+
+
+
+{% block content %}
+
+
+<!-- <div class="container my-5">
+    <h1 class="text-center mb-5">الحالات الحالية للتبرع</h1>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for case in cases %}
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <img src="{{ case.image.url }}" class="card-img-top" alt="{{ case.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ case.title }}</h5>
+                    <p class="card-text">{{ case.description|truncatechars:100 }}</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">الهدف: {{ case.goal }} جنيه</small>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>لا توجد حالات حالياً</p>
+        {% endfor %}
+</div>
+ -->
+
+<div class="container py-5">
+
+  <div class="text-center mb-5">
+      <h2 class="fw-bold display-6">الحالات الحالية للتبرع</h2>
+      <p class="text-muted mb-0">اختر حالة وساعد حسب قدرتك</p>
+  </div>
+
+  <div class="row g-4">
+    {% for c in cases %}
+    <div class="col-md-4 mb-4">
+      <div class="card square-card shadow-sm">
+
+        {% if c.image %}
+        <img src="{{ c.image.url }}" class="card-img-top" alt="{{ c.title }}">
+        {% endif %}
+
+        <div class="card-body">
+          <h5 class="case-title">{{ c.title }}</h5>
+
+          <p class="case-desc">
+            {{ c.description|truncatechars:100 }}
+          </p>
+
+          <div class="mb-2">
+            <div class="d-flex justify-content-between small mb-1">
+              <span>جمع: <strong>{{ c.total_donations }}</strong> جنيه</span>
+              <span>الهدف: <strong>{{ c.goal }}</strong> جنيه</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar bg-success" role="progressbar"
+                   style="width: {{ c.progress_percent|floatformat:0 }}%;">
+              </div>
+            </div>
+            <small class="text-muted">{{ c.progress_percent|floatformat:0 }}% مكتمل</small>
+          </div>
+
+          <a href="{% url 'donate' c.id %}" class="btn w-100 donate-btn" style="background-color: #02c3eb; color: #fff;">
+            تبرع الآن
+          </a>
+        </div>
+
+      </div>
+    </div>
+    {% empty %}
+    <p>لا توجد حالات حالياً</p>
+    {% endfor %}
+  </div>
+
+  
+</div>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+

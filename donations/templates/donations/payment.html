@@ -1,0 +1,45 @@
+
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container py-5">
+    <div class="text-center mb-4">
+        <h3>اختر وسيلة الدفع</h3>
+        <p class="text-muted">مبلغ التبرع: {{ donation.amount }} جنيه</p>
+    </div>
+
+    <form method="post" class="row justify-content-center">
+        {% csrf_token %}
+
+        <div class="col-md-6">
+
+            <div class="card mb-3 p-3">
+                <label>
+                    <input type="radio" name="payment_method" value="cash" required>
+                    💵 الدفع كاش
+                </label>
+            </div>
+
+            <div class="card mb-3 p-3">
+                <label>
+                    <input type="radio" name="payment_method" value="visa">
+                    💳 الدفع بالفيزا
+                </label>
+            </div>
+
+            <div class="card mb-3 p-3">
+                <label>
+                    <input type="radio" name="payment_method" value="vodafone">
+                    📱 فودافون كاش
+                </label>
+            </div>
+
+            <button class="btn btn-success w-100">
+                متابعة الدفع
+            </button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
+

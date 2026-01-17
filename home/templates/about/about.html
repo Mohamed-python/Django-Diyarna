@@ -1,0 +1,219 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+
+
+<!-- ==========  STYLE  ========== -->
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/> -->
+
+<style>
+.about-hero {
+    position: relative;
+    height: 45vh;
+    background-image: url("{% static 'about/Cover_photo.jpg' %}");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.about-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(4px);
+}
+
+.about-hero h1 {
+    position: relative;
+    color: #fff;
+    font-size: 3rem;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 25px;
+    border-right: 5px solid #dc3545;
+    padding-right: 10px;
+}
+
+/* صور الرئيس الشرفي */
+.honor-photo {
+    width: 230px;
+    height: 230px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid #eee;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Cards */
+.partner-logo {
+    width: 150px;
+    height: 80px;
+    object-fit: contain;
+    filter: grayscale(20%);
+    transition: 0.3s;
+}
+
+.partner-logo:hover {
+    filter: grayscale(0%);
+}
+</style>
+
+
+<!-- ==========  HERO SECTION  ========== -->
+<!-- <section class="about-hero text-center">
+    <h1 class="animate__animated animate__fadeInDown">عن المؤسسة</h1>
+</section> -->
+<section class="hero-board position-relative text-white text-center mb-5" 
+         style="background-image: url('{% static 'about/Cover_photo.jpg' %}'); 
+                background-size: cover; background-position: center; height: 40vh; display: flex; align-items: center; justify-content: center;">
+  <div class="overlay position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(0,0,0,0.5);"></div>
+  <div class="content position-relative">
+    <h1 class="display-4 fw-bold animate__animated animate__fadeInDown">من نحن ؟</h1>
+    <!-- <p class="lead animate__animated animate__fadeInUp animate__delay-1s">تعرف على أعضاء مجلس الأمناء الذين يقودون مسيرة المؤسسة</p> -->
+  </div>
+</section>
+
+
+
+
+
+<!-- ==========  من نحن  ========== -->
+<div class="container py-5" style="direction: rtl;">
+    <h2 class="section-title animate__animated animate__fadeInRight">من نحن</h2>
+    <p class="lead animate__animated animate__fadeInUp" style="line-height: 1.9;">
+        كانت بداية (ديارنا) جروب تطوعي دشنه مجموعة من الشباب عام 2015 أستهدف المساعدة 
+        الإجتماعية في جميع أنحاء الجمهورية، ومن ثم قمنا بتأسيس مؤسسة ديارنا للتنمية بمصر 
+        بمشاركة عدد من شركاء التنمية برقم أشهار 979 لعام 2021، وهي مؤسسة غير هادفة للربح، 
+        تهدف إلي بناء الإنسان وتنمية أفكاره وتحقيق التنمية المستدامة.
+    </p>
+</div>
+
+
+<!-- ==========  الرئيس الشرفي  ========== -->
+<div class="container py-5" style="direction: rtl;">
+    <h2 class="section-title animate__animated animate__fadeInRight">الرئيس الشرفي</h2>
+
+    <div class="row align-items-center">
+        <div class="col-md-4 text-center">
+            
+            <img src="{% static 'about/Ahmed.png' %}" 
+                 alt="الرئيس الشرفي"
+                 class="honor-photo animate__animated animate__zoomIn">
+        </div>
+
+        <div class="col-md-8">
+            <h3 class="fw-bold">الكابتن / أحمد حسن</h3>
+            <p class="mt-3" style="line-height: 1.8;">
+                يُعد الكابتن أحمد حسن واحداً من أبرز رموز الرياضة المصرية والعربية، 
+                ويشرفنا توليه منصب الرئيس الشرفي لمؤسسة ديارنا للتنمية، دعماً منه 
+                لمسيرة العمل المجتمعي والتنمية المستدامة.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<!-- ==========  مجلس الأمناء  ========== -->
+<div class="container py-5" style="direction: rtl;">
+    <h2 class="section-title animate__animated animate__fadeInRight">مجلس الأمناء</h2>
+
+    <p class="mb-4">
+        يضم مجلس الأمناء نخبة من الخبرات التي تقود أعمال المؤسسة.  
+        يمكنكم مشاهدة قائمة الأعضاء بالكامل عبر الرابط التالي:
+    </p>
+
+    <a href="#" class="btn btn-danger px-4 py-2">عرض مجلس الأمناء</a>
+</div>
+
+
+<!-- ==========  شركاء النجاح  ========== -->
+<div class="container py-5" style="direction: rtl;">
+    <h2 class="section-title animate__animated animate__fadeInRight">شركاء النجاح</h2>
+
+    <div class="row text-center g-4">
+        <div class="col-md-3">
+            
+            <img src="{% static 'Success_partners/1.png' %}" class="partner-logo" alt="partner">
+        </div>
+        <div class="col-md-3">
+            <img src="{% static 'Success_partners/2.png' %}" class="partner-logo" alt="partner">
+        </div>
+        <div class="col-md-3">
+            <img src="{% static 'Success_partners/3.png' %}" class="partner-logo" alt="partner">
+        </div>
+        <div class="col-md-3">
+            <img src="{% static 'Success_partners/5.png' %}" class="partner-logo" alt="partner">
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<style>
+    .hero-board {
+        position: relative;
+        height: 40vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    
+    /* الخلفية الصورية مع البلور */
+    .hero-board::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("{% static 'about/Cover_photo.jpg' %}");
+        background-size: cover;
+        background-position: center;
+        filter: blur(2px); /* البلور */
+        transform: scale(1.1); /* يمنع ظهور الحواف بعد البلور */
+        z-index: 1;
+    }
+    
+    /* طبقة غامقة فوق البلور */
+    .hero-board::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.45);
+        z-index: 2;
+    }
+    
+    /* محتوى النص */
+    .hero-board .content {
+        position: relative;
+        z-index: 3;
+        color: white;
+    }
+    </style>
+    
+
+
+
+{% endblock %}
