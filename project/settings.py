@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'home',
     'donations',
     'products',
+    'news',
+
 ]
 
 MIDDLEWARE = [

@@ -30,21 +30,79 @@
 
 
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'card/css/main.css' %}">
+    {% comment %} news {% endcomment %}
+    <link rel="stylesheet" href="{% static 'news/css/style.css'  %}"> 
+
+
+
 
     {% block extra_css %}{% endblock %}
 
 </head>
 <body>
 
+<!-- Modal السلة -->
+<div class="modal fade" id="cartModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content h-100">
+
+            <div class="modal-header p-3 border-0">
+                <div class="row w-100">
+                    <div class="col-7 d-flex align-items-center">
+                        <img class="nav-icon ms-2 md-size-icon" src="https://mekeg.org/assets/v2/img/ion_cart.png" style="width:25px; height:25px;">
+                        <span class="ps-0 fw-bold c-6">السلة</span>
+                    </div>
+                    <div class="col-5 d-flex justify-content-end">
+                        <button type="button" class="btn-close cart-close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-body d-flex flex-column">
+                <div class="cart-items flex-grow-1 overflow-auto"></div>
+                <button id="clear-cart" class="btn btn-danger mt-3 w-100">مسح الكل</button>
+            </div>
+
+            <div class="modal-footer d-flex justify-content-between align-items-center">
+                <div>
+                    <p class="mb-0 fw-bold">الإجمالي</p>
+                    <p id="cart-total" class="mb-0 fw-bold">0 جنيه</p>
+                </div>
+                <button href="/checkout" type="button" id="checkout-btn" class="btn btn-success px-4">تابع عملية التبرع</button>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 
 
 
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #02c3eb;">
-  <div class="container">
+  <div class="container d-flex justify-content-between align-items-center">
 
-    <!-- اسم الموقع على اليسار -->
-    <a class="navbar-brand" href="/">ديارنا</a>
+    <!-- اسم الموقع -->
+    <a class="navbar-brand me-3" href="/">ديارنا</a>
+
+    <!-- زر السلة (ديسكتوب + موبايل) -->
+    <div class="d-flex align-items-center me-3">
+      <a href="#"
+        data-bs-toggle="modal"
+        data-bs-target="#cartModal"
+        class="d-flex align-items-center p-2 rounded shadow-sm cart-btn">
+
+        <img src="https://mekeg.org/assets/v2/img/ion_cart.png" style="width:25px; height:25px;">
+
+        <div class="d-flex flex-column ms-1">
+          <span class="text-above fw-lighter" style="font-size:12px; margin-bottom: 2; text-align: center;">السلة</span>
+          <span id="cart-total-navbar" class="fw-bold" style="font-size:13px;">
+            <span id="cart-count">0</span> جنيه
+          </span>
+        </div>
+
+      </a>
+    </div>
 
 
     <!-- زر الهامبرجر للشاشات الصغيرة -->
@@ -55,79 +113,74 @@
 
     <!-- محتوى القوائم -->
     <div class="collapse navbar-collapse" id="navbarContent">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-end">
+        <li class="nav-item"><a class="nav-link active" href="/test">TEST</a></li>
 
-
-        <li class="nav-item col-6 col-lg-auto"> <a class="nav-link py-2 px-0 px-lg-2 active" href="#" rel="noopener"> الفعاليات </a> </li>
-        <li class="nav-item col-6 col-lg-auto"> <a class="nav-link py-2 px-0 px-lg-2 active" href="#" rel="noopener"> انشطه ديارنا </a> </li>
-        <li class="nav-item col-6 col-lg-auto"> <a class="nav-link py-2 px-0 px-lg-2 active" href="#" rel="noopener"> كيف أتبـرع ؟ </a> </li>
-        <li class="nav-item col-6 col-lg-auto"> <a class="nav-link py-2 px-0 px-lg-2 active" href="#" rel="noopener"> مجلس الأمناء </a> </li>
-        <li class="nav-item col-6 col-lg-auto"> <a class="nav-link py-2 px-0 px-lg-2 active" href="#" rel="noopener"> تطوع </a> </li>
-
-       
-        
-
-
-
-
-
-
-        <!-- من نحن -->
+        <li class="nav-item"><a class="nav-link active" href="#">الفعاليات</a></li>
+        <li class="nav-item"><a class="nav-link active" href="#">انشطه ديارنا</a></li>
+        <li class="nav-item"><a class="nav-link active" href="#">كيف أتبـرع ؟</a></li>
+        <li class="nav-item"><a class="nav-link active" href="#">مجلس الأمناء</a></li>
+        <li class="nav-item"><a class="nav-link active" href="#">تطوع</a></li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle active" href="" id="aboutDropdown" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false">من نحن</a>
-          <ul class="dropdown-menu" aria-labelledby="aboutDropdown">
-            <li><a class="dropdown-item text-end" href="/about">عن ديارنا</a></li>
-            <!-- <li><a class="dropdown-item text-end" href="#">شركاؤنا</a></li> -->
-            <!-- <li><a class="dropdown-item text-end" href="#">انجازات ديارنا</a></li> -->
+          <a class="nav-link dropdown-toggle active" href="#" data-bs-toggle="dropdown">من نحن</a>
+          <ul class="dropdown-menu text-end">
+            <li><a class="dropdown-item" href="/about">عن ديارنا</a></li>
           </ul>
         </li>
-
-       
-        <!-- التبرعات -->
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle active" href="#" id="donationsDropdown" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false">التبرعات</a>
-          <ul class="dropdown-menu" aria-labelledby="donationsDropdown">
-            <li><a class="dropdown-item text-end" href="#">حملات التبرع</a></li>
-            <li><a class="dropdown-item text-end" href="#">أوجه التبرع</a></li>
+          <a class="nav-link dropdown-toggle active" href="#" data-bs-toggle="dropdown">التبرعات</a>
+          <ul class="dropdown-menu text-end">
+            <li><a class="dropdown-item" href="#">حملات التبرع</a></li>
+            <li><a class="dropdown-item" href="#">أوجه التبرع</a></li>
           </ul>
         </li>
-
-
-
-        
-
-
-        <li class="nav-item col-6 col-lg-auto"> <a class="nav-link py-2 px-0 px-lg-2 active" href="#" rel="noopener"> تواصل معنا </a> </li>
-        
-        <!-- المركز الإعلامى -->
+        <li class="nav-item"><a class="nav-link active" href="#">تواصل معنا</a></li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle active" href="#" id="mediaDropdown" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false">المركز الإعلامي</a>
-          <ul class="dropdown-menu" aria-labelledby="mediaDropdown">
-            <li><a class="dropdown-item text-end" href="#">الأخبار</a></li>
+          <a class="nav-link dropdown-toggle active" href="#" data-bs-toggle="dropdown">المركز الإعلامي</a>
+          <ul class="dropdown-menu text-end">
+            <li><a class="dropdown-item" href="/news">الأخبار</a></li>
           </ul>
         </li>
-
-        {% if current_user.is_authenticated %}
-
-
-
-
-        <li class="nav-item col-6 col-lg-auto"> <a class="nav-link py-2 px-0 px-lg-2 active" href="#" rel="noopener">لوحة التحكم</a> </li>
-
-        <a href="#" class="btn btn-danger">
-            تسجيل الخروج
-        </a>
-        {% endif %}
-
-       
 
       </ul>
     </div>
   </div>
 </nav>
+
+<style>
+/* نص موقع ديارنا */
+.navbar-brand {
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+/* نصوص السلة بدون خط */
+.navbar a[data-bs-toggle="modal"] {
+    display: flex;
+    align-items: center;
+    border-radius: 6px;
+    background-color: #f4f5f6;
+    color: #000;
+    font-weight: 600;
+    padding: 2px 6px;
+    text-decoration: none;
+}
+
+/* نصوص داخل السلة */
+.navbar a span {
+    line-height: 1;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
 
 {% if messages %}
   <div class="container mt-3">
@@ -318,6 +371,14 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+
+
+
+
+
+
+
+<script src="{% static 'card/js/main.js'  %}"></script>
 
 
 

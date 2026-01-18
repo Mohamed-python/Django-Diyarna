@@ -10,6 +10,4 @@ urlpatterns = [
     # path('<int:id>', views.news_detail),
     path('about/', views.about, name='about'),
     path('test/', views.test, name='test'),
-
-
 ]

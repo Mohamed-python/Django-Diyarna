@@ -11,28 +11,6 @@
 {% block content %}
 
 
-<!-- <div class="container my-5">
-    <h1 class="text-center mb-5">الحالات الحالية للتبرع</h1>
-
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-        {% for case in cases %}
-        <div class="col">
-            <div class="card h-100 shadow-sm">
-                <img src="{{ case.image.url }}" class="card-img-top" alt="{{ case.title }}">
-                <div class="card-body">
-                    <h5 class="card-title">{{ case.title }}</h5>
-                    <p class="card-text">{{ case.description|truncatechars:100 }}</p>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">الهدف: {{ case.goal }} جنيه</small>
-                </div>
-            </div>
-        </div>
-        {% empty %}
-        <p>لا توجد حالات حالياً</p>
-        {% endfor %}
-</div>
- -->
 
 <div class="container py-5">
 
@@ -70,7 +48,7 @@
             <small class="text-muted">{{ c.progress_percent|floatformat:0 }}% مكتمل</small>
           </div>
 
-          <a href="{% url 'donate' c.id %}" class="btn w-100 donate-btn" style="background-color: #02c3eb; color: #fff;">
+          <a href="{% url 'donate' c.id %}" class="btn w-100 donate-btn btn-btnnn">
             تبرع الآن
           </a>
         </div>

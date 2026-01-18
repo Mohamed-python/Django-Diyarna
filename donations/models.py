@@ -1,19 +1,32 @@
 from django.db import models
+import uuid
+from django.utils.text import slugify
+
 
 # Create your models here.
-def image_upload(instance, file_name):
-    imagename, extension = file_name.split(".")
-    return f"cases/{instance.id}.{extension}"
+def image_upload(instance, filename):
+    ext = filename.split('.')[-1]
+    return f"cases/{uuid.uuid4()}.{ext}"
 
 
 
 # اضافه حاله
 class Case(models.Model):
     title = models.CharField(max_length=200, verbose_name="عنوان الحالة")
-    image = models.ImageField(upload_to=image_upload, verbose_name="صورة الحالة")
     description = models.TextField(verbose_name="الوصف")
     goal = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="الهدف")
     created_at = models.DateTimeField(auto_now_add=True)
+    image = models.ImageField(upload_to=image_upload, verbose_name="صورة الحالة")
+
+
+    slug = models.SlugField(blank=True, null=True, verbose_name="الرابط النصي من العنوان")
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title, allow_unicode=True)
+        super().save(*args, **kwargs)
+
+
 
     def __str__(self):
         return self.title

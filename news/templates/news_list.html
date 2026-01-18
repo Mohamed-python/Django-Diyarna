@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block content %}
+
+
+<!-- من المنشورات -->
+<div class="container py-5">
+    <h2 class="text-center mb-5 fw-bold">الأخبار</h2>
+
+    <div class="row g-4">
+        {% for news in news_list %}
+        <div class="col-12 col-md-6">
+
+            <!-- الكارت كله لينك -->
+            <a href="{% url 'news_detail' news.slug %}" class="news-link">
+
+                <div class="news-card">
+
+                    {% if news.image %}
+                    <div class="news-img-box">
+                        <img src="{{ news.image.url }}" alt="{{ news.title }}" class="news-img">
+                        <div class="news-overlay"></div>
+                        <span class="news-readmore">إقرأ المزيد</span>
+                    </div>
+                    {% endif %}
+
+                    <div class="news-body">
+                        <h5 class="news-title">
+                            {{ news.title }}
+                        </h5>
+
+                        <p class="news-text">
+                            {{ news.content|truncatechars:200 }}
+                        </p>
+
+                        <small class="news-date">
+                            {{ news.published_at|date:"d/m/Y" }}
+                        </small>
+                    </div>
+
+                </div>
+
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}

@@ -17,7 +17,7 @@ html, body {
 
 
 /* ستايل عام لكل الأزرار */
-button {
+.btn-btnnn {
     background-color: #02c3eb;
     color: #fff;
     border-radius: 8px;
@@ -29,9 +29,9 @@ button {
 }
 
 /* تأثير hover */
-/* button:hover {
+.btn-btnnn:hover {
     background-color: #00b2d8;
-} */
+}
 
 /* عند التعطيل */
 button:disabled {
@@ -286,7 +286,7 @@ button:disabled {
 
 /*  زر التبرع*/
 .btn-donate {
-    background-color: #28a745 !important; /* أخضر */
+    background-color: #02c3eb !important; /* أخضر */
     color: #fff !important;
     border: none !important;
     border-radius: 8px !important;
@@ -294,7 +294,7 @@ button:disabled {
 }
 
 .btn-donate:hover {
-    background-color: #218838 !important;
+    background-color: #0998b5 !important;
 }
 
 #checkout-btn:disabled {
@@ -319,15 +319,4 @@ button.btn-close.cart-close-btn {
 }
 
 
-#cartModal .modal-dialog {
-    max-width: 33%;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-}
 
-@media (max-width: 767px) {
-        #cart-modal .modal-dialog {
-            max-width: 100%;
-    }
-}

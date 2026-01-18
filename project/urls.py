@@ -25,9 +25,10 @@ from django.urls import path, include
 urlpatterns = [
     path('', include('home.urls')),
     path('products/', include('products.urls')),
-    
     path('admin/', admin.site.urls),
     path('donations/', include('donations.urls')),
+    path('news/', include('news.urls')),         # صفحة الأخبار
+
 
 ]
 

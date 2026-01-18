@@ -2,58 +2,33 @@
 {% load static i18n %}
 
 {% block content %}
+<!-- المنتجات -->
 <div class="container my-5">
     <h1 class="mb-4 text-center">المنتجات</h1>
 
     <div class="row g-3">
         {% for product in products %}
         <div class="col-md-4">
-            <div class="product-item p-3 h-100">
-
+            <div class="product-item p-3 h-100" data-id="{{ product.id }}" data-name="{{ product.name }}" data-price="{{ product.price }}" data-img="{{ product.image.url }}">
                 <div class="d-flex gap-3 align-items-start">
-
                     <!-- الصورة -->
-                    <img src="{{ product.image.url }}" alt="{{ product.name }}"
-                         class="rounded-circle"
-                         style="width:65px; height:65px; object-fit:cover;">
-
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="rounded-circle" style="width:65px; height:65px; object-fit:cover;">
                     <!-- البيانات -->
                     <div class="flex-grow-1">
                         <h6 class="mb-2">{{ product.name }}</h6>
-                        <small class="d-block mb-1 " style="color: green;">
-                            <strong></strong> {{ product.price }} ج
-                        </small>
-
-                        <p class="product-description mb-2">
-                            {{ product.description }}
-                        </p>
-
-                        <!-- العدد + الزر -->
-                        <form action="" method="get" class="d-flex gap-2">
-                            {% csrf_token %}
-                            <input type="number" name="amount" value="1" min="1"
-                                   class="form-control form-control-sm"
-                                   style="width:75px;" required>
-
-                            <button type="submit"
-                                    class="btn btn-sm btn-primary flex-grow-1 btn-donate">
-                                تبرع الآن
-                            </button>
-                        </form>
+                        <small class="d-block mb-1">{{ product.price }} ج</small>
+                        <p class="product-description mb-2">{{ product.description }}</p>
+                        <div class="d-flex gap-2">
+                            <input type="number" name="amount" value="1" min="1" class="form-control form-control-sm" style="width:75px;">
+                            <button type="button" class="btn btn-sm btn-btnnn flex-grow-1 add-to-cart">تبرع الآن</button>
+                        </div>
                     </div>
-
                 </div>
-
             </div>
         </div>
         {% endfor %}
     </div>
-
-    <!-- <div class="text-center mt-4" style="direction:ltr;">
-        <a href="/products" class="view-all-btn">
-            عرض كل المنتجات →
-        </a>
-    </div> -->
 </div>
+
 
 {% endblock %}

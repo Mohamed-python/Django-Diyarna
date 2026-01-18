@@ -1,9 +1,10 @@
 from django.db import models
+import uuid
 
 
-def image_upload(instance, file_name):
-    imagename, extension = file_name.split(".")
-    return f"products/{instance.id}.{extension}"
+def image_upload(instance, filename):
+    ext = filename.split('.')[-1]
+    return f"products/{uuid.uuid4()}.{ext}"
 
 
 # Create your models here.
