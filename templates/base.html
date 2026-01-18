@@ -1,6 +1,5 @@
 {% load static %}
 
-
 <html lang="ar" dir="rtl">
 <!-- <html> -->
 <head>
@@ -42,8 +41,9 @@
 </head>
 <body>
 
-<!-- Modal السلة -->
-<div class="modal fade" id="cartModal" tabindex="-1" aria-hidden="true">
+  
+{% comment %} aria-hidden="true" {% endcomment %}
+<div class="modal fade" id="cartModal" tabindex="-1" >
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content h-100">
 
@@ -61,7 +61,7 @@
 
             <div class="modal-body d-flex flex-column">
                 <div class="cart-items flex-grow-1 overflow-auto"></div>
-                <button id="clear-cart" class="btn btn-danger mt-3 w-100">مسح الكل</button>
+                {% comment %} <button id="clear-cart" class="btn btn-danger mt-3 w-100">مسح الكل</button> {% endcomment %}
             </div>
 
             <div class="modal-footer d-flex justify-content-between align-items-center">
@@ -75,6 +75,7 @@
         </div>
     </div>
 </div>
+
 
 
 

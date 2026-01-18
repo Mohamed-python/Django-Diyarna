@@ -6,10 +6,10 @@ from products.models import Product
 from news.models import News
 
 # test
-# def test(request):
-#     cases = Case.objects.all()  # جلب كل الحالات
-#     products = Product.objects.all()  # جلب كل المنتجات
-#     return render(request, "home/test.html" , {'cases': cases, 'products':products})
+def test(request):
+    cases = Case.objects.all()  # جلب كل الحالات
+    products = Product.objects.all()  # جلب كل المنتجات
+    return render(request, "home/test.html" , {'cases': cases, 'products':products})
 
 
 

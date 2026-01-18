@@ -9,5 +9,5 @@ urlpatterns = [
     path('donations/', donations_list, name='donations'),
     # path('<int:id>', views.news_detail),
     path('about/', views.about, name='about'),
-    # path('test/', views.test, name='test'),
+    path('test/', views.test, name='test'),
 ]
