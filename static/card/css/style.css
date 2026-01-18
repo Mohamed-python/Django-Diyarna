@@ -1,0 +1,110 @@
+.cart-item-img { width:60px; height:60px; object-fit:cover; }
+.cart-item { border:1px solid #eee; border-radius:8px; padding:10px; }
+.item-quantity input { text-align:center; }
+
+
+/* السلة على اليمين وارتفاع الشاشة */
+#cartModal .modal-dialog {
+    max-width: 33%;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+}
+
+/* موبايل */
+@media (max-width: 767px) {
+    #cartModal .modal-dialog {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+}
+
+
+
+#cartModal.show .modal-dialog { transform:translateX(0); }
+#cartModal .modal-backdrop { background-color: rgba(0,0,0,0.5); }
+
+/* زر checkout معطل */
+#checkout-btn:disabled {
+    background-color: #6c757d !important;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+
+
+
+/*  */
+/* عنصر المنتج بالكامل */
+.cart-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;                 /* مسافة مباشرة بين الصورة والمحتوى */
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 12px;
+    background: #fff;
+}
+
+/* صورة المنتج */
+.cart-item-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+    flex-shrink: 0;            /* يمنع الصورة تصغر */
+}
+
+/* محتوى المنتج */
+.cart-item .flex-grow-1 {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;                  /* مسافة بين السطرين */
+}
+
+/* اسم المنتج */
+.cart-item .fw-medium {
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 0;                 /* نشيل أي margin قديم */
+}
+
+/* السطر العلوي (الاسم + زر الحذف) */
+.cart-item .d-flex.justify-content-between {
+    align-items: center;
+}
+
+/* الكمية */
+.item-quantity {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.item-quantity input {
+    width: 55px;
+    text-align: center;
+}
+
+/* السعر */
+.cart-item .fw-bold {
+    font-size: 14px;
+    white-space: nowrap;
+}
+/* موبايل */
+@media (max-width: 576px) {
+    .cart-item {
+        gap: 10px;
+    }
+
+    .cart-item-img {
+        width: 50px;
+        height: 50px;
+    }
+}

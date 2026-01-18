@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <button type="button" class="btn-close remove-item" data-id="${item.id}"></button>
                         </div>
                         <div class="d-flex justify-content-between align-items-center mt-2">
-                            <div class="item-quantity d-flex align-items-center">
+                            <div class="item-quantity d-flex align-items-center" style="margin-right: 10px;">
                                 <button class="btn btn-sm decrease" data-id="${item.id}">-</button>
                                 <input type="number" value="${item.quantity}" class="form-control form-control-sm mx-1" style="width:50px;" data-id="${item.id}">
                                 <button class="btn btn-sm increase" data-id="${item.id}">+</button>
@@ -52,6 +52,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </div>
                 `;
+                
+
+                
                 cartItemsContainer.appendChild(div);
             }
         });
