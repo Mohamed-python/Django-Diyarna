@@ -16,7 +16,7 @@ class Case(models.Model):
     description = models.TextField(verbose_name="الوصف")
     goal = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="الهدف")
     created_at = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(upload_to=image_upload, verbose_name="صورة الحالة")
+    image = models.ImageField(max_length=200,upload_to=image_upload, verbose_name="صورة الحالة")
 
 
     slug = models.SlugField(blank=True, null=True, verbose_name="الرابط النصي من العنوان")

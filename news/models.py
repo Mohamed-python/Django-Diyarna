@@ -1,6 +1,7 @@
 from django.db import models
 import uuid
 from django.utils.text import slugify
+from django.contrib.auth.models import User
 
 
 
@@ -16,7 +17,13 @@ class News(models.Model):
     content = models.TextField(verbose_name="محتوى الخبر")
     image = models.ImageField(upload_to=image_upload, verbose_name="صورة الخبر", blank=True, null=True)
     published_at = models.DateTimeField(auto_now_add=True, verbose_name="تاريخ النشر")
-    
+    author = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name='news_posts',
+        verbose_name="الناشر"
+    )
     slug = models.SlugField(
         blank=True,
         null=True,

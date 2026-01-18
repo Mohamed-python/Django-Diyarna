@@ -5,7 +5,6 @@ from .models import News
 
 def news_page(request):
     news_list = News.objects.order_by('-published_at')
-    print(news_page)
     return render(request, 'news_list.html', {'news_list': news_list})
 
 

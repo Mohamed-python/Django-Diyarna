@@ -1,0 +1,251 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-xl-6">
+            <!-- رأس الصفحة -->
+            <div class="text-center mb-4">
+                <h1 class="h2 fw-bold text-primary mb-3">نموذج التطوع</h1>
+                <p class="text-muted">سجل معنا كمتطوع وساهم في إحداث تغيير إيجابي في المجتمع</p>
+            </div>
+
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-4 p-md-5">
+                    <form method="post" novalidate id="volunteerForm">
+                        {% csrf_token %}
+                        
+                        <!-- قسم المعلومات الأساسية -->
+                        <div class="mb-4">
+                            <h5 class="mb-3 text-primary border-bottom pb-2">المعلومات الشخصية</h5>
+                            
+                            <!-- الاسم -->
+                            <div class="mb-3">
+                                <label for="{{ form.name.id_for_label }}" class="form-label fw-medium">
+                                    {{ form.name.label }}
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-user"></i>
+                                    </span>
+                                    {{ form.name }}
+                                </div>
+                                {% if form.name.errors %}
+                                    <div class="text-danger small mt-1">{{ form.name.errors }}</div>
+                                {% endif %}
+                            </div>
+
+                            <!-- البريد الإلكتروني -->
+                            <div class="mb-3">
+                                <label for="{{ form.email.id_for_label }}" class="form-label fw-medium">
+                                    {{ form.email.label }}
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-envelope"></i>
+                                    </span>
+                                    {{ form.email }}
+                                </div>
+                                {% if form.email.errors %}
+                                    <div class="text-danger small mt-1">{{ form.email.errors }}</div>
+                                {% endif %}
+                            </div>
+
+                            <!-- رقم الهاتف -->
+                            <div class="mb-4">
+                                <label for="{{ form.phone.id_for_label }}" class="form-label fw-medium">
+                                    {{ form.phone.label }}
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-phone"></i>
+                                    </span>
+                                    {{ form.phone }}
+                                </div>
+                                {% if form.phone.errors %}
+                                    <div class="text-danger small mt-1">{{ form.phone.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- قسم نوع التطوع -->
+                        <div class="mb-4">
+                            <h5 class="mb-3 text-primary border-bottom pb-2">تفاصيل التطوع</h5>
+                            
+                            <!-- نوع التطوع - القائمة المنسدلة الأصلية -->
+                            <div class="mb-3">
+                                <label for="{{ form.volunteer_type.id_for_label }}" class="form-label fw-medium d-block">
+                                    {{ form.volunteer_type.label }}
+                                    <span class="text-danger">*</span>
+                                </label>
+                                
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-handshake"></i>
+                                    </span>
+                                    {{ form.volunteer_type }}
+                                </div>
+                                
+                                {% if form.volunteer_type.errors %}
+                                    <div class="text-danger small mt-1">{{ form.volunteer_type.errors }}</div>
+                                {% endif %}
+                                
+                                
+                            </div>
+
+                            <!-- عدد أعضاء المجموعة -->
+                            <div class="mb-4" id="group_size_div" style="display:none;">
+                                <label for="{{ form.group_size.id_for_label }}" class="form-label fw-medium">
+                                    {{ form.group_size.label }}
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-user-friends"></i>
+                                    </span>
+                                    {{ form.group_size }}
+                                    <span class="input-group-text">أشخاص</span>
+                                </div>
+                                {% if form.group_size.errors %}
+                                    <div class="text-danger small mt-1">{{ form.group_size.errors }}</div>
+                                {% endif %}
+                                
+                                <!-- توضيح نطاق المجموعة -->
+                                <div class="mt-2">
+                                    <small class="text-muted">عدد الأفراد من 2 إلى 50 شخص</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- زر التسجيل -->
+                        <div class="mt-4 pt-3 border-top">
+                            <button type="submit" class="btn btn-primary btn-lg w-100 py-3">
+                                <i class="fas fa-paper-plane me-2"></i>
+                                تسجيل التطوع
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- معلومات إضافية -->
+            <div class="mt-4 text-center">
+                <p class="text-muted small">
+                    <i class="fas fa-info-circle me-1"></i>
+                    بعد التسجيل، سيتم تحويلك إلى صفحة التأكيد. سنتواصل معك خلال 48 ساعة.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript بسيط وفعال -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const volunteerType = document.getElementById('id_volunteer_type');
+    const groupDiv = document.getElementById('group_size_div');
+    const groupSizeInput = document.getElementById('id_group_size');
+
+    // دالة لتبديل حقل المجموعة
+    function toggleGroupSize() {
+        if(volunteerType.value === 'group') {
+            groupDiv.style.display = 'block';
+            
+            // جعل الحقل مطلوب عند الظهور
+            if (groupSizeInput) {
+                groupSizeInput.required = true;
+                if (!groupSizeInput.value) {
+                    groupSizeInput.value = '2'; // قيمة افتراضية
+                }
+            }
+        } else {
+            groupDiv.style.display = 'none';
+            
+            // إزالة الإلزام عند الاختفاء
+            if (groupSizeInput) {
+                groupSizeInput.required = false;
+            }
+        }
+    }
+
+    // إضافة الأحداث
+    if (volunteerType) {
+        volunteerType.addEventListener('change', toggleGroupSize);
+        
+        // التحقق من القيمة عند التحميل
+        window.addEventListener('load', function() {
+            toggleGroupSize();
+        });
+    }
+
+    // التحقق من النموذج قبل الإرسال
+    const form = document.getElementById('volunteerForm');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            // إذا كان نوع التطوع "مجموعة" وحقل الحجم فارغ
+            if (volunteerType.value === 'group' && groupSizeInput && (!groupSizeInput.value || groupSizeInput.value < 2)) {
+                e.preventDefault();
+                alert('يرجى إدخال عدد أفراد المجموعة (2 أشخاص على الأقل)');
+                groupSizeInput.focus();
+                return;
+            }
+            
+            // إضافة تأثير للزر أثناء الإرسال
+            const submitBtn = form.querySelector('button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> جاري التسجيل...';
+                submitBtn.disabled = true;
+            }
+        });
+    }
+});
+</script>
+
+<!-- أنماط CSS بسيطة -->
+<style>
+
+
+
+
+
+.form-control:focus {
+    border-color: #00add1;
+    box-shadow: 0 0 0 0.25rem rgba(67, 195, 238, 0.25);
+}
+
+.btn-primary {
+    background-color: #00add1;
+    border-color: #00add1;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #053d48ff;
+    border-color: #046e83ff;
+}
+
+.text-primary {
+    color: #00add1 !important;
+}
+
+.bg-light {
+    background-color: #f8f9fa !important;
+}
+
+.rounded {
+    border-radius: 0.375rem !important;
+}
+
+.input-group-text {
+    background-color: #f8f9fa;
+    border-color: #dee2e6;
+    border-radius: 11px;
+    margin-left: 6px;
+}
+</style>
+
+{% endblock %}

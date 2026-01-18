@@ -28,6 +28,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('donations/', include('donations.urls')),
     path('news/', include('news.urls')),         # صفحة الأخبار
+    path('volunteer/', include('volunteers.urls')), # تطوع
 
 
 ]
