@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5 text-center">
+
+    
+    
+
+    <h2 class="mb-4">تم التبرع بنجاح!</h2>
+    <p>شكراً لك، {{ name }}، على مساهمتك الكريمة.</p>
+    <a href="{% url 'home' %}" class="btn btn-primary mt-3">العودة للرئيسية</a>
+</div>
+
+
+
+
+{% endblock %}
+
+
+
+
+
+{% block extra_js %}
+<script>
+{% if checkout_status %}
+document.addEventListener('DOMContentLoaded', () => {
+    localStorage.removeItem('cart');
+    const cartItemsContainer = document.querySelector('.cart-items');
+    if(cartItemsContainer) cartItemsContainer.innerHTML = '';
+    const cartTotal = document.getElementById('cart-total');
+    if(cartTotal) cartTotal.textContent = '0 جنيه';
+    const cartCount = document.getElementById('cart-count');
+    if(cartCount) cartCount.textContent = '0';
+});
+
+</script>
+{% endif %}
+{% endblock extra_js %}

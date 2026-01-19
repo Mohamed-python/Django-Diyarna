@@ -6,8 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // عناصر الـ DOM
     const cartItemsContainer = document.querySelector('.cart-items');
     const cartTotal = document.getElementById('cart-total');
-    const cartCount = document.getElementById('cart-count'); // ← هنا يظهر الإجمالي
+    const cartCount = document.getElementById('cart-count');
     const checkoutBtn = document.getElementById('checkout-btn');
+    const checkoutForm = document.getElementById('checkout-form'); // لو موجود
 
     // تحديث زر checkout
     function updateCheckoutButton() {
@@ -26,11 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if(cartItemsContainer) cartItemsContainer.innerHTML = '';
 
         let totalPrice = 0;
-        let totalCount = 0;
 
         cart.forEach(item => {
             totalPrice += item.price * item.quantity;
-            totalCount += item.quantity;
 
             if(cartItemsContainer){
                 const div = document.createElement('div');
@@ -52,15 +51,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </div>
                 `;
-                
-
-                
                 cartItemsContainer.appendChild(div);
             }
         });
 
         if(cartTotal) cartTotal.textContent = totalPrice + ' جنيه';
-        if(cartCount) cartCount.textContent = totalPrice; // ← تحديث cart-count هنا
+        if(cartCount) cartCount.textContent = totalPrice;
 
         // حفظ السلة في localStorage
         localStorage.setItem('cart', JSON.stringify(cart));
@@ -99,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // أحداث تعديل/حذف
+    // تعديل/حذف
     if(cartItemsContainer){
         cartItemsContainer.addEventListener('click', e => {
             const id = e.target.dataset.id;
@@ -129,15 +125,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const clearBtn = document.getElementById('clear-cart');
     if(clearBtn){
         clearBtn.addEventListener('click', ()=>{
-            cart=[];
+            cart = [];
             updateCart();
-
-            const cartModalEl = document.getElementById('cartModal');
-            const modal = bootstrap.Modal.getInstance(cartModalEl);
-            if(modal) modal.hide();
+            window.dispatchEvent(new Event('storage')); // ← مزامنة مع كل التبويبات
         });
     }
 
-    // تحميل السلة عند فتح الصفحة
+    // إرسال الفورم (مسح السلة بعد الدفع)
+    if(checkoutForm){
+        checkoutForm.addEventListener('submit', () => {
+            localStorage.removeItem('cart');
+            window.dispatchEvent(new Event('storage')); // مزامنة مع كل التبويبات
+        });
+    }
+
+    // **مزامنة السلة بين جميع التبويبات**
+    window.addEventListener('storage', (event) => {
+        if(event.key === 'cart'){
+            cart = JSON.parse(event.newValue || '[]');
+            updateCart();
+        }
+    });
+
+    // تحميل السلة عند فتح الصفحة أو إعادة عرض الصفحة بعد errors
     updateCart();
+
 });
