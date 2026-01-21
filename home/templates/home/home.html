@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 
 
 
@@ -27,85 +28,145 @@
 
 
 
-
+{% comment %} سلايد شو {% endcomment %}
 <!-- ############################################################### -->
+{% comment %}
 <section class="features">
-<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+<div id="carouselExampleCaptions"
+     class="carousel slide"
+     data-bs-ride="carousel"
+     data-bs-interval="5000">
+
+  <!-- Indicators -->
   <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 3"></button>
-
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0"
+            class="active" aria-current="true"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3"></button>
   </div>
 
-  <div class="carousel-inner" style="font-family: 'Cairo', sans-serif;">
-    <!-- السلايد الأول -->
+  <!-- Slides -->
+  <div class="carousel-inner"
+       style="font-family: 'Cairo', sans-serif;"
+       dir="{% if LANGUAGE_CODE == 'ar' %}rtl{% else %}ltr{% endif %}">
+
+    <!-- Slide 1 -->
     <div class="carousel-item active">
-      
-      <img src="{% static 'home-slider_show/images/slider-1.jpg' %}" class="d-block w-100" alt="...">
+      <img src="{% static 'home-slider_show/images/slider-1.jpg' %}"
+           class="d-block w-100" alt="">
       <div class="overlay"></div>
-      <div class="carousel-caption d-md-block">
-        <h5>ديارنا</h5>
-        <p>أفضل مكان للتبرع</p>
-        <a href="#" class="btn btn-primary">تبرع الآن</a>
+      <div class="carousel-caption
+          {% if LANGUAGE_CODE == 'ar' %}text-end{% else %}text-start{% endif %}">
+        <h5>
+          {% if LANGUAGE_CODE == 'ar' %}ديارنا{% else %}Diyarna{% endif %}
+        </h5>
+        <p>
+          {% if LANGUAGE_CODE == 'ar' %}
+            أفضل مكان للتبرع
+          {% else %}
+            The Best Place to Donate
+          {% endif %}
+        </p>
+        <a href="#" class="btn btn-primary">
+          {% if LANGUAGE_CODE == 'ar' %}تبرع الآن{% else %}Donate Now{% endif %}
+        </a>
       </div>
     </div>
 
-    <!-- السلايد الثاني -->
+    <!-- Slide 2 -->
     <div class="carousel-item">
-      
-      <img src="{% static 'home-slider_show/images/slider-2.jpg' %}" class="d-block w-100" alt="...">
+      <img src="{% static 'home-slider_show/images/slider-2.jpg' %}"
+           class="d-block w-100" alt="">
       <div class="overlay"></div>
-      <div class="carousel-caption d-md-block">
-        <h5>أمل الغد</h5>
-        <p>شارك في دعم المحتاجين</p>
-        <a href="#" class="btn btn-primary">تبرع الآن</a>
-
+      <div class="carousel-caption
+          {% if LANGUAGE_CODE == 'ar' %}text-end{% else %}text-start{% endif %}">
+        <h5>
+          {% if LANGUAGE_CODE == 'ar' %}أمل الغد{% else %}Hope for Tomorrow{% endif %}
+        </h5>
+        <p>
+          {% if LANGUAGE_CODE == 'ar' %}
+            شارك في دعم المحتاجين
+          {% else %}
+            Support Those in Need
+          {% endif %}
+        </p>
+        <a href="#" class="btn btn-primary">
+          {% if LANGUAGE_CODE == 'ar' %}تبرع الآن{% else %}Donate Now{% endif %}
+        </a>
       </div>
     </div>
 
-    <!-- السلايد الثالث -->
+    <!-- Slide 3 -->
     <div class="carousel-item">
-      
-      <img src="{% static 'home-slider_show/images/slider-3.jpg' %}" class="d-block w-100" alt="...">
+      <img src="{% static 'home-slider_show/images/slider-3.jpg' %}"
+           class="d-block w-100" alt="">
       <div class="overlay"></div>
-      <div class="carousel-caption d-md-block">
-        <h5>يد العطاء</h5>
-        <p>كن جزءًا من الخير</p>
-        <a href="#" class="btn btn-primary">تبرع الآن</a>
-
+      <div class="carousel-caption
+          {% if LANGUAGE_CODE == 'ar' %}text-end{% else %}text-start{% endif %}">
+        <h5>
+          {% if LANGUAGE_CODE == 'ar' %}يد العطاء{% else %}Hand of Giving{% endif %}
+        </h5>
+        <p>
+          {% if LANGUAGE_CODE == 'ar' %}
+            كن جزءًا من الخير
+          {% else %}
+            Be Part of the Good
+          {% endif %}
+        </p>
+        <a href="#" class="btn btn-primary">
+          {% if LANGUAGE_CODE == 'ar' %}تبرع الآن{% else %}Donate Now{% endif %}
+        </a>
       </div>
     </div>
 
-
+    <!-- Slide 4 -->
     <div class="carousel-item">
-      
-      <img src="{% static 'home-slider_show/images/slider-4.jpg' %}" class="d-block w-100" alt="...">
+      <img src="{% static 'home-slider_show/images/slider-4.jpg' %}"
+           class="d-block w-100" alt="">
       <div class="overlay"></div>
-      <div class="carousel-caption d-md-block">
-        <h5>أمل الغد</h5>
-        <p>شارك في دعم المحتاجين</p>
-        <a href="#" class="btn btn-primary">تبرع الآن</a>
-
+      <div class="carousel-caption
+          {% if LANGUAGE_CODE == 'ar' %}text-end{% else %}text-start{% endif %}">
+        <h5>
+          {% if LANGUAGE_CODE == 'ar' %}أمل الغد{% else %}Hope for Tomorrow{% endif %}
+        </h5>
+        <p>
+          {% if LANGUAGE_CODE == 'ar' %}
+            شارك في دعم المحتاجين
+          {% else %}
+            Support Those in Need
+          {% endif %}
+        </p>
+        <a href="#" class="btn btn-primary">
+          {% if LANGUAGE_CODE == 'ar' %}تبرع الآن{% else %}Donate Now{% endif %}
+        </a>
       </div>
     </div>
-
-
-
 
   </div>
 
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
+  <!-- Controls -->
+  <button class="carousel-control-prev" type="button"
+          data-bs-target="#carouselExampleCaptions"
+          data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+    <span class="visually-hidden">
+      {% if LANGUAGE_CODE == 'ar' %}السابق{% else %}Previous{% endif %}
+    </span>
   </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
+
+  <button class="carousel-control-next" type="button"
+          data-bs-target="#carouselExampleCaptions"
+          data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+    <span class="visually-hidden">
+      {% if LANGUAGE_CODE == 'ar' %}التالي{% else %}Next{% endif %}
+    </span>
   </button>
+
 </div>
 </section>
+{% endcomment %}
 <!-- ############################################################### -->
 
 
@@ -114,59 +175,83 @@
 
 
 
+<!-- <h2> {% trans "Welcome" %} </h2> -->
 
+<!-- إنجازاتنا حتى الآن... -->
+<section class="features">
+  <!-- Counters Section -->
+  <div class="container-fluid">
+    <div class="row">
 
-<!--  إنجازاتنا حتى الآن... -->
-<section class="features " style="direction: rtl;">
-<!-- Counters Section -->
-<div class="container-fluid">
-  <div class="row">
-
-    <!-- Left Section -->
-    <div class="col-md-4 d-none d-md-block p-4 counters-box" style="background-color: #00d3ff; ">
-      <div class="d-flex align-items-center justify-content-center h-100">
-        <h3 class="ps-2 pt-2 mb-0" style="color: #fff;">
-          إنجازاتنا حتى الآن...
-        </h3>
+      <!-- Left Section -->
+      <div class="col-md-4 d-none d-md-block p-4 counters-box" style="background-color: #00d3ff;">
+        <div class="d-flex align-items-center justify-content-center h-100">
+          <h3 class="ps-2 pt-2 mb-0" style="color: #fff;">
+            {% if LANGUAGE_CODE == 'ar' %}
+              إنجازاتنا حتى الآن...
+            {% else %}
+              Our Achievements So Far...
+            {% endif %}
+          </h3>
+        </div>
       </div>
-    </div>
 
-    <!-- Right Section -->
-    
-    <div class="col-md-8 p-4" style="background-image:url('{% static 'background/1.jpg' %}');">
-      <div class="counter-row">
+      <!-- Right Section -->
+      <div class="col-md-8 p-4" style="background-image:url('{% static 'background/1.jpg' %}');">
+        <div class="counter-row">
 
-        <h3 class="counter-items social">
-          <span class="counter-value">116 مليون</span>
-          <p>التكافل الاجتماعى</p>
-        </h3>
+          <h3 class="counter-items social">
+            <span class="counter-value">
+              116 {% if LANGUAGE_CODE == 'ar' %}مليون{% else %}million{% endif %}
+            </span>
+            <p>
+              {% if LANGUAGE_CODE == 'ar' %}التكافل الاجتماعى{% else %}Social Solidarity{% endif %}
+            </p>
+          </h3>
 
-        <h3 class="counter-items health">
-          <span class="counter-value">13 مليون</span>
-          <p>الصحة</p>
-        </h3>
+          <h3 class="counter-items health">
+            <span class="counter-value">
+              13 {% if LANGUAGE_CODE == 'ar' %}مليون{% else %}million{% endif %}
+            </span>
+            <p>
+              {% if LANGUAGE_CODE == 'ar' %}الصحة{% else %}Health{% endif %}
+            </p>
+          </h3>
 
-        <h3 class="counter-items education">
-          <span class="counter-value">809 ألف</span>
-          <p>التعليم</p>
-        </h3>
+          <h3 class="counter-items education">
+            <span class="counter-value">
+              809 {% if LANGUAGE_CODE == 'ar' %}ألف{% else %}thousand{% endif %}
+            </span>
+            <p>
+              {% if LANGUAGE_CODE == 'ar' %}التعليم{% else %}Education{% endif %}
+            </p>
+          </h3>
 
-        <h3 class="counter-items beneficiaries">
-          <span class="counter-value">85 مليون</span>
-          <p>اجمالى المستفيدين</p>
-        </h3>
+          <h3 class="counter-items beneficiaries">
+            <span class="counter-value">
+              85 {% if LANGUAGE_CODE == 'ar' %}مليون{% else %}million{% endif %}
+            </span>
+            <p>
+              {% if LANGUAGE_CODE == 'ar' %}اجمالى المستفيدين{% else %}Total Beneficiaries{% endif %}
+            </p>
+          </h3>
 
-        <h3 class="counter-items services">
-          <span class="counter-value">133 مليون</span>
-          <p>اجمالى الخدمات</p>
-        </h3>
+          <h3 class="counter-items services">
+            <span class="counter-value">
+              133 {% if LANGUAGE_CODE == 'ar' %}مليون{% else %}million{% endif %}
+            </span>
+            <p>
+              {% if LANGUAGE_CODE == 'ar' %}اجمالى الخدمات{% else %}Total Services{% endif %}
+            </p>
+          </h3>
 
+        </div>
       </div>
-    </div>
 
+    </div>
   </div>
-</div>
 </section>
+
 <!-- Styles -->
 
 
@@ -212,14 +297,22 @@
 <div class="container py-5">
 
   <div class="text-center mb-5">
+    {% if LANGUAGE_CODE == 'ar' %}
       <h2 class="fw-bold display-6">الحالات الإنسانية</h2>
       <p class="text-muted mb-0">اختر حالة وساعد حسب قدرتك</p>
+    {% else %}
+    <h2 class="fw-bold display-6">Humanitarian situations</h2>
+        <p class="text-muted mb-0">Choose a case and help according to your ability.</p>
+    {% endif %}
   </div>
 
   <div class="row g-4">
+
+   
+
     {% for c in cases %}
     <div class="col-md-4 mb-4">
-    <div class="card square-card shadow-sm product-item" data-id="case-{{ c.id }}" data-name="{{ c.title }}" data-price="1" data-img="{% if c.image %}{{ c.image.url }}{% endif %}" data-type="case">
+    <div class="card square-card shadow-sm product-item" data-id="case-{{ c.id }}" data-name="{{ c.title }}" data-price="1" data-img="{% if c.image %}{{ c.image.url }}{% endif %}" data-type="cases">
         {% if c.image %}
         <img src="{{ c.image.url }}" class="card-img-top" alt="{{ c.title }}">
         {% endif %}
@@ -233,8 +326,29 @@
 
           <div class="mb-2">
             <div class="d-flex justify-content-between small mb-1">
-              <span>جمع: <strong>{{ c.total_donations }}</strong> جنيه</span>
+
+              {% if LANGUAGE_CODE == 'ar' %}
               <span>الهدف: <strong>{{ c.goal }}</strong> جنيه</span>
+              <span>جمع: <strong>{{ c.total_donations }}</strong> جنيه</span>
+              {% else %}
+              <span>Goal: <strong>{{ c.goal }}</strong> EGP</span>
+              <span>Collected: <strong>{{ c.total_donations }}</strong> EGP</span>
+              {% endif %}
+
+
+
+
+              
+              
+
+              
+
+
+
+
+              
+
+
             </div>
             <div class="progress">
               <div class="progress-bar bg-success" role="progressbar"
@@ -249,15 +363,20 @@
               <button type="button" class="btn btn-sm btn-btnnn flex-grow-1 add-to-cart">تبرع الآن</button>
           </div>
 
-          <!-- <a href="{% url 'donate' c.id %}" class="btn w-100 donate-btn btn-btnnn"> -->
-            <!-- تبرع الآن -->
+
           </a>
         </div>
 
       </div>
     </div>
     {% empty %}
-    <p>لا توجد حالات حالياً</p>
+
+    {% if LANGUAGE_CODE == 'ar' %}
+      <p>لا توجد حالات حالياً</p>
+    {% else %}
+    <p>There are no cases currently.</p>
+    {% endif %}
+    
     {% endfor %}
   </div>
 
@@ -267,7 +386,13 @@
 
   <div class="text-center mt-4" style="direction: ltr;">
     <a href="/donations" class="view-all-btn d-inline-flex align-items-center">
-        <span>عرض كل الحالات</span>
+        
+        {% if LANGUAGE_CODE == 'ar' %}
+          <span>عرض كل الحالات</span>
+        {% else %}
+          <span>View all cases</span>
+        {% endif %}
+
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right ms-2" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 1 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
         </svg>
@@ -299,23 +424,106 @@
 <!-- ###################################################### -->
 <!-- المنتجات -->
 <div class="container my-5">
-    <h1 class="mb-4 text-center">المنتجات</h1>
+    <h1 class="mb-4 text-center">
+        {% if LANGUAGE_CODE == 'ar' %}
+            المنتجات
+        {% else %}
+            Products
+        {% endif %}
+    </h1>
+
 
     <div class="row g-3">
         {% for product in products %}
         <div class="col-md-4">
-            <div class="product-item p-3 h-100" data-id="{{ product.id }}" data-name="{{ product.name }}" data-price="{{ product.price }}" data-img="{{ product.image.url }}">
+            <div class="product-item p-3 h-100" 
+                              
+            data-id="{{ product.id }}" 
+            
+
+            
+            
+            {% if LANGUAGE_CODE == 'en' and product.name_en %}
+            data-name="{{ product.name_en }}" 
+            {% else %}
+            data-name="{{ product.name }}" 
+            {% endif %}
+            data-price="{{ product.price }}" 
+
+           
+            
+            
+
+
+
+            data-img="{{ product.display_image.url }}"
+            
+
+            data-type="products"
+            >
+
                 <div class="d-flex gap-3 align-items-start">
-                    <!-- الصورة -->
-                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="rounded-circle" style="width:65px; height:65px; object-fit:cover;">
-                    <!-- البيانات -->
+                    <!-- الصورة --> 
+                     
+
+
+
+
+
+
+                      
+                      {% if LANGUAGE_CODE == 'en' and product.image_en.url %}
+                     <img src="{{ product.image_en.url }}" alt="{{ product.image_en.url }}" class="rounded-circle" style="width:65px; height:65px; object-fit:cover;">
+                        {% else %}
+                     <img src="{{ product.image.url }}" alt="{{ product.image.url }}" class="rounded-circle" style="width:65px; height:65px; object-fit:cover;">
+                        {% endif %}
+
+
+
+
+
+
+                    <!-- الاسم -->
                     <div class="flex-grow-1">
-                        <h6 class="mb-2">{{ product.name }}</h6>
+
+
+                      {% if LANGUAGE_CODE == 'en' and product.name_en %}
+                      <h6 class="mb-2"> {{ product.name_en }}</h6>
+                        {% else %}
+                      <h6 class="mb-2"> {{ product.name }}</h6>
+                        {% endif %}
+
+                      
+                      
+
+
+                      <!-- السعر -->
+                     {% if LANGUAGE_CODE == 'ar' %}
                         <small class="d-block mb-1" >{{ product.price }} ج</small>
-                        <p class="product-description mb-2">{{ product.description }}</p>
+
+                     {% else %}
+                        <small class="d-block mb-1" >{{ product.price }} EGP</small>
+
+                     {% endif %}
+
+
+                     <!-- الوصف -->
+                        {% if LANGUAGE_CODE == 'en' and product.description_en %}
+                            <p class="product-description mb-2">{{ product.description_en }}</p>                        
+                        {% else %}
+                            <p class="product-description mb-2">{{ product.description }}</p>                        
+                        {% endif %}
+
+
+                         <!-- Donate  -->
                         <div class="d-flex gap-2">
                             <input type="number" name="amount" value="1" min="1" class="form-control form-control-sm" style="width:75px;">
-                            <button type="button" class="btn btn-sm btn-btnnn flex-grow-1 add-to-cart">تبرع الآن</button>
+                            
+                            {% if LANGUAGE_CODE == 'en' %}
+                            <button type="button" class="btn btn-sm btn-btnnn flex-grow-1 add-to-cart"> Donate </button>
+                            {% else %}
+                            <button type="button" class="btn btn-sm btn-btnnn flex-grow-1 add-to-cart"> تبرع الآن </button>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -328,7 +536,13 @@
     
     <div class="text-center mt-4" style="direction: ltr;">
     <a href="/products" class="view-all-btn d-inline-flex align-items-center">
-        <span>عرض كل المنتجات</span>
+        <span>
+            {% if LANGUAGE_CODE == 'ar' %}
+                عرض كل المنتجات
+            {% else %}
+                View all products
+            {% endif %}
+        </span>
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right ms-2" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 1 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
         </svg>
@@ -389,87 +603,106 @@
 <!-- الأخبار -->
 <div class="news-section">
     <div class="container">
-        <h2 class="title text-center mb-5 mt-0">آخر الأخبار</h2>
-        
-        <div class="row g-4">
-            {% for news in news_list %}
-            
-            <div class="col-12 col-md-6 col-lg-6" style="--item-order: {{ forloop.counter0 }}">
 
-              <a href="{% url 'news_detail' news.slug %}" class="news-link">
-                    <div class="news-card">
-                        {% if news.image %}
-                        <div class="news-img-box">
-                            <img src="{{ news.image.url }}" alt="{{ news.title }}" class="news-img" loading="lazy">
-                            <div class="news-overlay"></div>
-                            <span class="news-readmore">
-                                <i class="fas fa-arrow-left ms-2"></i>
-                                إقرأ المزيد
-                            </span>
-                        </div>
-                        {% endif %}
-                        
-                        <div class="news-body">
-                            <h5 class="news-title">
-                                {{ news.title }}
-                            </h5>
-                            
-                            <p class="news-text">
-                                {{ news.content|striptags|truncatechars:200 }}
-                            </p>
-                            
-                            <div class="news-meta">
-                                <div class="news-meta-content">
-                                    {% if news.author.username %}
-                                    <span class="news-author">
-                                        <i class="fas fa-user-edit"></i>
-                                        <span class="meta-text">{{ news.author.username }}</span>
-                                    </span>
-                                    {% else %}
-                                    <span class="news-author">
-                                        <i class="fas fa-user-edit"></i>
-                                        <span class="meta-text">مدير الموقع</span>
-                                    </span>
-                                    {% endif %}
-                                    
-                                    <span class="news-date">
-                                        <i class="fas fa-calendar-alt"></i>
-                                        <span class="meta-text">{{ news.published_at|date:"d/m/Y" }}</span>
-                                    </span>
-                                </div>
-                            </div>
+        <!-- Title -->
+        <h2 class="section-title text-center mb-5">
+            {% if LANGUAGE_CODE == 'ar' %}الأخبار{% else %}News{% endif %}
+        </h2>
+
+        <div class="row">
+            {% for news in news_list %}
+            <div class="col-12 col-md-6 col-lg-4 mb-4">
+                <div class="card news-card h-100">
+                    
+                    <!-- الصورة -->
+                    {% with img=news.image_by_lang %}
+                    {% if img %}
+                    <div class="card-img-container">
+                        <img src="{{ img.url }}" class="card-img-top" 
+                             alt="{% if LANGUAGE_CODE == 'ar' %}{{ news.title }}{% else %}{{ news.title_en|default:news.title }}{% endif %}" 
+                             loading="lazy">
+                        <div class="card-date">
+                            {% if news.publish_date %}{{ news.publish_date|date:"d M Y" }}{% endif %}
                         </div>
                     </div>
-                </a>
+                    {% endif %}
+                    {% endwith %}
+
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            {% if LANGUAGE_CODE == 'ar' %}{{ news.title }}{% else %}{{ news.title_en|default:news.title }}{% endif %}
+                        </h5>
+                        <p class="card-text text-muted">
+                            {% if LANGUAGE_CODE == 'ar' %}
+                                {{ news.content|striptags|truncatechars:120 }}
+                            {% else %}
+                                {{ news.content_en|default:news.content|striptags|truncatechars:120 }}
+                            {% endif %}
+                        </p>
+                    </div>
+                    
+                    <div class="card-footer bg-transparent border-0">
+                        <a href="{% url 'news:news_detail' news.slug %}" class="news-read-btn">
+                            {% if LANGUAGE_CODE == 'ar' %}
+                                اقرأ المزيد 
+                                <i class="fas fa-arrow-left ms-2"></i>
+                            {% else %}
+                                Read More
+                                <i class="fas fa-arrow-right ms-2"></i>
+                            {% endif %}
+                        </a>
+                    </div>
+                </div>
             </div>
             {% empty %}
             <div class="col-12 text-center py-5">
-                <div class="no-news">
-                    <i class="fas fa-newspaper fa-3x mb-3"></i>
-                    <h4 class="text-muted">لا توجد أخبار حالياً</h4>
-                    <p class="text-muted">تابعنا لمعرفة الجديد قريباً</p>
+                <div class="no-news-placeholder">
+                    <i class="fas fa-newspaper fa-4x mb-4 text-light-gray"></i>
+                    <h4 class="text-muted mb-3">
+                        {% if LANGUAGE_CODE == 'ar' %}لا توجد أخبار حالياً{% else %}No news available{% endif %}
+                    </h4>
+                    <p class="text-muted">
+                        {% if LANGUAGE_CODE == 'ar' %}تابعنا لمعرفة الجديد قريباً{% else %}Stay tuned for updates{% endif %}
+                    </p>
                 </div>
             </div>
             {% endfor %}
         </div>
+
+        <!-- عرض المزيد / View All News -->
+         <div class="text-center mt-4" style="direction: ltr;">
+          <a href="{% url 'news:news_list' %}" class="view-all-btn d-inline-flex align-items-center">
+              <span>
+                  {% if LANGUAGE_CODE == 'ar' %}
+                    عرض المزيد    
+                    {% else %}
+                    View All News
+                  {% endif %}
+              </span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right ms-2" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 1 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+              </svg>
+          </a>
         
+
         <!-- Pagination -->
         {% if news_list.has_other_pages %}
         <div class="mt-5">
             <nav aria-label="Page navigation">
                 <ul class="pagination justify-content-center">
+
                     {% if news_list.has_previous %}
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ news_list.previous_page_number }}" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
+                        <a class="page-link" href="?page={{ news_list.previous_page_number }}">
+                            {% if LANGUAGE_CODE == 'ar' %}السابق{% else %}Previous{% endif %}
                         </a>
                     </li>
                     {% endif %}
-                    
+
                     {% for num in news_list.paginator.page_range %}
                         {% if num == news_list.number %}
                         <li class="page-item active">
-                            <span class="page-link">{{ num }}</span>
+                            <a class="page-link" href="#">{{ num }}</a>
                         </li>
                         {% elif num > news_list.number|add:'-3' and num < news_list.number|add:'3' %}
                         <li class="page-item">
@@ -477,20 +710,23 @@
                         </li>
                         {% endif %}
                     {% endfor %}
-                    
+
                     {% if news_list.has_next %}
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ news_list.next_page_number }}" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
+                        <a class="page-link" href="?page={{ news_list.next_page_number }}">
+                            {% if LANGUAGE_CODE == 'ar' %}التالي{% else %}Next{% endif %}
                         </a>
                     </li>
                     {% endif %}
+
                 </ul>
             </nav>
         </div>
         {% endif %}
+
     </div>
 </div>
+
 
 {% comment %}  {% endcomment %}
 

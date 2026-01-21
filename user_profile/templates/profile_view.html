@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="profile-view-container" dir="{% if LANGUAGE_CODE == 'ar' %}rtl{% else %}ltr{% endif %}">
+    <div class="profile-view-card">
+        <div class="profile-header text-center">
+            {% if profile.image %}
+                <img src="{{ profile.image.url }}" alt="Profile Image" class="profile-img mb-3">
+            {% else %}
+                <div class="profile-img-placeholder mb-3">
+                    {{ profile.user.username|slice:":1"|upper }}
+                </div>
+            {% endif %}
+            <h2>{{ profile.user.get_full_name|default:profile.user.username }}</h2>
+            <p>{{ profile.user.email }}</p>
+        </div>
+
+        <div class="profile-details mt-4">
+            {% if profile.bio %}
+                <p><strong>{% if LANGUAGE_CODE == 'ar' %}السيرة الذاتية:{% else %}Bio:{% endif %}</strong> {{ profile.bio }}</p>
+            {% endif %}
+            {% if profile.phone %}
+                <p><strong>{% if LANGUAGE_CODE == 'ar' %}الهاتف:{% else %}Phone:{% endif %}</strong> {{ profile.phone }}</p>
+            {% endif %}
+            {% if profile.address %}
+                <p><strong>{% if LANGUAGE_CODE == 'ar' %}العنوان:{% else %}Address:{% endif %}</strong> {{ profile.address }}</p>
+            {% endif %}
+            {% if profile.gender %}
+                <p><strong>{% if LANGUAGE_CODE == 'ar' %}الجنس:{% else %}Gender:{% endif %}</strong> 
+                    {% if LANGUAGE_CODE == 'ar' %}
+                        {% if profile.gender == 'male' %}ذكر{% elif profile.gender == 'female' %}أنثى{% else %}أخرى{% endif %}
+                    {% else %}
+                        {{ profile.get_gender_display }}
+                    {% endif %}
+                </p>
+            {% endif %}
+            {% if profile.date_of_birth %}
+                <p><strong>{% if LANGUAGE_CODE == 'ar' %}تاريخ الميلاد:{% else %}Date of Birth:{% endif %}</strong> {{ profile.date_of_birth }}</p>
+            {% endif %}
+            {% if profile.website %}
+                <p><strong>{% if LANGUAGE_CODE == 'ar' %}الموقع الإلكتروني:{% else %}Website:{% endif %}</strong> 
+                    <a href="{{ profile.website }}" target="_blank">{{ profile.website }}</a>
+                </p>
+            {% endif %}
+        </div>
+
+        <div class="profile-actions text-center mt-4">
+            <a href="{% url 'user_profile:edit' %}" class="btn btn-primary">
+                {% if LANGUAGE_CODE == 'ar' %}تعديل البروفايل{% else %}Edit Profile{% endif %}
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+.profile-view-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 20px;
+    background-color: #f0f9ff;
+}
+.profile-view-card {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    max-width: 500px;
+    width: 100%;
+}
+.profile-header img.profile-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.profile-img-placeholder {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: #02c3eb;
+    color: white;
+    font-size: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+.profile-header h2 {
+    margin: 10px 0 5px;
+    color: #02c3eb;
+}
+.profile-header p {
+    color: #64748b;
+}
+.profile-details p {
+    margin-bottom: 10px;
+}
+.btn-primary {
+    background-color: #02c3eb;
+    border-color: #02c3eb;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+</style>
+{% endblock %}

@@ -3,6 +3,8 @@ from .views import news_page, news_detail
 from django.urls import re_path
 
 
+app_name = 'news'  # مهم جدًا
+
 
 urlpatterns = [
     # path('', news_page, name='news'),

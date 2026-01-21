@@ -1,3 +1,6 @@
+from django.utils.translation import gettext_lazy as _
+from django.urls import reverse_lazy
+
 """
 Django settings for project project.
 
@@ -17,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 LOCALE_PATHS = [
-    os.path.join(BASE_DIR, 'locale'),
+    BASE_DIR / 'locale',
 ]
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -35,6 +38,8 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.1.105']
 # Application definition
 
 INSTALLED_APPS = [
+    'user_profile.apps.UserProfileConfig',
+    'accounts',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'bootstrap5',
     # my apps
     'home',
     'donations',
@@ -54,11 +60,13 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',  # مهم جدًا يكون بعد Sessions
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'project.urls'
@@ -66,7 +74,8 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        # 'DIRS': ['templates'],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -111,16 +120,21 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+
+
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-# LANGUAGE_CODE = 'ar'  # أو 'en' حسب افتراضك
+# LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'ar'  # أو 'en' حسب افتراضك
 
 # اللغات المتاحة
 LANGUAGES = [
-    ('ar', 'Arabic'),
     ('en', 'English'),
+    ('ar', 'Arabic'),
 ]
 
 
@@ -129,6 +143,7 @@ LANGUAGES = [
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
+USE_L10N = True
 
 USE_TZ = True
 
@@ -157,3 +172,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = reverse_lazy('accounts:dashboard')
+LOGOUT_REDIRECT_URL = 'accounts:login'  

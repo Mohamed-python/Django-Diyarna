@@ -1,7 +1,15 @@
 {% load static %}
+{% load i18n %}
 
-<html lang="ar" dir="rtl">
-<!-- <html> -->
+
+
+<html lang="{% get_current_language as LANGUAGE_CODE %}"{% if LANGUAGE_CODE == 'ar' %} dir="rtl"{% else %} dir="ltr"{% endif %}>
+
+
+
+
+
+{% comment %} <html> {% endcomment %}
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,17 +49,23 @@
 </head>
 <body>
 
-  
+
+
 {% comment %} aria-hidden="true" {% endcomment %}
-<div class="modal fade" id="cartModal" tabindex="-1" >
+<div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true" data-bs-backdrop="true" data-bs-keyboard="true">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content h-100">
 
+            <!-- Header -->
             <div class="modal-header p-3 border-0">
                 <div class="row w-100">
                     <div class="col-7 d-flex align-items-center">
-                        <img class="nav-icon ms-2 md-size-icon" src="https://mekeg.org/assets/v2/img/ion_cart.png" style="width:25px; height:25px;">
+                        <img class="nav-icon ms-2 md-size-icon" src="{% static 'assets/ion_cart.jpg' %}" style="width:25px; height:25px;">
+                        {% if LANGUAGE_CODE == 'ar' %}
                         <span class="ps-0 fw-bold c-6">السلة</span>
+                        {% else %}
+                        <span class="ps-0 fw-bold c-6">Cart</span>
+                        {% endif %}
                     </div>
                     <div class="col-5 d-flex justify-content-end">
                         <button type="button" class="btn-close cart-close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -59,17 +73,23 @@
                 </div>
             </div>
 
+            <!-- Body -->
             <div class="modal-body d-flex flex-column">
                 <div class="cart-items flex-grow-1 overflow-auto"></div>
-                {% comment %} <button id="clear-cart" class="btn btn-danger mt-3 w-100">مسح الكل</button> {% endcomment %}
             </div>
 
+            <!-- Footer -->
             <div class="modal-footer d-flex justify-content-between align-items-center">
                 <div>
+                    {% if LANGUAGE_CODE == 'ar' %}
                     <p class="mb-0 fw-bold">الإجمالي</p>
                     <p id="cart-total" class="mb-0 fw-bold">0 جنيه</p>
+                    {% else %}
+                    <p class="mb-0 fw-bold">Total</p>
+                    <p id="cart-total" class="mb-0 fw-bold">0 EGP</p>
+                    {% endif %}
                 </div>
-                <button href="/checkout" type="button" id="checkout-btn" class="btn btn-success px-4">تابع عملية التبرع</button>
+                <button type="button" id="checkout-btn" class="btn btn-success px-4">تابع عملية التبرع</button>
             </div>
 
         </div>
@@ -80,73 +100,224 @@
 
 
 
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #02c3eb;">
-  <div class="container d-flex justify-content-between align-items-center">
+{% comment %} 
+  <h1>{% trans "Welcome" %}</h1>
+  <h1>{{ user.username }}</h1>
+{% endcomment %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#02c3eb;">
+  <div class="container">
+
+    
+
+
+   
+
+
 
     <!-- اسم الموقع -->
-    <a class="navbar-brand me-3" href="/">ديارنا</a>
+    <a class="navbar-brand fw-bold" href="/">
+      {% if LANGUAGE_CODE == 'ar' %}ديارنا{% else %}Diyarna{% endif %}
+    </a>
 
-    <!-- زر السلة (ديسكتوب + موبايل) -->
-    <div class="d-flex align-items-center me-3">
+
+
+
+
+
+
+    
+
+    <!-- زر السلة -->
+    <div class="d-flex align-items-center me-lg-3 ms-lg-3">
       <a href="#"
-        data-bs-toggle="modal"
-        data-bs-target="#cartModal"
-        class="d-flex align-items-center p-2 rounded shadow-sm cart-btn">
+         data-bs-toggle="modal"
+         data-bs-target="#cartModal"
+         class="d-flex align-items-center p-2 rounded shadow-sm cart-btn bg-white">
 
-        <img src="https://mekeg.org/assets/v2/img/ion_cart.png" style="width:25px; height:25px;">
+        <img src="{% static 'assets/ion_cart.jpg' %}"
+             style="width:25px;height:25px;">
 
-        <div class="d-flex flex-column ms-1">
-          <span class="text-above fw-lighter" style="font-size:12px; margin-bottom: 2; text-align: center;">السلة</span>
-          <span id="cart-total-navbar" class="fw-bold" style="font-size:13px;">
-            <span id="cart-count">0</span> جنيه
+        <div class="d-flex flex-column ms-2">
+          <span style="font-size:12px;color:#000;">
+            {% if LANGUAGE_CODE == 'ar' %}السلة{% else %}Cart{% endif %}
+          </span>
+          <span class="fw-bold" style="font-size:13px;color:#000;">
+            <span id="cart-count">0</span>
+            {% if LANGUAGE_CODE == 'ar' %}جنيه{% else %}EGP{% endif %}
           </span>
         </div>
-
       </a>
     </div>
 
-
-    <!-- زر الهامبرجر للشاشات الصغيرة -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
-      aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+    <!-- زر الموبايل -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- محتوى القوائم -->
-    <div class="collapse navbar-collapse" id="navbarContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-end">
-        <li class="nav-item"><a class="nav-link active" href="/test">TEST</a></li>
 
-        {% comment %} <li class="nav-item"><a class="nav-link active" href="#">الفعاليات</a></li> {% endcomment %}
-        {% comment %} <li class="nav-item"><a class="nav-link active" href="#">انشطه ديارنا</a></li> {% endcomment %}
-        {% comment %} <li class="nav-item"><a class="nav-link active" href="#">كيف أتبـرع ؟</a></li> {% endcomment %}
-        {% comment %} <li class="nav-item"><a class="nav-link active" href="#">مجلس الأمناء</a></li> {% endcomment %}
-        <li class="nav-item"><a class="nav-link active" href="/volunteer">تطوع</a></li>
+
+    
+    
+    <!-- القوائم -->
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <ul class="navbar-nav
+          {% if LANGUAGE_CODE == 'ar' %}me-auto text-end{% else %}ms-auto text-start{% endif %}
+          mb-2 mb-lg-0">
+
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url 'home:home' %}">
+            {% if LANGUAGE_CODE == 'ar' %}الرئيسية{% else %}Home{% endif %}
+          </a>
+        </li>
+
+
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url 'home:test' %}">TEST</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link active" href="/volunteer">
+            {% if LANGUAGE_CODE == 'ar' %}تطوع{% else %}Volunteer{% endif %}
+          </a>
+        </li>
+
+        <!-- من نحن -->
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle active" href="#" data-bs-toggle="dropdown">من نحن</a>
-          <ul class="dropdown-menu text-end">
-            <li><a class="dropdown-item" href="/about">عن ديارنا</a></li>
+          <a class="nav-link dropdown-toggle active" href="#" data-bs-toggle="dropdown">
+            {% if LANGUAGE_CODE == 'ar' %}من نحن{% else %}About{% endif %}
+          </a>
+          <ul class="dropdown-menu {% if LANGUAGE_CODE == 'ar' %}text-end{% endif %}">
+            <li>
+              <a class="dropdown-item" href="{% url 'home:about' %}">
+                {% if LANGUAGE_CODE == 'ar' %}عن ديارنا{% else %}About Diyarna{% endif %}
+              </a>
+            </li>
           </ul>
         </li>
+
+        <!-- التبرعات -->
+        <!-- <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active" href="#" data-bs-toggle="dropdown">
+              {% if LANGUAGE_CODE == 'ar' %}التبرعات{% else %}Donations{% endif %}
+          </a>
+          <ul class="dropdown-menu {% if LANGUAGE_CODE == 'ar' %}text-end{% endif %}">
+              <li>
+                  <a class="dropdown-item" href="#">
+                      {% if LANGUAGE_CODE == 'ar' %}الحملات{% else %}Campaigns{% endif %}
+                  </a>
+              </li>
+              <li>
+                  <a class="dropdown-item" href="#">
+                      {% if LANGUAGE_CODE == 'ar' %}أنواع التبرعات{% else %}Donation Types{% endif %}
+                  </a>
+              </li>
+          </ul>
+        </li> -->
+
+
+        
+
+        <!-- المركز الإعلامي -->
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle active" href="#" data-bs-toggle="dropdown">التبرعات</a>
-          <ul class="dropdown-menu text-end">
-            <li><a class="dropdown-item" href="#">حملات التبرع</a></li>
-            <li><a class="dropdown-item" href="#">أوجه التبرع</a></li>
+          <a class="nav-link dropdown-toggle active" href="#" data-bs-toggle="dropdown">
+            {% if LANGUAGE_CODE == 'ar' %}المركز الإعلامي{% else %}Media{% endif %}
+          </a>
+          <ul class="dropdown-menu {% if LANGUAGE_CODE == 'ar' %}text-end{% endif %}">
+            <li>
+              <a class="dropdown-item" href="{% url 'news:news_list' %}">
+                {% if LANGUAGE_CODE == 'ar' %}الأخبار{% else %}News{% endif %}
+              </a>
+            </li>
           </ul>
         </li>
-        <li class="nav-item"><a class="nav-link active" href="#">تواصل معنا</a></li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle active" href="#" data-bs-toggle="dropdown">المركز الإعلامي</a>
-          <ul class="dropdown-menu text-end">
-            <li><a class="dropdown-item" href="/news">الأخبار</a></li>
-          </ul>
+
+        <!-- لوحة التحكم (للمسجل فقط) -->
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url 'accounts:dashboard' %}">
+            {% if LANGUAGE_CODE == 'ar' %}لوحة التحكم{% else %}Dashboard{% endif %}
+          </a>
+        </li>
+        {% endif %}
+
+        <!-- تسجيل الدخول / الخروج -->
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <button class="btn btn-danger btn-sm ms-lg-2 logout-btnnnn"
+                  data-logout-url="{% url 'accounts:logout' %}">
+            {% if LANGUAGE_CODE == 'ar' %}تسجيل الخروج{% else %}Logout{% endif %}
+          </button>
+        </li>
+
+
+        {% else %}
+        <li class="nav-item">
+          <a class="btn btn-outline-light btn-sm ms-lg-2" href="{% url 'accounts:login' %}">
+            {% if LANGUAGE_CODE == 'ar' %}تسجيل الدخول{% else %}Login{% endif %}
+          </a>
+        </li>
+        {% endif %}
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const logoutBtn = document.querySelector('.logout-btnnnn');
+
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function () {
+            const url = this.dataset.logoutUrl;
+            const text = this.innerHTML;
+
+            this.innerHTML = `
+              <span class="spinner-border spinner-border-sm me-2"></span>
+              ${text}
+            `;
+
+
+            window.location.href = url;
+            '{% comment %} setTimeout(() => {}, 1000); {% endcomment %}'
+        });
+    }
+});
+</script>
+
+
+        <!-- تغيير اللغة -->
+        <li class="nav-item mt-2 mt-lg-0 ms-lg-3">
+          <form action="{% url 'set_language' %}" method="post" class="d-flex gap-2">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.get_full_path }}">
+            <button name="language" value="ar" class="btn btn-outline-light btn-sm" id="bt_ar">AR</button>
+            <button name="language" value="en" class="btn btn-outline-light btn-sm" id="bt_en">EN</button>
+          </form>
         </li>
 
       </ul>
     </div>
+
   </div>
 </nav>
+
 
 <style>
 /* نص موقع ديارنا */
@@ -284,63 +455,82 @@
 <!-- ###################################### -->
 
 
-<footer class="footer text-light pt-5 pb-4 mt-5">
+<footer class="footer text-light pt-5 pb-4 mt-5" dir="{% if LANGUAGE_CODE == 'ar' %}rtl{% else %}ltr{% endif %}">
   <div class="container">
 
-    <div class="row gy-4 text-end">
+    <div class="row gy-4
+        {% if LANGUAGE_CODE == 'ar' %}text-end{% else %}text-start{% endif %}">
 
       <!-- Logo & Address -->
       <div class="col-12 col-md-6 col-lg-3 fade-in">
         <img src="{% static 'logo.png' %}" alt="Diyarna" class="mb-3" style="max-width:140px; width: 100%;">
-        <p class="mb-1 fw-bold">المقر الرئيسي:</p>
-        <p class="small">
-          7 أ شارع روضة الأهرام - الدور الأول - الرماية - الهرم - مصر
+        <p class="mb-1 fw-bold"
+           {% if LANGUAGE_CODE == 'ar' %}dir="rtl"{% else %}dir="ltr"{% endif %}>
+          {% if LANGUAGE_CODE == 'ar' %}المقر الرئيسي:{% else %}Head Office:{% endif %}
+        </p>
+        <p class="small"
+           {% if LANGUAGE_CODE == 'ar' %}dir="rtl"{% else %}dir="ltr"{% endif %}>
+          {% if LANGUAGE_CODE == 'ar' %}
+            7 أ شارع روضة الأهرام - الدور الأول - الرماية - الهرم - مصر
+          {% else %}
+            7 A Rodah Al-Ahram St. - 1st Floor - Ramea - Al-Haram - Egypt
+          {% endif %}
         </p>
         <p class="small">
-          <a href="mailto:info@diyarna.org" class="footer-link">
-            info@diyarna.org
-          </a>
+          <a href="mailto:info@diyarna.org" class="footer-link">info@diyarna.org</a>
         </p>
       </div>
 
       <!-- Links -->
       <div class="col-6 col-md-6 col-lg-3 fade-in">
-        <h5 class="fw-bold mb-3">مؤسسة ديارنا</h5>
+        <h5 class="fw-bold mb-3">
+          {% if LANGUAGE_CODE == 'ar' %}مؤسسة ديارنا{% else %}Diyarna Foundation{% endif %}
+        </h5>
         <ul class="list-unstyled footer-links">
-          <li><a href="/">الرئيسية</a></li>
-          <li><a href="/about">عن المؤسسة</a></li>
-          <li><a href="/board">مجلس الأمناء</a></li>
-          <li><a href="/volunteer">كن متطوعًا</a></li>
-          <li><a href="/contact">تواصل معنا</a></li>
+          <li><a href="/">{% if LANGUAGE_CODE == 'ar' %}الرئيسية{% else %}Home{% endif %}</a></li>
+          <li><a href="/about">{% if LANGUAGE_CODE == 'ar' %}عن المؤسسة{% else %}About{% endif %}</a></li>
+          <li><a href="/board">{% if LANGUAGE_CODE == 'ar' %}مجلس الأمناء{% else %}Board{% endif %}</a></li>
+          <li><a href="/volunteer">{% if LANGUAGE_CODE == 'ar' %}كن متطوعًا{% else %}Volunteer{% endif %}</a></li>
+          <li><a href="/contact">{% if LANGUAGE_CODE == 'ar' %}تواصل معنا{% else %}Contact{% endif %}</a></li>
         </ul>
       </div>
 
       <!-- Services -->
       <div class="col-6 col-md-6 col-lg-3 fade-in">
-        <h5 class="fw-bold mb-3">الخدمات</h5>
+        <h5 class="fw-bold mb-3">
+          {% if LANGUAGE_CODE == 'ar' %}الخدمات{% else %}Services{% endif %}
+        </h5>
         <ul class="list-unstyled footer-links">
-          <li><a href="/events">الفعاليات</a></li>
-          <li><a href="/projects">أنشطة ديارنا</a></li>
-          <li><a href="/donate">تبرع الآن</a></li>
-          <li><a href="/">حساباتنا البنكية</a></li>
-          <li><a href="/news">المركز الإعلامي</a></li>
+          <li><a href="/events">{% if LANGUAGE_CODE == 'ar' %}الفعاليات{% else %}Events{% endif %}</a></li>
+          <li><a href="/projects">{% if LANGUAGE_CODE == 'ar' %}أنشطة ديارنا{% else %}Diyarna Activities{% endif %}</a></li>
+          <li><a href="/donate">{% if LANGUAGE_CODE == 'ar' %}تبرع الآن{% else %}Donate Now{% endif %}</a></li>
+          <li><a href="/">{% if LANGUAGE_CODE == 'ar' %}حساباتنا البنكية{% else %}Our Bank Accounts{% endif %}</a></li>
+          <li><a href="/news">{% if LANGUAGE_CODE == 'ar' %}المركز الإعلامي{% else %}Media Center{% endif %}</a></li>
         </ul>
       </div>
 
       <!-- Contact -->
       <div class="col-12 col-md-6 col-lg-3 fade-in">
-        <h5 class="fw-bold mb-3">التواصل</h5>
+        <h5 class="fw-bold mb-3">{% if LANGUAGE_CODE == 'ar' %}التواصل{% else %}Contact{% endif %}</h5>
 
-        <p class="mb-1 fw-bold">الخط الساخن:</p>
+        <p class="mb-1 fw-bold" {% if LANGUAGE_CODE == 'ar' %}dir="rtl"{% else %}dir="ltr"{% endif %}>
+          {% if LANGUAGE_CODE == 'ar' %}الخط الساخن:{% else %}Hotline:{% endif %}
+        </p>
         <a href="tel:17142" class="footer-link">17142</a>
 
-        <p class="mb-1 mt-3 fw-bold">التليفون الأرضي:</p>
+        <p class="mb-1 mt-3 fw-bold" {% if LANGUAGE_CODE == 'ar' %}dir="rtl"{% else %}dir="ltr"{% endif %}>
+          {% if LANGUAGE_CODE == 'ar' %}التليفون الأرضي:{% else %}Landline:{% endif %}
+        </p>
         <a href="tel:0233771578" class="footer-link">0233771578</a>
 
-        <p class="mb-1 mt-3 fw-bold">الهاتف:</p>
+        <p class="mb-1 mt-3 fw-bold" {% if LANGUAGE_CODE == 'ar' %}dir="rtl"{% else %}dir="ltr"{% endif %}>
+          {% if LANGUAGE_CODE == 'ar' %}الهاتف:{% else %}Mobile:{% endif %}
+        </p>
         <a href="tel:+201026855550" class="footer-link">01026855550</a>
 
-        <div class="mt-3 mt-md-4 d-flex justify-content-end gap-3 social-icons">
+        <div class="mt-3 mt-md-4 d-flex
+            {% if LANGUAGE_CODE == 'ar' %}justify-content-end{% else %}justify-content-start{% endif %}
+            gap-3 social-icons">
           <a href="https://www.instagram.com/diyarnafoundation/" target="_blank"><i class="bi bi-instagram"></i></a>
           <a href="https://www.facebook.com/diyarnafoundation.net/" target="_blank"><i class="bi bi-facebook"></i></a>
           <a href="http://www.youtube.com/@dyarnafoundation" target="_blank"><i class="bi bi-youtube"></i></a>
@@ -352,9 +542,15 @@
     <hr class="border-secondary mt-4">
 
     <div class="text-center small fade-in">
-      كل الحقوق محفوظة © مؤسسة ديارنا 2026  
-      <br>
-      تصميم وتطوير  
+      {% if LANGUAGE_CODE == 'ar' %}
+        كل الحقوق محفوظة © مؤسسة ديارنا 2026  
+        <br>
+        تصميم وتطوير
+      {% else %}
+        All rights reserved © Diyarna Foundation 2026  
+        <br>
+        Design & Development
+      {% endif %}
       <a href="https://www.facebook.com/583606275/" class="footer-link fw-bold" target="_blank">MG</a>
     </div>
 
@@ -370,6 +566,10 @@
 
 
 
+<script>
+    const SITE_LANG = "{{ LANGUAGE_CODE }}";
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 
@@ -382,11 +582,84 @@
 <script src="{% static 'card/js/main.js'  %}"></script>
 
 
+<script>
 
+  {% if LANGUAGE_CODE == 'ar' %}
+      get_bt_ar = document.getElementById('bt_ar');
+      get_bt_ar.hidden = true
+  {% else %}
+      get_bt_en = document.getElementById('bt_en');
+      get_bt_en.hidden = true
+  {% endif %}
+</script>
 
 
 
 {% block extra_js %}{% endblock %}
 
+
+<script src="{% static 'js/main.js'  %}"></script>
+
+<script>
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
+
+
+function order_completed() {
+    let cart = localStorage.getItem('cart');
+
+    cart = cart ? JSON.parse(cart) : [];
+
+    if (cart.length === 0) {
+        alert("السلة فارغة");
+        return;
+    }
+
+    fetch("{% url 'donations:order_completed' %}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+        },
+        body: JSON.stringify({ cart: cart })
+    })
+    .then(res => res.json())
+    .then(data => {
+        // Delete cart
+        localStorage.removeItem('cart');
+
+        if (data.redirect_url) {
+            window.location.href = data.redirect_url;
+        }
+    })
+    .catch(err => console.error(err));
+}
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const checkoutBtn = document.getElementById('checkout-btn');
+
+    if (checkoutBtn) {
+        checkoutBtn.addEventListener('click', function () {
+            order_completed();
+        });
+    }
+});
+
+</script>
 </body>
 </html>

@@ -106,5 +106,68 @@
     .cart-item-img {
         width: 50px;
         height: 50px;
+        border-radius: 51%;
     }
 }
+
+
+
+button i {
+    pointer-events: none;
+}
+
+
+/* زر قفل السله */
+button.btn-close.cart-close-btn {
+    margin-right: 0;
+    margin-left: -26px;
+    margin-top: 0px;
+    border-radius: 50%;
+    border: 1px solid black;
+    width: .2em;
+    height: .1em;
+    padding: 10px;
+    font-size: 10px;
+}
+
+
+
+/* test */
+
+.increase,
+.decrease {
+    position: relative;
+    border-radius: 50%;        /* شكل دائري */
+    border: none;              /* إزالة الحدود */
+    width: 2.5em;              /* عرض الزر */
+    height: 2.5em;             /* ارتفاع الزر */
+    font-size: 14px;           /* حجم الأيقونة */
+    background-color: #02c3eb; /* لون الخلفية */
+    color: white;              /* لون الأيقونة */
+    display: flex;             /* لتوسيط المحتوى */
+    justify-content: center;   /* توسيط أفقي */
+    align-items: center;       /* توسيط عمودي */
+    cursor: pointer;           /* شكل اليد عند المرور */
+    transition: transform 0.2s, background-color 0.2s; /* تأثير Hover*/
+}
+
+/* Hover effect */
+.increase:hover,
+.decrease:hover {
+    transform: scale(1.1);         /* تكبير الزر شوي */
+    background-color: #03b2d5;     /* لون الخلفية عند Hover */
+}
+
+/* Input وسط الرقم */
+.cart-item-input {
+    width: 50px;
+    text-align: center;
+    border-radius: 0.25rem;
+    border: 1px solid #ccc;
+    margin: 0 5px;
+}
+
+
+
+
+

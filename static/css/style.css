@@ -65,7 +65,7 @@ button:disabled {
 /*  footer  */
 .footer {
     background-color: #02c3eb;
-    direction: rtl; 
+    /* direction: rtl;  */
 }
 
 .footer-link {
@@ -305,19 +305,3 @@ button:disabled {
 
 
 
-/* زر قفل السله */
-button.btn-close.cart-close-btn {
-    margin-right: 0;
-    margin-left: -26px;
-    margin-top: 0px;
-    border-radius: 50%;
-    border: 1px solid black;
-    width: .2em;
-    height: .1em;
-    padding: 10px;
-    font-size: 10px;
-}
-
-
-
-/*  */

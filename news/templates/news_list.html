@@ -1,98 +1,103 @@
 {% extends "base.html" %}
-{% load static i18n %}
+{% load static %}
+{% load i18n %}
 
 
 {% block content %}
 
 <!-- الأخبار -->
- 
 <div class="news-section">
     <div class="container">
-        <h2 class="title text-center mb-5 mt-0">الأخبار</h2>
-        
-        <div class="row g-4">
+
+        <!-- Title -->
+        <h2 class="section-title text-center mb-5">
+            {% if LANGUAGE_CODE == 'ar' %}الأخبار{% else %}News{% endif %}
+        </h2>
+
+        <div class="row">
             {% for news in news_list %}
-            <!-- 
-                lg: 2 كروت في الصف (col-lg-6) 
-                md: 2 كروت في الصف (col-md-6) 
-                sm: 1 كارت في الصف (col-12)
-            -->
-            <div class="col-12 col-md-6 col-lg-6" style="--item-order: {{ forloop.counter0 }}">
-                <!-- الكارت كله لينك -->
-                <a href="{% url 'news_detail' news.slug %}" class="news-link">
-                    <div class="news-card">
-                        {% if news.image %}
-                        <div class="news-img-box">
-                            <img src="{{ news.image.url }}" alt="{{ news.title }}" class="news-img" loading="lazy">
-                            <div class="news-overlay"></div>
-                            <span class="news-readmore">
-                                <i class="fas fa-arrow-left ms-2"></i>
-                                إقرأ المزيد
-                            </span>
-                        </div>
-                        {% endif %}
-                        
-                        <div class="news-body">
-                            <h5 class="news-title">
-                                {{ news.title }}
-                            </h5>
-                            
-                            <p class="news-text">
-                                {{ news.content|striptags|truncatechars:200 }}
-                            </p>
-                            
-                            <div class="news-meta">
-                                <div class="news-meta-content">
-                                    {% if news.author.username %}
-                                    <span class="news-author">
-                                        <i class="fas fa-user-edit"></i>
-                                        <span class="meta-text">{{ news.author.username }}</span>
-                                    </span>
-                                    {% else %}
-                                    <span class="news-author">
-                                        <i class="fas fa-user-edit"></i>
-                                        <span class="meta-text">مدير الموقع</span>
-                                    </span>
-                                    {% endif %}
-                                    
-                                    <span class="news-date">
-                                        <i class="fas fa-calendar-alt"></i>
-                                        <span class="meta-text">{{ news.published_at|date:"d/m/Y" }}</span>
-                                    </span>
-                                </div>
-                            </div>
+            <div class="col-12 col-md-6 col-lg-4 mb-4">
+                <div class="card news-card h-100">
+                    
+                    <!-- الصورة -->
+                    {% with img=news.image_by_lang %}
+                    {% if img %}
+                    <div class="card-img-container">
+                        <img src="{{ img.url }}" class="card-img-top" 
+                             alt="{% if LANGUAGE_CODE == 'ar' %}{{ news.title }}{% else %}{{ news.title_en|default:news.title }}{% endif %}" 
+                             loading="lazy">
+                        <div class="card-date">
+                            {% if news.publish_date %}
+                                {{ news.publish_date|date:"d M Y" }}
+                            {% endif %}
                         </div>
                     </div>
-                </a>
+                    {% endif %}
+                    {% endwith %}
+
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            {% if LANGUAGE_CODE == 'ar' %}
+                                {{ news.title }}
+                            {% else %}
+                                {{ news.title_en|default:news.title }}
+                            {% endif %}
+                        </h5>
+                        <p class="card-text text-muted">
+                            {% if LANGUAGE_CODE == 'ar' %}
+                                {{ news.content|striptags|truncatechars:120 }}
+                            {% else %}
+                                {{ news.content_en|default:news.content|striptags|truncatechars:120 }}
+                            {% endif %}
+                        </p>
+                    </div>
+                    
+                    <div class="card-footer bg-transparent border-0">
+                        <a href="{% url 'news:news_detail' news.slug %}" class="news-read-btn">
+                            {% if LANGUAGE_CODE == 'ar' %}
+                                اقرأ المزيد 
+                                <i class="fas fa-arrow-left ms-2"></i>
+                            {% else %}
+                                Read More
+                                <i class="fas fa-arrow-right ms-2"></i>
+                            {% endif %}
+                        </a>
+                    </div>
+                </div>
             </div>
             {% empty %}
             <div class="col-12 text-center py-5">
-                <div class="no-news">
-                    <i class="fas fa-newspaper fa-3x mb-3"></i>
-                    <h4 class="text-muted">لا توجد أخبار حالياً</h4>
-                    <p class="text-muted">تابعنا لمعرفة الجديد قريباً</p>
+                <div class="no-news-placeholder">
+                    <i class="fas fa-newspaper fa-4x mb-4 text-light-gray"></i>
+                    <h4 class="text-muted mb-3">
+                        {% if LANGUAGE_CODE == 'ar' %}لا توجد أخبار حالياً{% else %}No news available{% endif %}
+                    </h4>
+                    <p class="text-muted">
+                        {% if LANGUAGE_CODE == 'ar' %}تابعنا لمعرفة الجديد قريباً{% else %}Stay tuned for updates{% endif %}
+                    </p>
                 </div>
             </div>
             {% endfor %}
         </div>
-        
+
         <!-- Pagination -->
         {% if news_list.has_other_pages %}
         <div class="mt-5">
             <nav aria-label="Page navigation">
                 <ul class="pagination justify-content-center">
+
                     {% if news_list.has_previous %}
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ news_list.previous_page_number }}" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
+                        <a class="page-link" href="?page={{ news_list.previous_page_number }}">
+                            {% if LANGUAGE_CODE == 'ar' %}السابق{% else %}Previous{% endif %}
                         </a>
                     </li>
                     {% endif %}
-                    
+
                     {% for num in news_list.paginator.page_range %}
                         {% if num == news_list.number %}
                         <li class="page-item active">
-                            <span class="page-link">{{ num }}</span>
+                            <a class="page-link" href="#">{{ num }}</a>
                         </li>
                         {% elif num > news_list.number|add:'-3' and num < news_list.number|add:'3' %}
                         <li class="page-item">
@@ -100,19 +105,28 @@
                         </li>
                         {% endif %}
                     {% endfor %}
-                    
+
                     {% if news_list.has_next %}
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ news_list.next_page_number }}" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
+                        <a class="page-link" href="?page={{ news_list.next_page_number }}">
+                            {% if LANGUAGE_CODE == 'ar' %}التالي{% else %}Next{% endif %}
                         </a>
                     </li>
                     {% endif %}
+
                 </ul>
             </nav>
         </div>
         {% endif %}
+
     </div>
 </div>
+
+
+<style>
+
+</style>
+
+
 
 {% endblock %}

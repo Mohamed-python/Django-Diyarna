@@ -3,33 +3,55 @@
 
 {% block content %}
 
+{% with img=news.image_by_lang title=news.title_by_lang content=news.content_by_lang slug=news.slug_by_lang %}
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <div class="card shadow-sm border-0">
 
                 <!-- العنوان -->
-                <h1 class="news-detail-title mb-4">
-                    {{ news.title }}
-                </h1>
+                <h1 class="news-detail-title mb-4">{{ title }}</h1>
 
                 <!-- الصورة -->
-                {% if news.image %}
-                <img src="{{ news.image.url }}" class="card-img-top mb-4" alt="{{ news.title }}">
+                {% if img %}
+                <img src="{{ img.url }}" 
+                     class="card-img-top mb-4" 
+                     alt="{{ title }}" 
+                     style="width:100%; height:auto; object-fit:cover;">
                 {% endif %}
 
                 <div class="card-body">
-                    <p class="text-muted mb-4">{{ news.published_at|date:"d M Y" }} | بواسطة: {{ news.author.username }}</p>
+                    <!-- تاريخ النشر والكاتب -->
+                    <p class="text-muted mb-4">
+                        {{ news.published_at|date:"d M Y" }} | 
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            بواسطة: {{ news.author.username }}
+                        {% else %}
+                            By: {{ news.author.username }}
+                        {% endif %}
+                    </p>
+
+                    <!-- المحتوى -->
                     <div class="card-text" style="line-height: 1.8;">
-                        {{ news.content|linebreaks }}
+                        {{ content|linebreaks }}
                     </div>
 
-                    <a href="{% url 'news_list' %}" class="btn btn-secondary mt-4">عودة للأخبار</a>
+                    <!-- زر العودة -->
+                    <a href="{% url 'news:news_list' %}" class="btn btn-secondary mt-4">
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            عودة للأخبار
+                        {% else %}
+                            Back to News
+                        {% endif %}
+                    </a>
                 </div>
+
             </div>
         </div>
     </div>
 </div>
+{% endwith %}
+
 
 <style>
 .news-detail-title {

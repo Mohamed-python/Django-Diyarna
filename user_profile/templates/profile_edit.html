@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load bootstrap5 %}
+
+{% block content %}
+<div class="profile-edit-container" dir="{% if LANGUAGE_CODE == 'ar' %}rtl{% else %}ltr{% endif %}">
+    <div class="profile-edit-wrapper">
+        <div class="profile-edit-card">
+            <h2>
+                {% if LANGUAGE_CODE == 'ar' %}تعديل البروفايل{% else %}Edit Profile{% endif %}
+            </h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                {% if form.non_field_errors %}
+                <div class="alert alert-danger">
+                    {% for error in form.non_field_errors %}
+                        {{ error }}<br>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                {% bootstrap_form form %}
+
+                <div class="d-grid mt-3">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        {% if LANGUAGE_CODE == 'ar' %}حفظ التغييرات{% else %}Save Changes{% endif %}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+.profile-edit-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 20px;
+    background-color: #f0f9ff;
+}
+.profile-edit-card {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    max-width: 500px;
+    width: 100%;
+}
+.profile-edit-card h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #02c3eb;
+}
+.btn-primary {
+    background-color: #02c3eb;
+    border-color: #02c3eb;
+}
+</style>
+{% endblock %}

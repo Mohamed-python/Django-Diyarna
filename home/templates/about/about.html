@@ -1,211 +1,544 @@
 {% extends "base.html" %}
 {% load static %}
 
-
 {% block content %}
 
-
-
-<!-- ==========  STYLE  ========== -->
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/> -->
-
 <style>
-.about-hero {
-    position: relative;
-    height: 45vh;
-    background-image: url("{% static 'about/Cover_photo.jpg' %}");
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
-
-.about-hero::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.55);
-    backdrop-filter: blur(4px);
-}
-
-.about-hero h1 {
-    position: relative;
-    color: #fff;
-    font-size: 3rem;
-}
-
-.section-title {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 25px;
-    border-right: 5px solid #dc3545;
-    padding-right: 10px;
-}
-
-/* صور الرئيس الشرفي */
-.honor-photo {
-    width: 230px;
-    height: 230px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 5px solid #eee;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
-}
-
-/* Cards */
-.partner-logo {
-    width: 150px;
-    height: 80px;
-    object-fit: contain;
-    filter: grayscale(20%);
-    transition: 0.3s;
-}
-
-.partner-logo:hover {
-    filter: grayscale(0%);
-}
-</style>
-
-
-<!-- ==========  HERO SECTION  ========== -->
-<!-- <section class="about-hero text-center">
-    <h1 class="animate__animated animate__fadeInDown">عن المؤسسة</h1>
-</section> -->
-
-
-
-
-
-
-<!-- ==========  من نحن  ========== -->
-<div class="container py-5" style="direction: rtl;">
-    <h2 class="section-title animate__animated animate__fadeInRight">من نحن</h2>
-    <p class="lead animate__animated animate__fadeInUp" style="line-height: 1.9;">
-        كانت بداية (ديارنا) جروب تطوعي دشنه مجموعة من الشباب عام 2015 أستهدف المساعدة 
-        الإجتماعية في جميع أنحاء الجمهورية، ومن ثم قمنا بتأسيس مؤسسة ديارنا للتنمية بمصر 
-        بمشاركة عدد من شركاء التنمية برقم أشهار 979 لعام 2021، وهي مؤسسة غير هادفة للربح، 
-        تهدف إلي بناء الإنسان وتنمية أفكاره وتحقيق التنمية المستدامة.
-    </p>
-</div>
-
-
-<!-- ==========  الرئيس الشرفي  ========== -->
-<div class="container py-5" style="direction: rtl;">
-    <h2 class="section-title animate__animated animate__fadeInRight">الرئيس الشرفي</h2>
-
-    <div class="row align-items-center">
-        <div class="col-md-4 text-center">
-            
-            <img src="{% static 'about/Ahmed.png' %}" 
-                 alt="الرئيس الشرفي"
-                 class="honor-photo animate__animated animate__zoomIn">
-        </div>
-
-        <div class="col-md-8">
-            <h3 class="fw-bold">الكابتن / أحمد حسن</h3>
-            <p class="mt-3" style="line-height: 1.8;">
-                يُعد الكابتن أحمد حسن واحداً من أبرز رموز الرياضة المصرية والعربية، 
-                ويشرفنا توليه منصب الرئيس الشرفي لمؤسسة ديارنا للتنمية، دعماً منه 
-                لمسيرة العمل المجتمعي والتنمية المستدامة.
-            </p>
-        </div>
-    </div>
-</div>
-
-
-<!-- ==========  مجلس الأمناء  ========== -->
-<div class="container py-5" style="direction: rtl;">
-    <h2 class="section-title animate__animated animate__fadeInRight">مجلس الأمناء</h2>
-
-    <p class="mb-4">
-        يضم مجلس الأمناء نخبة من الخبرات التي تقود أعمال المؤسسة.  
-        يمكنكم مشاهدة قائمة الأعضاء بالكامل عبر الرابط التالي:
-    </p>
-
-    <a href="#" class="btn btn-danger px-4 py-2">عرض مجلس الأمناء</a>
-</div>
-
-
-<!-- ==========  شركاء النجاح  ========== -->
-<div class="container py-5" style="direction: rtl;">
-    <h2 class="section-title animate__animated animate__fadeInRight">شركاء النجاح</h2>
-
-    <div class="row text-center g-4">
-        <div class="col-md-3">
-            
-            <img src="{% static 'Success_partners/1.png' %}" class="partner-logo" alt="partner">
-        </div>
-        <div class="col-md-3">
-            <img src="{% static 'Success_partners/2.png' %}" class="partner-logo" alt="partner">
-        </div>
-        <div class="col-md-3">
-            <img src="{% static 'Success_partners/3.png' %}" class="partner-logo" alt="partner">
-        </div>
-        <div class="col-md-3">
-            <img src="{% static 'Success_partners/5.png' %}" class="partner-logo" alt="partner">
-        </div>
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-<style>
-    .hero-board {
+    :root {
+        --primary-color: #02c3eb;
+        --primary-dark: #02a8cc;
+        --primary-light: #e6f9ff;
+        --text-dark: #333333;
+        --text-light: #666666;
+        --light-bg: #f8f9fa;
+        --white: #ffffff;
+        --shadow: 0 10px 30px rgba(2, 195, 235, 0.1);
+        --radius: 16px;
+    }
+    
+    .about-hero {
+        background: linear-gradient(135deg, rgba(2, 195, 235, 0.05) 0%, rgba(2, 195, 235, 0.15) 100%);
+        padding: 5rem 0;
+        border-radius: 0 0 var(--radius) var(--radius);
+        margin-bottom: 4rem;
+    }
+    
+    .section-title {
         position: relative;
-        height: 40vh;
+        padding-bottom: 15px;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    
+    .section-title:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: var(--primary-color);
+        border-radius: 2px;
+    }
+    
+    .section-title.text-start:after {
+        left: 0;
+        transform: none;
+    }
+    
+    .honorary-card {
+        background: var(--white);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        transition: transform 0.3s ease;
+        border: 1px solid rgba(2, 195, 235, 0.1);
+    }
+    
+    .honorary-card:hover {
+        transform: translateY(-10px);
+    }
+    
+    .honorary-img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+    }
+    
+    .member-badge {
+        display: inline-block;
+        background: var(--primary-light);
+        color: var(--primary-dark);
+        padding: 5px 15px;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+    
+    .partner-logo {
+        background: var(--white);
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: var(--shadow);
+        height: 150px;
         display: flex;
         align-items: center;
         justify-content: center;
-        overflow: hidden;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(2, 195, 235, 0.1);
     }
     
-    /* الخلفية الصورية مع البلور */
-    .hero-board::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
+    .partner-logo:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 40px rgba(2, 195, 235, 0.2);
+        border-color: rgba(2, 195, 235, 0.3);
+    }
+    
+    .partner-logo img {
+        max-width: 100%;
+        max-height: 80px;
+        filter: grayscale(100%);
+        opacity: 0.7;
+        transition: all 0.3s ease;
+    }
+    
+    .partner-logo:hover img {
+        filter: grayscale(0%);
+        opacity: 1;
+    }
+    
+    .mission-box {
+        background: var(--white);
+        border-radius: var(--radius);
+        padding: 30px;
+        box-shadow: var(--shadow);
         height: 100%;
-        background-image: url("{% static 'about/Cover_photo.jpg' %}");
-        background-size: cover;
-        background-position: center;
-        filter: blur(2px); /* البلور */
-        transform: scale(1.1); /* يمنع ظهور الحواف بعد البلور */
-        z-index: 1;
+        border-left: 5px solid var(--primary-color);
     }
     
-    /* طبقة غامقة فوق البلور */
-    .hero-board::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.45);
-        z-index: 2;
+    .mission-icon {
+        width: 60px;
+        height: 60px;
+        background: var(--primary-light);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        color: var(--primary-color);
+        font-size: 24px;
     }
     
-    /* محتوى النص */
-    .hero-board .content {
-        position: relative;
-        z-index: 3;
+    .btn-primary-custom {
+        background: var(--primary-color);
+        border: none;
         color: white;
+        padding: 12px 30px;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: all 0.3s ease;
     }
-    </style>
     
+    .btn-primary-custom:hover {
+        background: var(--primary-dark);
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(2, 195, 235, 0.3);
+    }
+    
+    .btn-outline-custom {
+        background: transparent;
+        border: 2px solid var(--primary-color);
+        color: var(--primary-color);
+        padding: 12px 30px;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-outline-custom:hover {
+        background: var(--primary-color);
+        color: white;
+        transform: translateY(-3px);
+    }
+    
+    .stats-box {
+        text-align: center;
+        padding: 25px 15px;
+        border-radius: 12px;
+        background: rgba(2, 195, 235, 0.05);
+        transition: all 0.3s ease;
+    }
+    
+    .stats-box:hover {
+        background: rgba(2, 195, 235, 0.1);
+        transform: translateY(-5px);
+    }
+    
+    .stats-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        line-height: 1;
+        margin-bottom: 10px;
+    }
+    
+    .stats-label {
+        font-size: 1rem;
+        color: var(--text-light);
+        font-weight: 500;
+    }
+    
+    .timeline-item {
+        position: relative;
+        padding-left: 40px;
+        padding-bottom: 40px;
+    }
+    
+    .timeline-item:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--primary-color);
+        border: 4px solid var(--white);
+        box-shadow: 0 0 0 2px var(--primary-color);
+    }
+    
+    .timeline-item:after {
+        content: '';
+        position: absolute;
+        left: 9px;
+        top: 24px;
+        width: 2px;
+        height: calc(100% - 24px);
+        background: var(--primary-color);
+    }
+    
+    .timeline-item:last-child:after {
+        display: none;
+    }
+    
+    @media (max-width: 768px) {
+        .about-hero {
+            padding: 3rem 0;
+        }
+        
+        .timeline-item {
+            padding-left: 30px;
+        }
+        
+        .timeline-item:before {
+            width: 16px;
+            height: 16px;
+        }
+        
+        .timeline-item:after {
+            left: 7px;
+        }
+    }
+</style>
 
+<div class="about-hero" dir="{% if LANGUAGE_CODE == 'ar' %}rtl{% else %}ltr{% endif %}">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <span class="member-badge">{% if LANGUAGE_CODE == 'ar' %}مؤسسة غير هادفة للربح{% else %}Non-profit Organization{% endif %}</span>
+                <h1 class="display-5 fw-bold mb-4">
+                    {% if LANGUAGE_CODE == 'ar' %}مؤسسة ديارنا للتنمية{% else %}Diyarna Development Foundation{% endif %}
+                </h1>
+                <p class="lead mb-4" style="line-height: 1.8;">
+                    {% if LANGUAGE_CODE == 'ar' %}
+                        نعمل لبناء الإنسان وتنمية أفكاره وتحقيق التنمية المستدامة. نحن مؤسسة مصرية غير هادفة للربح، تأسست رسمياً عام 2021، ونسعى لإحداث تغيير إيجابي في المجتمع.
+                    {% else %}
+                        We work to build individuals, develop their ideas, and achieve sustainable development. We are an Egyptian non-profit organization, officially established in 2021, striving to create positive change in society.
+                    {% endif %}
+                </p>
+                <a href="#" class="btn btn-primary-custom">
+                    {% if LANGUAGE_CODE == 'ar' %}تواصل معنا{% else %}Contact Us{% endif %}
+                </a>
+            </div>
+            <div class="col-lg-6">
+                <div class="position-relative">
+                    <div class="rounded-4 overflow-hidden shadow-lg">
+                        <img src="{% static 'about/Cover_photo.jpg' %}" alt="{% if LANGUAGE_CODE == 'ar' %}فريق ديارنا{% else %}Diyarna Team{% endif %}" class="img-fluid">
+                    </div>
+                    <div class="position-absolute bottom-0 start-0 bg-white rounded-3 shadow p-3 m-3" style="max-width: 300px;">
+                        <div class="d-flex align-items-center">
+                            <div class="bg-primary-light rounded-circle p-3 me-3">
+                                <i class="fas fa-hands-helping text-primary"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-bold mb-0">8+</h5>
+                                <small class="text-muted">{% if LANGUAGE_CODE == 'ar' %}سنوات من العطاء{% else %}Years of Giving{% endif %}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="container py-5" dir="{% if LANGUAGE_CODE == 'ar' %}rtl{% else %}ltr{% endif %}">
+    <!-- ========== قيمنا الأساسية ========== -->
+    <section class="mb-5">
+        <h2 class="section-title h2 fw-bold">
+            {% if LANGUAGE_CODE == 'ar' %}قيمنا الأساسية{% else %}Our Core Values{% endif %}
+        </h2>
+        <div class="row g-4 mt-4">
+            <div class="col-md-4">
+                <div class="mission-box">
+                    <div class="mission-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3">{% if LANGUAGE_CODE == 'ar' %}التطوع{% else %}Volunteering{% endif %}</h4>
+                    <p class="text-muted">
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            نؤمن بقوة العمل التطوعي في بناء المجتمعات ونسعى لترسيخ ثقافة العطاء.
+                        {% else %}
+                            We believe in the power of volunteering to build communities and strive to establish a culture of giving.
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="mission-box">
+                    <div class="mission-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3">{% if LANGUAGE_CODE == 'ar' %}الإبداع{% else %}Creativity{% endif %}</h4>
+                    <p class="text-muted">
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            نبتكر حلولاً تنموية فعالة تلبي احتياجات المجتمع بأساليب مبتكرة.
+                        {% else %}
+                            We create effective development solutions that meet community needs through innovative methods.
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="mission-box">
+                    <div class="mission-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3">{% if LANGUAGE_CODE == 'ar' %}الشراكة{% else %}Partnership{% endif %}</h4>
+                    <p class="text-muted">
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            نتعاون مع مختلف المؤسسات لتحقيق أهداف التنمية المستدامة.
+                        {% else %}
+                            We collaborate with various institutions to achieve sustainable development goals.
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== من نحن ========== -->
+    <section class="mb-5">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <h2 class="section-title h2 fw-bold">
+                    {% if LANGUAGE_CODE == 'ar' %}من نحن{% else %}About Us{% endif %}
+                </h2>
+                <p class="lead mb-4" style="line-height:1.8;">
+                    {% if LANGUAGE_CODE == 'ar' %}
+                        كانت بداية (ديارنا) جروب تطوعي دشنه مجموعة من الشباب عام 2015 أستهدف المساعدة 
+                        الإجتماعية في جميع أنحاء الجمهورية، ومن ثم قمنا بتأسيس مؤسسة ديارنا للتنمية بمصر 
+                        بمشاركة عدد من شركاء التنمية برقم أشهار 979 لعام 2021، وهي مؤسسة غير هادفة للربح، 
+                        تهدف إلي بناء الإنسان وتنمية أفكاره وتحقيق التنمية المستدامة.
+                    {% else %}
+                        The beginning of "Diyarna" was a volunteer group founded by a group of young people in 2015 
+                        aiming to provide social assistance across the country. Later, we established Diyarna 
+                        Development Foundation in Egypt with several development partners under registration 
+                        number 979 of 2021. It is a non-profit organization aimed at human development, 
+                        fostering ideas, and achieving sustainable development.
+                    {% endif %}
+                </p>
+                
+                <div class="row mt-5">
+                    <div class="col-6 col-md-3">
+                        <div class="stats-box">
+                            <div class="stats-number">2015</div>
+                            <div class="stats-label">{% if LANGUAGE_CODE == 'ar' %}عام التأسيس{% else %}Founded{% endif %}</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="stats-box">
+                            <div class="stats-number">979</div>
+                            <div class="stats-label">{% if LANGUAGE_CODE == 'ar' %}رقم الأشهار{% else %}Registration No.{% endif %}</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="stats-box">
+                            <div class="stats-number">50+</div>
+                            <div class="stats-label">{% if LANGUAGE_CODE == 'ar' %}مشروع{% else %}Projects{% endif %}</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="stats-box">
+                            <div class="stats-number">1000+</div>
+                            <div class="stats-label">{% if LANGUAGE_CODE == 'ar' %}متطوع{% else %}Volunteers{% endif %}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="ps-lg-5">
+                    <h4 class="fw-bold mb-4">{% if LANGUAGE_CODE == 'ar' %}رحلة التأسيس{% else %}Our Journey{% endif %}</h4>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <h5 class="fw-bold">2015</h5>
+                            <p class="text-muted mb-2">
+                                {% if LANGUAGE_CODE == 'ar' %}
+                                    بداية مجموعة ديارنا التطوعية بمبادرة من الشباب
+                                {% else %}
+                                    Beginning of Diyarna volunteer group by youth initiative
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div class="timeline-item">
+                            <h5 class="fw-bold">2018</h5>
+                            <p class="text-muted mb-2">
+                                {% if LANGUAGE_CODE == 'ar' %}
+                                    توسع الأنشطة لتشمل 10 محافظات مصرية
+                                {% else %}
+                                    Expanded activities to include 10 Egyptian governorates
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div class="timeline-item">
+                            <h5 class="fw-bold">2021</h5>
+                            <p class="text-muted mb-2">
+                                {% if LANGUAGE_CODE == 'ar' %}
+                                    التأسيس الرسمي لمؤسسة ديارنا للتنمية برقم 979
+                                {% else %}
+                                    Official establishment of Diyarna Development Foundation with No. 979
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div class="timeline-item">
+                            <h5 class="fw-bold">2023</h5>
+                            <p class="text-muted mb-2">
+                                {% if LANGUAGE_CODE == 'ar' %}
+                                    وصول أنشطتنا إلى 20 محافظة وشراكات مع 30 مؤسسة
+                                {% else %}
+                                    Reached 20 governorates with partnerships with 30 institutions
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== الرئيس الشرفي ========== -->
+    <section class="mb-5">
+        <h2 class="section-title h2 fw-bold">
+            {% if LANGUAGE_CODE == 'ar' %}الرئيس الشرفي{% else %}Honorary President{% endif %}
+        </h2>
+        <div class="row justify-content-center mt-4">
+            <div class="col-lg-8">
+                <div class="honorary-card">
+                    <div class="row g-0 align-items-center">
+                        <div class="col-md-4">
+                            <img src="{% static 'about/Ahmed.png' %}" 
+                                 alt="{% if LANGUAGE_CODE == 'ar' %}الكابتن / أحمد حسن{% else %}Captain Ahmed Hassan{% endif %}" 
+                                 class="honorary-img">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="p-4 p-md-5">
+                                <span class="member-badge">{% if LANGUAGE_CODE == 'ar' %}الرئيس الشرفي{% else %}Honorary President{% endif %}</span>
+                                <h3 class="fw-bold mb-3">
+                                    {% if LANGUAGE_CODE == 'ar' %}الكابتن / أحمد حسن{% else %}Captain Ahmed Hassan{% endif %}
+                                </h3>
+                                <p class="text-muted mb-4" style="line-height:1.7;">
+                                    {% if LANGUAGE_CODE == 'ar' %}
+                                        يُعد الكابتن أحمد حسن واحداً من أبرز رموز الرياضة المصرية والعربية، 
+                                        ويشرفنا توليه منصب الرئيس الشرفي لمؤسسة ديارنا للتنمية، دعماً منه 
+                                        لمسيرة العمل المجتمعي والتنمية المستدامة.
+                                    {% else %}
+                                        Captain Ahmed Hassan is one of the most prominent figures in Egyptian and Arab sports. 
+                                        We are honored to have him as the Honorary President of Diyarna Development Foundation, 
+                                        supporting the community work and sustainable development initiatives.
+                                    {% endif %}
+                                </p>
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-primary-light rounded-circle p-2 me-3">
+                                        <i class="fas fa-trophy text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <small class="text-muted">
+                                            {% if LANGUAGE_CODE == 'ar' %}
+                                                أسطورة كرة القدم المصرية
+                                            {% else %}
+                                                Egyptian Football Legend
+                                            {% endif %}
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== مجلس الأمناء ========== -->
+    <section class="mb-5">
+        <div class="text-center">
+            <h2 class="section-title h2 fw-bold">
+                {% if LANGUAGE_CODE == 'ar' %}مجلس الأمناء{% else %}Board of Trustees{% endif %}
+            </h2>
+            <p class="lead mx-auto mb-5" style="max-width: 700px;">
+                {% if LANGUAGE_CODE == 'ar' %}
+                    يضم مجلس الأمناء نخبة من الخبرات التي تقود أعمال المؤسسة وترسم استراتيجياتها المستقبلية
+                {% else %}
+                    The Board of Trustees consists of a distinguished group of experts who lead the foundation's work and shape its future strategies
+                {% endif %}
+            </p>
+            <a href="#" class="btn btn-outline-custom px-5">
+                {% if LANGUAGE_CODE == 'ar' %}عرض مجلس الأمناء{% else %}View Board of Trustees{% endif %}
+            </a>
+        </div>
+    </section>
+
+    <!-- ========== شركاء النجاح ========== -->
+    <section class="mb-5">
+        <h2 class="section-title h2 fw-bold">
+            {% if LANGUAGE_CODE == 'ar' %}شركاء النجاح{% else %}Success Partners{% endif %}
+        </h2>
+        <p class="text-center mb-5 mx-auto" style="max-width: 700px;">
+            {% if LANGUAGE_CODE == 'ar' %}
+                نتعاون مع مؤسسات محلية ودولية لتحقيق أهداف التنمية المستدامة
+            {% else %}
+                We collaborate with local and international institutions to achieve sustainable development goals
+            {% endif %}
+        </p>
+        <div class="row g-4 justify-content-center align-items-center">
+            {% for i in "1235"|make_list %}
+            <div class="col-6 col-md-3 text-center">
+                <div class="partner-logo">
+                    <img src="{% static 'Success_partners/'|add:i|add:'.png' %}" 
+                         alt="{% if LANGUAGE_CODE == 'ar' %}شريك النجاح{% else %}Success Partner{% endif %}">
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-5">
+            <a href="#" class="btn btn-primary-custom">
+                {% if LANGUAGE_CODE == 'ar' %}كن شريكاً معنا{% else %}Become a Partner{% endif %}
+            </a>
+        </div>
+    </section>
+</div>
 
 {% endblock %}

@@ -1,16 +1,18 @@
 
 from django.contrib import admin
 from django.urls import path, include
-from .views import donate, payment, donations_list, checkout
+from . import views
 from home.views import home
 
+app_name = 'donations'  # مهم جدًا
 
 urlpatterns = [
-    path('', checkout, name='checkout'),
-
-    path('', home, name='home'),
-    path('donate/<int:case_id>/', donate, name='donate'),
-    path('payment/<int:donation_id>/', payment, name='payment'),
-    path('donations/', donations_list, name='donations_list'),
+    path('', views.checkout, name='checkout'),
+    path('donate/<int:case_id>/', views.donate, name='donate'),
+    path('payment/<int:donation_id>/', views.payment, name='payment'),
+    path('donations/', views.donations_list, name='donations_list'),
+    ####################
+    path('order_completed/', views.order_completed, name='order_completed'),
+    path('success/', views.donations_success, name='donations_success'),
 
 ]

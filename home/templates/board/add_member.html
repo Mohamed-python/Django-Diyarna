@@ -1,0 +1,119 @@
+{% extends "layout.html" %}
+{% block content %}
+
+
+<!-- Hero Section لمجلس الأمناء -->
+<section class="hero-board position-relative text-white text-center mb-5" 
+         style="background-image: url('{{ url_for('static', filename='Board/Cover_photo.jpg') }}'); 
+                background-size: cover; background-position: center; height: 40vh; display: flex; align-items: center; justify-content: center;">
+  <div class="overlay position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(0,0,0,0.5);"></div>
+  <div class="content position-relative">
+    <h1 class="display-4 fw-bold animate__animated animate__fadeInDown">إضافة عضو جديد لمجلس الأمناء</h1>
+    <!-- <p class="lead animate__animated animate__fadeInUp animate__delay-1s">تعرف على أعضاء مجلس الأمناء الذين يقودون مسيرة المؤسسة</p> -->
+  </div>
+</section>
+
+<h2 class="mb-4 text-center">إضافة عضو جديد لمجلس الأمناء</h2>
+
+<form method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+
+    <div class="mb-3">
+        {{ form.name.label(class="form-label") }}
+        {{ form.name(class="form-control") }}
+    </div>
+
+    <div class="mb-3">
+        {{ form.position.label(class="form-label") }}
+        {{ form.position(class="form-control") }}
+    </div>
+
+    <div class="mb-3">
+        {{ form.photo.label(class="form-label") }}
+        {{ form.photo(class="form-control") }}
+    </div>
+
+    <div class="mb-3">
+        {{ form.bio.label(class="form-label") }}
+        {{ form.bio(class="form-control") }}
+    </div>
+
+    {{ form.submit(class="btn btn-success w-100") }}
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+    .hero-board {
+        position: relative;
+        height: 40vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    
+    /* الخلفية الصورية مع البلور */
+    .hero-board::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('{{ url_for("static", filename="Board_Cover_photo/1.jpg") }}');
+        background-size: cover;
+        background-position: center;
+        filter: blur(2px); /* البلور */
+        transform: scale(1.1); /* يمنع ظهور الحواف بعد البلور */
+        z-index: 1;
+    }
+    
+    /* طبقة غامقة فوق البلور */
+    .hero-board::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.45);
+        z-index: 2;
+    }
+    
+    /* محتوى النص */
+    .hero-board .content {
+        position: relative;
+        z-index: 3;
+        color: white;
+    }
+    </style>
+    
+
+
+
+{% endblock %}

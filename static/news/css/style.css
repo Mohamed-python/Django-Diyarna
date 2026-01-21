@@ -1,437 +1,150 @@
-/* news.css */
 
 .news-section {
-    padding: 5rem 0;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    min-height: 80vh;
+    padding: 80px 0;
+    background-color: #f8f9fa;
 }
 
 .section-title {
-    color: #2c3e50;
-    font-size: 2.5rem;
-    margin-bottom: 3rem;
+    color: #333;
+    font-weight: 700;
     position: relative;
-    font-weight: 800;
-    text-align: center;
+    padding-bottom: 20px;
 }
 
-.section-title:after {
+.section-title::after {
     content: '';
     position: absolute;
-    bottom: -15px;
+    bottom: 0;
     left: 50%;
     transform: translateX(-50%);
     width: 80px;
-    height: 4px;
-    background: linear-gradient(90deg, #3498db, #2ecc71);
-    border-radius: 2px;
-}
-
-.news-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    height: 100%;
-}
-
-.news-link:hover {
-    transform: translateY(-10px);
-    text-decoration: none;
+    height: 3px;
+    background-color: #02c3eb;
 }
 
 .news-card {
-    background: white;
-    border-radius: 20px;
+    border: none;
+    border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    height: 100%;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    display: flex;
-    flex-direction: column;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    background: white;
 }
 
-.news-link:hover .news-card {
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-    border-color: #3498db;
+.news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
 }
 
-.news-img-box {
+.card-img-container {
     position: relative;
     overflow: hidden;
-    height: 280px; /* زيادة ارتفاع الصورة للشاشات الكبيرة */
-    flex-shrink: 0;
+    height: 200px;
 }
 
-.news-img {
+.card-img-top {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.5s ease;
 }
 
-.news-link:hover .news-img {
-    transform: scale(1.08);
+.news-card:hover .card-img-top {
+    transform: scale(1.05);
 }
 
-.news-overlay {
+.card-date {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, 
-                rgba(0, 0, 0, 0) 0%, 
-                rgba(0, 0, 0, 0.1) 50%, 
-                rgba(0, 0, 0, 0.7) 100%);
-    opacity: 0.8;
-    transition: opacity 0.3s ease;
+    top: 15px;
+    right: 15px;
+    background: #02c3eb;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
 }
 
-.news-readmore {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(255, 255, 255, 0.95);
-    color: #2c3e50;
-    padding: 10px 24px;
-    border-radius: 30px;
-    font-weight: 600;
-    font-size: 0.9rem;
-    opacity: 0;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    z-index: 2;
-}
-
-.news-link:hover .news-readmore {
-    opacity: 1;
-    bottom: 25px;
-}
-
-.news-body {
+.card-body {
     padding: 25px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
 }
 
-.news-title {
-    color: #2c3e50;
-    font-weight: 700;
-    font-size: 1.4rem; /* زيادة حجم العنوان للشاشات الكبيرة */
-    line-height: 1.4;
+.card-title {
+    color: #333;
+    font-weight: 600;
     margin-bottom: 15px;
-    transition: color 0.3s ease;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    font-size: 1.1rem;
+    line-height: 1.4;
 }
 
-.news-link:hover .news-title {
-    color: #3498db;
-}
-
-.news-text {
-    color: #666;
+.card-text {
+    font-size: 0.95rem;
     line-height: 1.6;
     margin-bottom: 20px;
-    font-size: 1rem; /* زيادة حجم النص للشاشات الكبيرة */
-    display: -webkit-box;
-    -webkit-line-clamp: 4; /* زيادة عدد الأسطر للشاشات الكبيرة */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    flex-grow: 1;
 }
 
-.news-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 15px;
-    border-top: 1px solid #eee;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-top: auto;
-}
-
-.news-meta-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
-
-.news-author {
-    color: #3498db;
-    font-weight: 600;
-    background: #e3f2fd;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    flex: 1;
-    justify-content: center;
-    text-align: center;
-    min-width: 120px;
-}
-
-.news-date {
-    color: #7f8c8d;
+.news-read-btn {
+    color: #02c3eb;
+    text-decoration: none;
     font-weight: 500;
-    background: #f8f9fa;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    flex: 1;
-    justify-content: center;
-    text-align: center;
-    min-width: 120px;
 }
 
-.no-news {
-    padding: 3rem 1rem;
-    text-align: center;
+.news-read-btn:hover {
+    color: #0199c7;
+    transform: translateX(5px);
 }
 
-.no-news i {
-    color: #bdc3c7;
-    margin-bottom: 1rem;
+.no-news-placeholder {
+    padding: 60px 0;
 }
 
-/* Pagination */
+.text-light-gray {
+    color: #dee2e6;
+}
+
+/* Pagination Styles */
 .pagination {
-    margin-top: 3rem;
+    margin-bottom: 0;
 }
 
-.page-link {
-    color: #3498db;
-    border: 1px solid #dee2e6;
+.page-item .page-link {
+    color: #666;
+    border: none;
+    background-color: transparent;
     margin: 0 5px;
-    border-radius: 10px !important;
+    border-radius: 5px;
     padding: 8px 16px;
     transition: all 0.3s ease;
 }
 
-.page-link:hover {
-    background-color: #3498db;
-    color: white;
-    border-color: #3498db;
+.page-item .page-link:hover {
+    color: #02c3eb;
+    background-color: rgba(2, 195, 235, 0.1);
 }
 
 .page-item.active .page-link {
-    background: linear-gradient(135deg, #3498db, #2ecc71);
-    border-color: #3498db;
+    background-color: #02c3eb;
     color: white;
+    border: none;
 }
 
-/* ========== تعديلات التجاوب ========== */
-
-/* الشاشات الكبيرة جداً (xl) - 2 كروت في الصف */
-@media (min-width: 1200px) {
-    .news-img-box {
-        height: 300px;
-    }
-    
-    .news-title {
-        font-size: 1.5rem;
-    }
-    
-    .news-text {
-        font-size: 1.05rem;
-        -webkit-line-clamp: 5;
-    }
-}
-
-/* الشاشات الكبيرة (lg) - 2 كروت في الصف */
-@media (min-width: 992px) {
-    .news-img-box {
-        height: 280px;
-    }
-    
-    .news-title {
-        font-size: 1.4rem;
-    }
-    
-    .news-text {
-        font-size: 1rem;
-        -webkit-line-clamp: 4;
-    }
-    
-    .news-meta-content {
-        flex-direction: row;
-        gap: 15px;
-    }
-    
-    .news-author,
-    .news-date {
-        flex: 1;
-        min-width: calc(50% - 7.5px);
-        font-size: 0.95rem;
-        padding: 10px 15px;
-    }
-}
-
-/* الشاشات المتوسطة (md) - 2 كروت في الصف */
-@media (min-width: 768px) and (max-width: 991px) {
+/* Responsive */
+@media (max-width: 768px) {
     .news-section {
-        padding: 4rem 0;
-    }
-    
-    .section-title {
-        font-size: 2.2rem;
-    }
-    
-    .news-img-box {
-        height: 220px;
-    }
-    
-    .news-meta-content {
-        flex-direction: row;
-        gap: 10px;
-    }
-    
-    .news-author,
-    .news-date {
-        flex: 1;
-        min-width: calc(50% - 5px);
-        font-size: 0.85rem;
-        padding: 8px 12px;
-    }
-}
-
-/* الشاشات الصغيرة (sm) - 1 كارت في الصف */
-@media (max-width: 767px) {
-    .news-section {
-        padding: 3rem 0;
-    }
-    
-    .section-title {
-        font-size: 2rem;
-        margin-bottom: 2rem;
-    }
-    
-    .news-img-box {
-        height: 200px;
-    }
-    
-    .news-body {
-        padding: 20px;
-    }
-    
-    .news-title {
-        font-size: 1.2rem;
-    }
-    
-    .news-text {
-        font-size: 0.95rem;
-        -webkit-line-clamp: 3;
-    }
-    
-    /* في الموبايل: التاريخ والناشر جنب بعض */
-    .news-meta {
-        padding-top: 15px;
-        gap: 10px;
-    }
-    
-    .news-meta-content {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        gap: 10px;
-        width: 100%;
-    }
-    
-    .news-author {
-        flex: 1;
-        padding: 8px 10px;
-        font-size: 0.85rem;
-        justify-content: center;
-        text-align: center;
-        min-width: 0;
-    }
-    
-    .news-date {
-        flex: 1;
-        padding: 8px 10px;
-        font-size: 0.85rem;
-        justify-content: center;
-        text-align: center;
-        min-width: 0;
-    }
-}
-
-/* الشاشات الصغيرة جداً */
-@media (max-width: 576px) {
-    .news-section {
-        padding: 2rem 0;
+        padding: 60px 0;
     }
     
     .section-title {
         font-size: 1.8rem;
     }
     
-    .news-img-box {
+    .card-img-container {
         height: 180px;
     }
-    
-    .news-meta-content {
-        gap: 8px;
-    }
-    
-    .news-author,
-    .news-date {
-        padding: 7px 8px;
-        font-size: 0.8rem;
-    }
-    
-    .news-author i,
-    .news-date i {
-        font-size: 0.7rem;
-    }
 }
 
-@media (max-width: 400px) {
-    .news-meta-content {
-        gap: 5px;
-    }
-    
-    .news-author,
-    .news-date {
-        padding: 6px 5px;
-        font-size: 0.75rem;
-        gap: 4px;
-    }
-    
-    .news-author i,
-    .news-date i {
-        font-size: 0.65rem;
-    }
-}
 
-/* Animation */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.news-card {
-    animation: fadeInUp 0.6s ease forwards;
-    animation-delay: calc(var(--item-order) * 0.1s);
-    opacity: 0;
-}

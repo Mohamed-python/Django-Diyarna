@@ -1,0 +1,1320 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block extra_css %}
+<style>
+/* متغيرات الألوان الرئيسية */
+:root {
+    --primary-color: #02c3eb;
+    --primary-dark: #02a8cc;
+    --primary-light: rgba(2, 195, 235, 0.1);
+    --primary-gradient: linear-gradient(135deg, #02c3eb, #02a8cc);
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --light-bg: #f8f9fa;
+    --dark-bg: #343a40;
+    --white: #ffffff;
+    --shadow: 0 8px 25px rgba(2, 195, 235, 0.1);
+    --shadow-lg: 0 15px 35px rgba(2, 195, 235, 0.15);
+    --radius-lg: 20px;
+    --radius-md: 12px;
+    --radius-sm: 8px;
+    --transition: all 0.3s ease;
+}
+
+/* إعادة تعيين CSS للغة العربية */
+[dir="rtl"] {
+    text-align: right;
+    direction: rtl;
+    /* font-family: 'Cairo', sans-serif; */
+}
+
+[dir="ltr"] {
+    text-align: left;
+    direction: ltr;
+}
+
+/* الصفحة الرئيسية */
+.trustees-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 100%);
+    padding-bottom: 50px;
+}
+
+/* الهيرو */
+.trustees-hero {
+    background: var(--primary-gradient);
+    color: white;
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 60px;
+}
+
+.trustees-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    font-family: 'Cairo', sans-serif;
+}
+
+.hero-subtitle {
+    font-size: 1.3rem;
+    opacity: 0.9;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+/* معلومات المجلس */
+.trustees-info {
+    padding: 60px 0;
+    background: var(--white);
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 50px;
+    position: relative;
+    padding-bottom: 20px;
+}
+
+.section-title h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--primary-gradient);
+    border-radius: 2px;
+}
+
+[dir="rtl"] .section-title::after {
+    left: auto;
+    right: 50%;
+    transform: translateX(50%);
+}
+
+.section-description {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--secondary-color);
+    max-width: 800px;
+    margin: 0 auto 40px;
+    line-height: 1.8;
+}
+
+/* بطاقات الأعضاء */
+.trustees-members {
+    padding: 60px 0;
+    background: var(--light-bg);
+}
+
+.members-filter {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    background: var(--white);
+    border: 2px solid var(--primary-light);
+    color: var(--primary-color);
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 1rem;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.members-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.member-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    position: relative;
+}
+
+.member-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+}
+
+.member-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--primary-color);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    z-index: 2;
+}
+
+[dir="rtl"] .member-badge {
+    right: auto;
+    left: 20px;
+}
+
+.member-image {
+    height: 250px;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.member-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.member-card:hover .member-image img {
+    transform: scale(1.05);
+}
+
+.member-info {
+    padding: 30px;
+}
+
+.member-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.member-position {
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+.member-description {
+    color: var(--secondary-color);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
+.member-expertise {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.expertise-tag {
+    background: var(--primary-light);
+    color: var(--primary-color);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.member-social {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.social-link {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--light-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.social-link:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* الهيكل التنظيمي */
+.organization-structure {
+    padding: 80px 0;
+    background: var(--white);
+}
+
+.structure-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px;
+    background: var(--light-bg);
+    border-radius: var(--radius-lg);
+    position: relative;
+    overflow: hidden;
+}
+
+.structure-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 40px;
+}
+
+.structure-tree {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.structure-level {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 60px;
+    width: 100%;
+    position: relative;
+}
+
+.structure-level::before {
+    content: '';
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 30px;
+    background: var(--primary-color);
+}
+
+.structure-level:first-child::before {
+    display: none;
+}
+
+.structure-node {
+    background: var(--white);
+    padding: 20px;
+    border-radius: var(--radius-md);
+    text-align: center;
+    box-shadow: var(--shadow);
+    min-width: 200px;
+    position: relative;
+    transition: var(--transition);
+}
+
+.structure-node:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.structure-node::after {
+    content: '';
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 30px;
+    background: var(--primary-color);
+}
+
+.structure-level:last-child .structure-node::after {
+    display: none;
+}
+
+.node-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.node-role {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+}
+
+/* اللجان */
+.committees-section {
+    padding: 60px 0;
+    background: var(--light-bg);
+}
+
+.committees-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+}
+
+.committee-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 40px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    text-align: center;
+    border-top: 5px solid var(--primary-color);
+}
+
+.committee-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+}
+
+.committee-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--primary-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+    color: var(--primary-color);
+    font-size: 32px;
+}
+
+.committee-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.committee-description {
+    color: var(--secondary-color);
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.committee-members {
+    font-size: 0.9rem;
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+/* CTA */
+.trustees-cta {
+    padding: 80px 0;
+    background: var(--primary-gradient);
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.trustees-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+.cta-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.cta-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.cta-description {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.btn-primary {
+    background: white;
+    color: var(--primary-color);
+    padding: 15px 40px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: var(--transition);
+    border: 2px solid transparent;
+}
+
+.btn-primary:hover {
+    background: transparent;
+    color: white;
+    border-color: white;
+    transform: translateY(-3px);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: white;
+    padding: 15px 40px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: var(--transition);
+    border: 2px solid white;
+}
+
+.btn-secondary:hover {
+    background: white;
+    color: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+/* إصلاحات اللغة العربية */
+[dir="rtl"] .hero-stats,
+[dir="rtl"] .members-filter,
+[dir="rtl"] .cta-buttons {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .member-social {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .structure-level {
+    flex-direction: row-reverse;
+}
+
+/* تصميم متجاوب */
+@media (max-width: 992px) {
+    .hero-title {
+        font-size: 2.8rem;
+    }
+    
+    .members-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+    
+    .structure-level {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+    
+    .committees-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .hero-stats {
+        gap: 30px;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+    }
+    
+    .section-title h2 {
+        font-size: 2rem;
+    }
+    
+    .cta-title {
+        font-size: 2rem;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .trustees-hero {
+        padding: 60px 0;
+    }
+    
+    .hero-title {
+        font-size: 1.8rem;
+    }
+    
+    .hero-stats {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .members-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .filter-btn {
+        padding: 8px 20px;
+        font-size: 0.9rem;
+    }
+}
+
+/* أنيميشن */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.float-animation {
+    animation: float 3s ease-in-out infinite;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="trustees-page" 
+     dir="{% if LANGUAGE_CODE == 'ar' %}rtl{% else %}ltr{% endif %}">
+
+    <!-- الهيرو -->
+    <section class="trustees-hero">
+        <div class="container">
+            <div class="hero-content fade-in-up">
+                <h1 class="hero-title">
+                    {% if LANGUAGE_CODE == 'ar' %}
+                        مجلس الأمناء
+                    {% else %}
+                        Board of Trustees
+                    {% endif %}
+                </h1>
+                <p class="hero-subtitle">
+                    {% if LANGUAGE_CODE == 'ar' %}
+                        نخبة من القادة والخبراء الذين يقودون مسيرة التميز والابتكار في مؤسستنا، 
+                        يمتلكون رؤية استراتيجية وخبرات متنوعة لتحقيق أهداف التنمية المستدامة.
+                    {% else %}
+                        An elite group of leaders and experts who drive excellence and innovation in our institution, 
+                        possessing strategic vision and diverse expertise to achieve sustainable development goals.
+                    {% endif %}
+                </p>
+                
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">15</div>
+                        <div class="stat-label">
+                            {% if LANGUAGE_CODE == 'ar' %}عضو{% else %}Members{% endif %}
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">7</div>
+                        <div class="stat-label">
+                            {% if LANGUAGE_CODE == 'ar' %}لجان{% else %}Committees{% endif %}
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">10+</div>
+                        <div class="stat-label">
+                            {% if LANGUAGE_CODE == 'ar' %}سنوات خبرة{% else %}Years Experience{% endif %}
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">
+                            {% if LANGUAGE_CODE == 'ar' %}مشروع{% else %}Projects{% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- معلومات المجلس -->
+    <section class="trustees-info">
+        <div class="container">
+            <div class="section-title fade-in-up">
+                <h2>
+                    {% if LANGUAGE_CODE == 'ar' %}
+                        دور مجلس الأمناء
+                    {% else %}
+                        Role of the Board of Trustees
+                    {% endif %}
+                </h2>
+                <div class="section-description">
+                    {% if LANGUAGE_CODE == 'ar' %}
+                        يلعب مجلس الأمناء دوراً محورياً في رسم السياسات العامة للمؤسسة والإشراف 
+                        على تنفيذ استراتيجياتها التنموية، ويتمتع بصلاحيات واسعة تضمن تحقيق الأهداف 
+                        المرسومة بكفاءة وفعالية.
+                    {% else %}
+                        The Board of Trustees plays a pivotal role in shaping the institution's general policies 
+                        and overseeing the implementation of its development strategies. It enjoys broad powers 
+                        that ensure the efficient and effective achievement of set goals.
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4 fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="text-center p-4">
+                        <div class="mb-4">
+                            <i class="fas fa-bullseye fa-3x" style="color: #02c3eb;"></i>
+                        </div>
+                        <h3 style="color: #333; margin-bottom: 15px;">
+                            {% if LANGUAGE_CODE == 'ar' %}الرؤية الاستراتيجية{% else %}Strategic Vision{% endif %}
+                        </h3>
+                        <p style="color: #6c757d; line-height: 1.6;">
+                            {% if LANGUAGE_CODE == 'ar' %}
+                                وضع وتحديث الرؤية والرسالة الاستراتيجية للمؤسسة والتأكد من توافقها مع أهداف التنمية المستدامة.
+                            {% else %}
+                                Developing and updating the institution's strategic vision and mission, ensuring alignment with sustainable development goals.
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 fade-in-up" style="animation-delay: 0.4s;">
+                    <div class="text-center p-4">
+                        <div class="mb-4">
+                            <i class="fas fa-chart-line fa-3x" style="color: #02c3eb;"></i>
+                        </div>
+                        <h3 style="color: #333; margin-bottom: 15px;">
+                            {% if LANGUAGE_CODE == 'ar' %}الإشراف والرقابة{% else %}Supervision & Monitoring{% endif %}
+                        </h3>
+                        <p style="color: #6c757d; line-height: 1.6;">
+                            {% if LANGUAGE_CODE == 'ar' %}
+                                الإشراف على أداء المؤسسة ومراقبة تنفيذ الخطط والبرامج والمشاريع المختلفة.
+                            {% else %}
+                                Overseeing the institution's performance and monitoring the implementation of various plans, programs, and projects.
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 fade-in-up" style="animation-delay: 0.6s;">
+                    <div class="text-center p-4">
+                        <div class="mb-4">
+                            <i class="fas fa-handshake fa-3x" style="color: #02c3eb;"></i>
+                        </div>
+                        <h3 style="color: #333; margin-bottom: 15px;">
+                            {% if LANGUAGE_CODE == 'ar' %}بناء الشراكات{% else %}Partnership Building{% endif %}
+                        </h3>
+                        <p style="color: #6c757d; line-height: 1.6;">
+                            {% if LANGUAGE_CODE == 'ar' %}
+                                تعزيز الشراكات المحلية والدولية وفتح آفاق جديدة للتعاون والتمويل.
+                            {% else %}
+                                Enhancing local and international partnerships and opening new horizons for cooperation and funding.
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- أعضاء المجلس -->
+    <section class="trustees-members">
+        <div class="container">
+            <div class="section-title fade-in-up">
+                <h2>
+                    {% if LANGUAGE_CODE == 'ar' %}
+                        أعضاء مجلس الأمناء
+                    {% else %}
+                        Board Members
+                    {% endif %}
+                </h2>
+                <div class="section-description">
+                    {% if LANGUAGE_CODE == 'ar' %}
+                        نخبة من القادة والخبراء في مختلف المجالات، يجمعهم التميز والالتزام بتحقيق رسالة المؤسسة.
+                    {% else %}
+                        An elite group of leaders and experts in various fields, united by excellence and commitment to achieving the institution's mission.
+                    {% endif %}
+                </div>
+            </div>
+
+
+            <!-- قائمة الأعضاء -->
+            <div class="members-grid">
+                <!-- العضو 1 -->
+                <div class="member-card fade-in-up" style="animation-delay: 0.3s;" data-category="executive">
+                    <div class="member-badge">
+                        {% if LANGUAGE_CODE == 'ar' %}الرئيس{% else %}Chairman{% endif %}
+                    </div>
+                    <div class="member-image">
+                        <img src="{% static 'Board/Cover_photo.jpg' %}" 
+                             alt="{% if LANGUAGE_CODE == 'ar' %}د. أحمد محمد{% else %}Dr. Ahmed Mohamed{% endif %}">
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">
+                            {% if LANGUAGE_CODE == 'ar' %}
+                                د. أحمد محمد
+                            {% else %}
+                                Dr. Ahmed Mohamed
+                            {% endif %}
+                        </h3>
+                        <div class="member-position">
+                            {% if LANGUAGE_CODE == 'ar' %}
+                                رئيس مجلس الإدارة
+                            {% else %}
+                                Board Chairman
+                            {% endif %}
+                        </div>
+                        <p class="member-description">
+                            {% if LANGUAGE_CODE == 'ar' %}
+                                خبير في الإدارة الاستراتيجية مع أكثر من 25 عاماً من الخبرة في القطاع غير الربحي، 
+                                قاد العديد من المبادرات التنموية الناجحة على مستوى الوطن العربي.
+                            {% else %}
+                                Strategic management expert with over 25 years of experience in the non-profit sector, 
+                                leading numerous successful development initiatives across the Arab world.
+                            {% endif %}
+                        </p>
+                        <div class="member-expertise">
+                            <span class="expertise-tag">
+                                {% if LANGUAGE_CODE == 'ar' %}الإدارة الاستراتيجية{% else %}Strategic Management{% endif %}
+                            </span>
+                            <span class="expertise-tag">
+                                {% if LANGUAGE_CODE == 'ar' %}التنمية المستدامة{% else %}Sustainable Development{% endif %}
+                            </span>
+                            <span class="expertise-tag">
+                                {% if LANGUAGE_CODE == 'ar' %}التمويل{% else %}Finance{% endif %}
+                            </span>
+                        </div>
+                        <div class="member-social">
+                            <a href="#" class="social-link">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- العضو 2 -->
+                <div class="member-card fade-in-up" style="animation-delay: 0.4s;" data-category="independent">
+                    <div class="member-badge">
+                        {% if LANGUAGE_CODE == 'ar' %}نائب الرئيس{% else %}Vice Chairman{% endif %}
+                    </div>
+                    <div class="member-image">
+                        <img src="{% static 'Board/Cover_photo.jpg' %}" 
+                             alt="{% if LANGUAGE_CODE == 'ar' %}أ. سارة عبدالله{% else %}Ms. Sara Abdullah{% endif %}">
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">
+                            {% if LANGUAGE_CODE == 'ar' %}
+                                أ. سارة عبدالله
+                            {% else %}
+                                Ms. Sara Abdullah
+                            {% endif %}
+                        </h3>
+                        <div class="member-position">
+                            {% if LANGUAGE_CODE == 'ar' %}
+                                نائب رئيس مجلس الإدارة
+                            {% else %}
+                                Board Vice Chairman
+                            {% endif %}
+                        </div>
+                        <p class="member-description">
+                            {% if LANGUAGE_CODE == 'ar' %}
+                                محامية دولية متخصصة في قانون المنظمات غير الحكومية، 
+                                تمتلك خبرة واسعة في التشريعات التنظيمية والحوكمة المؤسسية.
+                            {% else %}
+                                International lawyer specializing in NGO law, 
+                                with extensive experience in regulatory legislation and institutional governance.
+                            {% endif %}
+                        </p>
+                        <div class="member-expertise">
+                            <span class="expertise-tag">
+                                {% if LANGUAGE_CODE == 'ar' %}القانون الدولي{% else %}International Law{% endif %}
+                            </span>
+                            <span class="expertise-tag">
+                                {% if LANGUAGE_CODE == 'ar' %}الحوكمة{% else %}Governance{% endif %}
+                            </span>
+                            <span class="expertise-tag">
+                                {% if LANGUAGE_CODE == 'ar' %}الملكية الفكرية{% else %}Intellectual Property{% endif %}
+                            </span>
+                        </div>
+                        <div class="member-social">
+                            <a href="#" class="social-link">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- العضو 3 -->
+                <div class="member-card fade-in-up" style="animation-delay: 0.5s;" data-category="expert">
+                    <div class="member-badge">
+                        {% if LANGUAGE_CODE == 'ar' %}خبير{% else %}Expert{% endif %}
+                    </div>
+                    <div class="member-image">
+                        <img src="{% static 'Board/Cover_photo.jpg' %}" 
+                             alt="{% if LANGUAGE_CODE == 'ar' %}د. محمد الخولي{% else %}Dr. Mohamed El-Khouly{% endif %}">
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">
+                            {% if LANGUAGE_CODE == 'ar' %}
+                                د. محمد الخولي
+                            {% else %}
+                                Dr. Mohamed El-Khouly
+                            {% endif %}
+                        </h3>
+                        <div class="member-position">
+                            {% if LANGUAGE_CODE == 'ar' %}
+                                خبير التنمية المستدامة
+                            {% else %}
+                                Sustainable Development Expert
+                            {% endif %}
+                        </div>
+                        <p class="member-description">
+                            {% if LANGUAGE_CODE == 'ar' %}
+                                أستاذ في الاقتصاد التنموي، مستشار سابق لعدة منظمات دولية، 
+                                متخصص في تصميم وتقييم برامج التنمية المجتمعية.
+                            {% else %}
+                                Professor of developmental economics, former consultant to several international organizations, 
+                                specializing in designing and evaluating community development programs.
+                            {% endif %}
+                        </p>
+                        <div class="member-expertise">
+                            <span class="expertise-tag">
+                                {% if LANGUAGE_CODE == 'ar' %}الاقتصاد التنموي{% else %}Developmental Economics{% endif %}
+                            </span>
+                            <span class="expertise-tag">
+                                {% if LANGUAGE_CODE == 'ar' %}التقييم{% else %}Evaluation{% endif %}
+                            </span>
+                            <span class="expertise-tag">
+                                {% if LANGUAGE_CODE == 'ar' %}البحث العلمي{% else %}Scientific Research{% endif %}
+                            </span>
+                        </div>
+                        <div class="member-social">
+                            <a href="#" class="social-link">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- يمكنك إضافة المزيد من الأعضاء هنا -->
+            </div>
+        </div>
+    </section>
+
+    <!-- الهيكل التنظيمي -->
+    <section class="organization-structure">
+        <div class="container">
+            <div class="section-title fade-in-up">
+                <h2>
+                    {% if LANGUAGE_CODE == 'ar' %}
+                        الهيكل التنظيمي
+                    {% else %}
+                        Organizational Structure
+                    {% endif %}
+                </h2>
+                <div class="section-description">
+                    {% if LANGUAGE_CODE == 'ar' %}
+                        هيكل حوكمة متكامل يضمن الكفاءة والشفافية في اتخاذ القرارات وتنفيذ المشاريع.
+                    {% else %}
+                        An integrated governance structure that ensures efficiency and transparency in decision-making and project implementation.
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="structure-wrapper fade-in-up" style="animation-delay: 0.2s;">
+                <div class="structure-tree">
+                    <!-- المستوى الأول -->
+                    <div class="structure-level">
+                        <div class="structure-node float-animation">
+                            <div class="node-title">
+                                {% if LANGUAGE_CODE == 'ar' %}
+                                    الجمعية العمومية
+                                {% else %}
+                                    General Assembly
+                                {% endif %}
+                            </div>
+                            <div class="node-role">
+                                {% if LANGUAGE_CODE == 'ar' %}
+                                    أعلى سلطة في المؤسسة
+                                {% else %}
+                                    Highest Authority
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- المستوى الثاني -->
+                    <div class="structure-level">
+                        <div class="structure-node">
+                            <div class="node-title">
+                                {% if LANGUAGE_CODE == 'ar' %}
+                                    مجلس الأمناء
+                                {% else %}
+                                    Board of Trustees
+                                {% endif %}
+                            </div>
+                            <div class="node-role">
+                                {% if LANGUAGE_CODE == 'ar' %}
+                                    الهيئة الإشرافية
+                                {% else %}
+                                    Supervisory Body
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- المستوى الثالث -->
+                    <div class="structure-level">
+                        <div class="structure-node">
+                            <div class="node-title">
+                                {% if LANGUAGE_CODE == 'ar' %}
+                                    اللجان المتخصصة
+                                {% else %}
+                                    Specialized Committees
+                                {% endif %}
+                            </div>
+                            <div class="node-role">
+                                {% if LANGUAGE_CODE == 'ar' %}
+                                    الدعم الفني والمتابعة
+                                {% else %}
+                                    Technical Support & Follow-up
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- المستوى الرابع -->
+                    <div class="structure-level">
+                        <div class="structure-node">
+                            <div class="node-title">
+                                {% if LANGUAGE_CODE == 'ar' %}
+                                    الإدارة التنفيذية
+                                {% else %}
+                                    Executive Management
+                                {% endif %}
+                            </div>
+                            <div class="node-role">
+                                {% if LANGUAGE_CODE == 'ar' %}
+                                    التنفيذ والتشغيل
+                                {% else %}
+                                    Implementation & Operations
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- اللجان -->
+    <section class="committees-section">
+        <div class="container">
+            <div class="section-title fade-in-up">
+                <h2>
+                    {% if LANGUAGE_CODE == 'ar' %}
+                        اللجان المتخصصة
+                    {% else %}
+                        Specialized Committees
+                    {% endif %}
+                </h2>
+                <div class="section-description">
+                    {% if LANGUAGE_CODE == 'ar' %}
+                        لجان متخصصة تعمل تحت مظلة مجلس الأمناء لضمان التغطية الشاملة لكافة الجوانب الإدارية والفنية.
+                    {% else %}
+                        Specialized committees operating under the umbrella of the Board of Trustees to ensure comprehensive coverage of all administrative and technical aspects.
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="committees-grid">
+                <!-- لجنة 1 -->
+                <div class="committee-card fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="committee-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h3 class="committee-title">
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            لجنة الحوكمة
+                        {% else %}
+                            Governance Committee
+                        {% endif %}
+                    </h3>
+                    <p class="committee-description">
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            الإشراف على تطبيق معايير الحوكمة وضمان الشفافية والنزاهة في جميع عمليات المؤسسة.
+                        {% else %}
+                            Overseeing the application of governance standards and ensuring transparency and integrity in all institutional processes.
+                        {% endif %}
+                    </p>
+                    <div class="committee-members">
+                        5 {% if LANGUAGE_CODE == 'ar' %}أعضاء{% else %}Members{% endif %}
+                    </div>
+                </div>
+
+                <!-- لجنة 2 -->
+                <div class="committee-card fade-in-up" style="animation-delay: 0.4s;">
+                    <div class="committee-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3 class="committee-title">
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            لجنة المالية
+                        {% else %}
+                            Finance Committee
+                        {% endif %}
+                    </h3>
+                    <p class="committee-description">
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            مراقبة الأداء المالي واعتماد الميزانيات والتأكد من الاستخدام الأمثل للموارد.
+                        {% else %}
+                            Monitoring financial performance, approving budgets, and ensuring optimal use of resources.
+                        {% endif %}
+                    </p>
+                    <div class="committee-members">
+                        4 {% if LANGUAGE_CODE == 'ar' %}أعضاء{% else %}Members{% endif %}
+                    </div>
+                </div>
+
+                <!-- لجنة 3 -->
+                <div class="committee-card fade-in-up" style="animation-delay: 0.6s;">
+                    <div class="committee-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h3 class="committee-title">
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            لجنة المشاريع
+                        {% else %}
+                            Projects Committee
+                        {% endif %}
+                    </h3>
+                    <p class="committee-description">
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            دراسة واعتماد المشاريع التنموية ومتابعة تنفيذها وتقييم نتائجها.
+                        {% else %}
+                            Studying and approving development projects, following up on their implementation, and evaluating their results.
+                        {% endif %}
+                    </p>
+                    <div class="committee-members">
+                        6 {% if LANGUAGE_CODE == 'ar' %}أعضاء{% else %}Members{% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="trustees-cta">
+        <div class="container">
+            <div class="cta-content fade-in-up">
+                <h2 class="cta-title">
+                    {% if LANGUAGE_CODE == 'ar' %}
+                        انضم إلينا في رحلة العطاء
+                    {% else %}
+                        Join Us in the Journey of Giving
+                    {% endif %}
+                </h2>
+                <p class="cta-description">
+                    {% if LANGUAGE_CODE == 'ar' %}
+                        مجلس أمنائنا يفتح أبوابه للخبرات المتميزة والرؤى المستنيرة. 
+                        إذا كنت تمتلك الخبرة والرغبة في إحداث فرق، فقد تكون الشخص المناسب للانضمام إلينا.
+                    {% else %}
+                        Our Board of Trustees opens its doors to exceptional expertise and enlightened visions. 
+                        If you have the experience and desire to make a difference, you might be the right person to join us.
+                    {% endif %}
+                </p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn-primary">
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            تواصل معنا
+                        {% else %}
+                            Contact Us
+                        {% endif %}
+                    </a>
+                    <a href="{% url 'home:about' %}" class="btn-secondary">
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            تعرف على المؤسسة
+                        {% else %}
+                            Learn About the Institution
+                        {% endif %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // فلترة الأعضاء
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const memberCards = document.querySelectorAll('.member-card');
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // إزالة النشاط من جميع الأزرار
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            // إضافة النشاط للزر المحدد
+            this.classList.add('active');
+            
+            const filterValue = this.getAttribute('data-filter');
+            
+            memberCards.forEach(card => {
+                if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                    card.style.display = 'block';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
+                } else {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        card.style.display = 'none';
+                    }, 300);
+                }
+            });
+        });
+    });
+    
+    // تأثير التمرير للبطاقات
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animated');
+            }
+        });
+    }, observerOptions);
+    
+    document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+});
+</script>
+{% endblock %}

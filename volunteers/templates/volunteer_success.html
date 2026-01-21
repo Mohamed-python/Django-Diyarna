@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static i18n %}
 {% load static %}
 
 {% block extra_css %}
@@ -111,7 +111,7 @@
                 
                 <!-- أزرار تفاعلية -->
                 <div class="d-flex flex-column flex-md-row justify-content-center gap-3 mt-4">
-                    <a href="{% url 'volunteer_create' %}" class="btn btn-outline-primary btn-lg px-4">
+                    <a href="{% url 'volunteers:volunteer' %}" class="btn btn-outline-primary btn-lg px-4">
                      تسجيل متطوع جديد
                     </a>
                     

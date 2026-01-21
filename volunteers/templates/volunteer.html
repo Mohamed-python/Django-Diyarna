@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load bootstrap5 %}
 
 {% block content %}
 <div class="container my-5">
@@ -6,19 +7,31 @@
         <div class="col-lg-8 col-xl-6">
             <!-- رأس الصفحة -->
             <div class="text-center mb-4">
-                <h1 class="h2 fw-bold text-primary mb-3">نموذج التطوع</h1>
-                <p class="text-muted">سجل معنا كمتطوع وساهم في إحداث تغيير إيجابي في المجتمع</p>
+                <h1 class="h2 fw-bold text-primary mb-3">
+                    {% if LANGUAGE_CODE == 'ar' %}نموذج التطوع{% else %}Volunteer Form{% endif %}
+                </h1>
+                <p class="text-muted">
+                    {% if LANGUAGE_CODE == 'ar' %}
+                        سجل معنا كمتطوع وساهم في إحداث تغيير إيجابي في المجتمع
+                    {% else %}
+                        Sign up as a volunteer and help make a positive impact in the community
+                    {% endif %}
+                </p>
             </div>
 
             <div class="card shadow-lg border-0">
                 <div class="card-body p-4 p-md-5">
                     <form method="post" novalidate id="volunteerForm">
                         {% csrf_token %}
-                        
+
                         <!-- قسم المعلومات الأساسية -->
                         <div class="mb-4">
-                            <h5 class="mb-3 text-primary border-bottom pb-2">المعلومات الشخصية</h5>
-                            
+                            <h5 class="mb-3 text-primary border-bottom pb-2">
+                                {% if LANGUAGE_CODE == 'ar' %}المعلومات الشخصية{% else %}Personal Information{% endif %}
+                            </h5>
+
+
+
                             <!-- الاسم -->
                             <div class="mb-3">
                                 <label for="{{ form.name.id_for_label }}" class="form-label fw-medium">
@@ -26,9 +39,7 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="input-group">
-                                    <span class="input-group-text">
-                                        <i class="fas fa-user"></i>
-                                    </span>
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
                                     {{ form.name }}
                                 </div>
                                 {% if form.name.errors %}
@@ -43,9 +54,7 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="input-group">
-                                    <span class="input-group-text">
-                                        <i class="fas fa-envelope"></i>
-                                    </span>
+                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                     {{ form.email }}
                                 </div>
                                 {% if form.email.errors %}
@@ -60,9 +69,7 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="input-group">
-                                    <span class="input-group-text">
-                                        <i class="fas fa-phone"></i>
-                                    </span>
+                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                     {{ form.phone }}
                                 </div>
                                 {% if form.phone.errors %}
@@ -73,27 +80,23 @@
 
                         <!-- قسم نوع التطوع -->
                         <div class="mb-4">
-                            <h5 class="mb-3 text-primary border-bottom pb-2">تفاصيل التطوع</h5>
-                            
-                            <!-- نوع التطوع - القائمة المنسدلة الأصلية -->
+                            <h5 class="mb-3 text-primary border-bottom pb-2">
+                                {% if LANGUAGE_CODE == 'ar' %}تفاصيل التطوع{% else %}Volunteer Details{% endif %}
+                            </h5>
+
+                            <!-- نوع التطوع -->
                             <div class="mb-3">
                                 <label for="{{ form.volunteer_type.id_for_label }}" class="form-label fw-medium d-block">
                                     {{ form.volunteer_type.label }}
                                     <span class="text-danger">*</span>
                                 </label>
-                                
                                 <div class="input-group">
-                                    <span class="input-group-text">
-                                        <i class="fas fa-handshake"></i>
-                                    </span>
+                                    <span class="input-group-text"><i class="fas fa-handshake"></i></span>
                                     {{ form.volunteer_type }}
                                 </div>
-                                
                                 {% if form.volunteer_type.errors %}
                                     <div class="text-danger small mt-1">{{ form.volunteer_type.errors }}</div>
                                 {% endif %}
-                                
-                                
                             </div>
 
                             <!-- عدد أعضاء المجموعة -->
@@ -103,19 +106,23 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="input-group">
-                                    <span class="input-group-text">
-                                        <i class="fas fa-user-friends"></i>
-                                    </span>
+                                    <span class="input-group-text"><i class="fas fa-user-friends"></i></span>
                                     {{ form.group_size }}
-                                    <span class="input-group-text">أشخاص</span>
+                                    <span class="input-group-text">
+                                        {% if LANGUAGE_CODE == 'ar' %}أشخاص{% else %}people{% endif %}
+                                    </span>
                                 </div>
                                 {% if form.group_size.errors %}
                                     <div class="text-danger small mt-1">{{ form.group_size.errors }}</div>
                                 {% endif %}
-                                
-                                <!-- توضيح نطاق المجموعة -->
                                 <div class="mt-2">
-                                    <small class="text-muted">عدد الأفراد من 2 إلى 50 شخص</small>
+                                    <small class="text-muted">
+                                        {% if LANGUAGE_CODE == 'ar' %}
+                                            عدد الأفراد من 2 إلى 50 شخص
+                                        {% else %}
+                                            Group size from 2 to 50 people
+                                        {% endif %}
+                                    </small>
                                 </div>
                             </div>
                         </div>
@@ -123,7 +130,7 @@
                         <!-- زر التسجيل -->
                         <div class="mt-4 pt-3 border-top">
                             <button type="submit" class="btn btn-primary btn-lg w-100 py-3">
-                                تسجيل التطوع
+                                {% if LANGUAGE_CODE == 'ar' %}تسجيل التطوع{% else %}Submit Volunteer{% endif %}
                                 <i class="fas fa-paper-plane me-2"></i>
                             </button>
                         </div>
@@ -135,12 +142,17 @@
             <div class="mt-4 text-center">
                 <p class="text-muted small">
                     <i class="fas fa-info-circle me-1"></i>
-                    بعد التسجيل، سيتم تحويلك إلى صفحة التأكيد. سنتواصل معك خلال 48 ساعة.
+                    {% if LANGUAGE_CODE == 'ar' %}
+                        بعد التسجيل، سيتم تحويلك إلى صفحة التأكيد. سنتواصل معك خلال 48 ساعة.
+                    {% else %}
+                        After submitting, you will be redirected to the confirmation page. We will contact you within 48 hours.
+                    {% endif %}
                 </p>
             </div>
         </div>
     </div>
 </div>
+
 
 <!-- JavaScript بسيط وفعال -->
 <script>

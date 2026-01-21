@@ -44,3 +44,47 @@ from django.contrib import messages
 messages.success(request, 'تم تسجيل التبرع بنجاح ❤️')
 messages.error(request, 'من فضلك اختر وسيلة دفع')
 messages.info(request, 'سيتم تحويلك لبوابة الدفع')
+
+
+
+{% load bootstrap5 %}
+
+
+{% bootstrap_form form %}
+
+
+
+
+
+بعد التعديل علي ملفات الترجمه نفض دا
+django-admin compilemessages
+
+
+
+
+
+<a href="{% url 'accounts:logout' %}" class="btn btn-outline-danger">
+    {% if LANGUAGE_CODE == 'ar' %}تسجيل الخروج{% else %}Logout{% endif %}
+</a>
+
+
+
+
+
+التحقق من تسجيل الدخول
+{% if user.is_authenticated %}
+<li class="nav-item">
+    <button class="btn btn-danger btn-sm ms-lg-2 logout-btnnnn"
+            data-logout-url="{% url 'accounts:logout' %}">
+    {% if LANGUAGE_CODE == 'ar' %}تسجيل الخروج{% else %}Logout{% endif %}
+    </button>
+</li>
+
+
+{% else %}
+<li class="nav-item">
+    <a class="btn btn-outline-light btn-sm ms-lg-2" href="{% url 'accounts:login' %}">
+    {% if LANGUAGE_CODE == 'ar' %}تسجيل الدخول{% else %}Login{% endif %}
+    </a>
+</li>
+{% endif %}
