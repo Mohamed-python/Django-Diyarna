@@ -35,6 +35,14 @@ class News(models.Model):
     slug = models.SlugField(blank=True, null=True, allow_unicode=True, verbose_name="الرابط النصي")
     slug_en = models.SlugField(blank=True, null=True, allow_unicode=True, verbose_name="slug_en")
 
+
+
+    class Meta:
+        permissions = [
+            ("can_publish_news", "Can publish news"),
+        ]
+    #####################################################################
+
     def save(self, *args, **kwargs):
         # توليد slug عربي لو مش موجود
         if not self.slug and self.title:

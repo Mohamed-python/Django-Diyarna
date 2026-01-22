@@ -16,6 +16,7 @@ from django.db.models import Sum
 # from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 ##################################################
+from .models import Board
 ##################################################
 
 
@@ -36,9 +37,11 @@ def home(request):
     return render(request, "home/home.html" , {'cases': cases, 'products':products, 'news_list':news_list})
 
 
-
+# مجلس الامناء
 def board(request):
-    return render(request, "board/board.html")
+    board_list = Board.objects.all()
+    
+    return render(request, "board/board.html", context={'board':board_list})
 
 def about(request):
     #about.html

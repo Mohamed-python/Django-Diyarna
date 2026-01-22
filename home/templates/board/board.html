@@ -231,7 +231,7 @@
 }
 
 .member-image {
-    height: 250px;
+    height: 350px;
     width: 100%;
     overflow: hidden;
     position: relative;
@@ -844,181 +844,60 @@
 
             <!-- قائمة الأعضاء -->
             <div class="members-grid">
-                <!-- العضو 1 -->
-                <div class="member-card fade-in-up" style="animation-delay: 0.3s;" data-category="executive">
-                    <div class="member-badge">
-                        {% if LANGUAGE_CODE == 'ar' %}الرئيس{% else %}Chairman{% endif %}
-                    </div>
-                    <div class="member-image">
-                        <img src="{% static 'Board/Cover_photo.jpg' %}" 
-                             alt="{% if LANGUAGE_CODE == 'ar' %}د. أحمد محمد{% else %}Dr. Ahmed Mohamed{% endif %}">
-                    </div>
-                    <div class="member-info">
-                        <h3 class="member-name">
-                            {% if LANGUAGE_CODE == 'ar' %}
-                                د. أحمد محمد
-                            {% else %}
-                                Dr. Ahmed Mohamed
-                            {% endif %}
-                        </h3>
-                        <div class="member-position">
-                            {% if LANGUAGE_CODE == 'ar' %}
-                                رئيس مجلس الإدارة
-                            {% else %}
-                                Board Chairman
-                            {% endif %}
-                        </div>
-                        <p class="member-description">
-                            {% if LANGUAGE_CODE == 'ar' %}
-                                خبير في الإدارة الاستراتيجية مع أكثر من 25 عاماً من الخبرة في القطاع غير الربحي، 
-                                قاد العديد من المبادرات التنموية الناجحة على مستوى الوطن العربي.
-                            {% else %}
-                                Strategic management expert with over 25 years of experience in the non-profit sector, 
-                                leading numerous successful development initiatives across the Arab world.
-                            {% endif %}
-                        </p>
-                        <div class="member-expertise">
-                            <span class="expertise-tag">
-                                {% if LANGUAGE_CODE == 'ar' %}الإدارة الاستراتيجية{% else %}Strategic Management{% endif %}
-                            </span>
-                            <span class="expertise-tag">
-                                {% if LANGUAGE_CODE == 'ar' %}التنمية المستدامة{% else %}Sustainable Development{% endif %}
-                            </span>
-                            <span class="expertise-tag">
-                                {% if LANGUAGE_CODE == 'ar' %}التمويل{% else %}Finance{% endif %}
-                            </span>
-                        </div>
-                        <div class="member-social">
-                            <a href="#" class="social-link">
-                                <i class="fab fa-linkedin-in"></i>
-                            </a>
-                            <a href="#" class="social-link">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                            <a href="#" class="social-link">
-                                <i class="fas fa-envelope"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                 {% if board %}
+                    {% for itme in board %}
+                        <div class="member-card fade-in-up" style="animation-delay: 0.3s;" data-category="executive">
+                            <div class="member-badge">
+                                {{itme.badge}}
+                            </div>
+                            <div class="member-image">
+                                <img src="{{ itme.image.url }}" 
+                                    alt="">
+                            </div>
+                            <div class="member-info">
+                                <h3 class="member-name">
+                                    {{itme.name}}
+                                </h3>
+                                <div class="member-position">
+                                    {{ itme.position }}
+                                </div>
+                                <p class="member-description">
+                                    {{ itme.short_description }}
+                                </p>
+                                <div class="member-expertise">
+                                    {% if itme.list_expertise %}
 
-                <!-- العضو 2 -->
-                <div class="member-card fade-in-up" style="animation-delay: 0.4s;" data-category="independent">
-                    <div class="member-badge">
-                        {% if LANGUAGE_CODE == 'ar' %}نائب الرئيس{% else %}Vice Chairman{% endif %}
-                    </div>
-                    <div class="member-image">
-                        <img src="{% static 'Board/Cover_photo.jpg' %}" 
-                             alt="{% if LANGUAGE_CODE == 'ar' %}أ. سارة عبدالله{% else %}Ms. Sara Abdullah{% endif %}">
-                    </div>
-                    <div class="member-info">
-                        <h3 class="member-name">
-                            {% if LANGUAGE_CODE == 'ar' %}
-                                أ. سارة عبدالله
-                            {% else %}
-                                Ms. Sara Abdullah
-                            {% endif %}
-                        </h3>
-                        <div class="member-position">
-                            {% if LANGUAGE_CODE == 'ar' %}
-                                نائب رئيس مجلس الإدارة
-                            {% else %}
-                                Board Vice Chairman
-                            {% endif %}
-                        </div>
-                        <p class="member-description">
-                            {% if LANGUAGE_CODE == 'ar' %}
-                                محامية دولية متخصصة في قانون المنظمات غير الحكومية، 
-                                تمتلك خبرة واسعة في التشريعات التنظيمية والحوكمة المؤسسية.
-                            {% else %}
-                                International lawyer specializing in NGO law, 
-                                with extensive experience in regulatory legislation and institutional governance.
-                            {% endif %}
-                        </p>
-                        <div class="member-expertise">
-                            <span class="expertise-tag">
-                                {% if LANGUAGE_CODE == 'ar' %}القانون الدولي{% else %}International Law{% endif %}
-                            </span>
-                            <span class="expertise-tag">
-                                {% if LANGUAGE_CODE == 'ar' %}الحوكمة{% else %}Governance{% endif %}
-                            </span>
-                            <span class="expertise-tag">
-                                {% if LANGUAGE_CODE == 'ar' %}الملكية الفكرية{% else %}Intellectual Property{% endif %}
-                            </span>
-                        </div>
-                        <div class="member-social">
-                            <a href="#" class="social-link">
-                                <i class="fab fa-linkedin-in"></i>
-                            </a>
-                            <a href="#" class="social-link">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                            <a href="#" class="social-link">
-                                <i class="fas fa-envelope"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                                        {% for itme_expertise in itme.list_expertise %}
+                                            <span class="expertise-tag">
+                                                {{itme_expertise}}
+                                            </span>
+                                        {% endfor %}
 
-                <!-- العضو 3 -->
-                <div class="member-card fade-in-up" style="animation-delay: 0.5s;" data-category="expert">
-                    <div class="member-badge">
-                        {% if LANGUAGE_CODE == 'ar' %}خبير{% else %}Expert{% endif %}
-                    </div>
-                    <div class="member-image">
-                        <img src="{% static 'Board/Cover_photo.jpg' %}" 
-                             alt="{% if LANGUAGE_CODE == 'ar' %}د. محمد الخولي{% else %}Dr. Mohamed El-Khouly{% endif %}">
-                    </div>
-                    <div class="member-info">
-                        <h3 class="member-name">
-                            {% if LANGUAGE_CODE == 'ar' %}
-                                د. محمد الخولي
-                            {% else %}
-                                Dr. Mohamed El-Khouly
-                            {% endif %}
-                        </h3>
-                        <div class="member-position">
-                            {% if LANGUAGE_CODE == 'ar' %}
-                                خبير التنمية المستدامة
-                            {% else %}
-                                Sustainable Development Expert
-                            {% endif %}
-                        </div>
-                        <p class="member-description">
-                            {% if LANGUAGE_CODE == 'ar' %}
-                                أستاذ في الاقتصاد التنموي، مستشار سابق لعدة منظمات دولية، 
-                                متخصص في تصميم وتقييم برامج التنمية المجتمعية.
-                            {% else %}
-                                Professor of developmental economics, former consultant to several international organizations, 
-                                specializing in designing and evaluating community development programs.
-                            {% endif %}
-                        </p>
-                        <div class="member-expertise">
-                            <span class="expertise-tag">
-                                {% if LANGUAGE_CODE == 'ar' %}الاقتصاد التنموي{% else %}Developmental Economics{% endif %}
-                            </span>
-                            <span class="expertise-tag">
-                                {% if LANGUAGE_CODE == 'ar' %}التقييم{% else %}Evaluation{% endif %}
-                            </span>
-                            <span class="expertise-tag">
-                                {% if LANGUAGE_CODE == 'ar' %}البحث العلمي{% else %}Scientific Research{% endif %}
-                            </span>
-                        </div>
-                        <div class="member-social">
-                            <a href="#" class="social-link">
-                                <i class="fab fa-linkedin-in"></i>
-                            </a>
-                            <a href="#" class="social-link">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                            <a href="#" class="social-link">
-                                <i class="fas fa-envelope"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- يمكنك إضافة المزيد من الأعضاء هنا -->
+                                    {% else %}
+                                        <span class="expertise-tag">
+                                            {{itme.expertise}}
+                                        </span>
+
+                                    {% endif %}
+                                    
+                                </div>
+                                <div class="member-social">
+                                    <a href="{{itme.linkedin}}" class="social-link">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </a>
+                                    <a href="{{itme.x}}" class="social-link">
+                                        <i class="fab fa-x"></i>
+                                    </a>
+                                    <a href="{{itme.facebook}}" class="social-link">
+                                        <i class="fab fa-facebook"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
     </section>
@@ -1253,7 +1132,7 @@
                             Contact Us
                         {% endif %}
                     </a>
-                    <a href="{% url 'home:about' %}" class="btn-secondary">
+                    <a href="{% url 'about' %}" class="btn-secondary">
                         {% if LANGUAGE_CODE == 'ar' %}
                             تعرف على المؤسسة
                         {% else %}

@@ -84,9 +84,9 @@
                     
                     <p class="register-link">
                         {% if LANGUAGE_CODE == 'ar' %}
-                            ليس لديك حساب؟ <a href="#">إنشاء حساب جديد</a>
+                            ليس لديك حساب؟ <a href="{% url 'signup' %}">إنشاء حساب جديد</a>
                         {% else %}
-                            Don't have an account? <a href="#">Create a new account</a>
+                            Don't have an account? <a href="{% url 'signup' %}">Create a new account</a>
                         {% endif %}
                     </p>
                 </form>

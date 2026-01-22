@@ -10,6 +10,9 @@ from user_profile.models import Profile
 from news.models import News
 from products.models import Product
 from donations.models import Case
+from django.contrib.auth.forms import UserCreationForm
+
+
 
 @login_required
 def dashboard(request):
@@ -36,6 +39,46 @@ def dashboard(request):
     return render(request, 'dashboard/dashboard.html', context)
 
 
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            username = user.username
+
+            # نضيف الاسم مباشرة
+            user.first_name = request.POST.get('first_name', '')
+            user.last_name = request.POST.get('last_name', '')
+            user.email = request.POST.get('email', '')
+            user.save() # انشاء اليوزر
+            login(request, user)
+            ##########################################
+            # مثال: إضافة User لمجموعة
+            # from django.contrib.auth.models import Group
+            # group = Group.objects.get(name='Members')  # تأكد إن المجموعة موجودة
+            # user.groups.add(group)
+
+
+            # -------------- إضافة صلاحية النشر -------------
+            # from django.contrib.auth.models import Permission
+            # perm = Permission.objects.get(codename='can_publish_news')
+            # user.user_permissions.add(perm)
+            # ----------------------------------------------
+
+
+            
+            # مثال: لو حابب تستخدمهم في Profile لاحقًا
+            profile = user.profile  # موجود من signal
+            profile.bio = f"Welcome {username}!"
+            profile.save()
+
+            
+            return redirect('dashboard')
+    else:
+        form = UserCreationForm()
+
+
+    return render(request, 'registration/signup.html', {'form': form})
 
 
 def login_view(request):
@@ -48,7 +91,6 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user:
             login(request, user)
-            print()
 
             # تأكيد تسجيل الدخول
             if request.user.is_authenticated:
@@ -56,7 +98,7 @@ def login_view(request):
             else:
                 messages.error(request, "حدث خطأ، لم يتم تسجيل الدخول")
 
-            return redirect('accounts:dashboard')
+            return redirect('dashboard')
         else:
             messages.error(request, "بيانات الدخول غير صحيحة")
 
@@ -66,4 +108,4 @@ def login_view(request):
 
 def logout_get(request):
     logout(request)
-    return redirect('accounts:login')  # أو أي صفحة تحبها
+    return redirect('login')  # أو أي صفحة تحبها

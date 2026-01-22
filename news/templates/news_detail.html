@@ -22,14 +22,7 @@
 
                 <div class="card-body">
                     <!-- تاريخ النشر والكاتب -->
-                    <p class="text-muted mb-4">
-                        {{ news.published_at|date:"d M Y" }} | 
-                        {% if LANGUAGE_CODE == 'ar' %}
-                            بواسطة: {{ news.author.username }}
-                        {% else %}
-                            By: {{ news.author.username }}
-                        {% endif %}
-                    </p>
+                    
 
                     <!-- المحتوى -->
                     <div class="card-text" style="line-height: 1.8;">

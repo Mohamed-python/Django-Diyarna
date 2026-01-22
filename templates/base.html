@@ -185,15 +185,16 @@
           mb-2 mb-lg-0">
 
         <li class="nav-item">
-          <a class="nav-link active" href="{% url 'home:home' %}">
+          <a class="nav-link active" href="{% url 'home' %}">
             {% if LANGUAGE_CODE == 'ar' %}الرئيسية{% else %}Home{% endif %}
           </a>
         </li>
 
 
         <li class="nav-item">
-          <a class="nav-link active" href="{% url 'home:test' %}">TEST</a>
+          <a class="nav-link active" href="{% url 'test' %}">TEST</a>
         </li>
+
 
         <li class="nav-item">
           <a class="nav-link active" href="/volunteer">
@@ -208,10 +209,17 @@
           </a>
           <ul class="dropdown-menu {% if LANGUAGE_CODE == 'ar' %}text-end{% endif %}">
             <li>
-              <a class="dropdown-item" href="{% url 'home:about' %}">
+              <a class="dropdown-item" href="{% url 'about' %}">
                 {% if LANGUAGE_CODE == 'ar' %}عن ديارنا{% else %}About Diyarna{% endif %}
-              </a>
+              </a>       
             </li>
+
+            <li>
+              <a class="dropdown-item" href="{% url 'board' %}">
+                  {% if LANGUAGE_CODE == 'ar' %}مجلس الأمناء{% else %}Board of Trustees{% endif %}
+              </a>
+          </li>
+          
           </ul>
         </li>
 
@@ -254,7 +262,7 @@
         <!-- لوحة التحكم (للمسجل فقط) -->
         {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link active" href="{% url 'accounts:dashboard' %}">
+          <a class="nav-link active" href="{% url 'dashboard' %}">
             {% if LANGUAGE_CODE == 'ar' %}لوحة التحكم{% else %}Dashboard{% endif %}
           </a>
         </li>
@@ -264,7 +272,7 @@
         {% if user.is_authenticated %}
         <li class="nav-item">
           <button class="btn btn-danger btn-sm ms-lg-2 logout-btnnnn"
-                  data-logout-url="{% url 'accounts:logout' %}">
+                  data-logout-url="{% url 'logout' %}">
             {% if LANGUAGE_CODE == 'ar' %}تسجيل الخروج{% else %}Logout{% endif %}
           </button>
         </li>
@@ -272,7 +280,7 @@
 
         {% else %}
         <li class="nav-item">
-          <a class="btn btn-outline-light btn-sm ms-lg-2" href="{% url 'accounts:login' %}">
+          <a class="btn btn-outline-light btn-sm ms-lg-2" href="{% url 'login' %}">
             {% if LANGUAGE_CODE == 'ar' %}تسجيل الدخول{% else %}Login{% endif %}
           </a>
         </li>

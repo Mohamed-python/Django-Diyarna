@@ -6,3 +6,5 @@ from .models import Product, ProductOrder
 admin.site.register(Product)
 admin.site.register(ProductOrder)
 
+
+

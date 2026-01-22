@@ -2,7 +2,7 @@ from django.urls import path, include
 from . import views
 from donations.views import donations_list
 
-app_name = 'home'  # مهم جدًا
+# app_name = 'home'  # مهم جدًا
 
 
 

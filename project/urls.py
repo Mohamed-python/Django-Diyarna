@@ -19,7 +19,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.i18n import i18n_patterns
-
+from accounts.views import dashboard, logout_get, signup
+from django.contrib.auth import views as auth_views
 
 
 
@@ -36,9 +37,14 @@ urlpatterns += i18n_patterns(
     path('volunteer/', include('volunteers.urls')),
     path('admin/', admin.site.urls),
     path('profile/', include('user_profile.urls')),  # /profile/
-    
 
+    ###############################################
+    path('signup/',signup ,name='signup'),
 
+    path('login/', auth_views.LoginView.as_view(), name='login'),
+    path('logout/', logout_get, name='logout'),
+
+    path('dashboard/', dashboard, name='dashboard'),
 )
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
