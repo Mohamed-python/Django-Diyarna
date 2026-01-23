@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+
+<iframe
+    src="{{ session_id }}"
+    width="100%"
+    height="700"
+    frameborder="0"
+    style="border:none;"
+    allowpaymentrequest
+></iframe>
+
+<script>
+// 👇 دالة لجلب CSRF token
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        document.cookie.split(';').forEach(cookie => {
+            cookie = cookie.trim();
+            if (cookie.startsWith(name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            }
+        });
+    }
+    return cookieValue;
+}
+
+const csrftoken = getCookie('csrftoken');
+
+// 👇 URL view order_completed
+const ORDER_COMPLETED_URL = "{% url 'order_completed' %}";
+
+// 👇 listener للـ iframe من Kashier
+window.addEventListener("message", function(event) {
+    if (!event.origin.includes("kashier.io")) return;
+
+    const response = event.data;
+    console.log("Kashier Response:", response);
+
+    const isSuccess =
+        response?.message === "success" ||
+        response?.response?.result === "SUCCESS" ||
+        response?.response?.status === "CAPTURED";
+
+    if (!isSuccess) {
+        alert("❌ فشل الدفع");
+        return;
+    }
+
+    // 🔹 جلب cart من localStorage
+    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+    // 🔹 ارسال POST لview order_completed
+    fetch(ORDER_COMPLETED_URL, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": csrftoken
+        },
+        body: JSON.stringify({cart})
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log("Order Completed Response:", data);
+
+        if (data.status === "success") {
+            localStorage.removeItem('cart');
+            window.location.href = data.redirect_url;
+        } else {
+            alert("حدث خطأ أثناء معالجة الطلب");
+        }
+    })
+    .catch(err => console.error("Error completing order:", err));
+}, false);
+</script>
+
+{% endblock %}

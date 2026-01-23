@@ -259,7 +259,7 @@
                         We work to build individuals, develop their ideas, and achieve sustainable development. We are an Egyptian non-profit organization, officially established in 2021, striving to create positive change in society.
                     {% endif %}
                 </p>
-                <a href="#" class="btn btn-primary-custom">
+                <a href="{% url 'contact' %}" class="btn btn-primary-custom">
                     {% if LANGUAGE_CODE == 'ar' %}تواصل معنا{% else %}Contact Us{% endif %}
                 </a>
             </div>
@@ -505,7 +505,7 @@
                     The Board of Trustees consists of a distinguished group of experts who lead the foundation's work and shape its future strategies
                 {% endif %}
             </p>
-            <a href="#" class="btn btn-outline-custom px-5">
+            <a href="{% url 'board' %}" class="btn btn-outline-custom px-5">
                 {% if LANGUAGE_CODE == 'ar' %}عرض مجلس الأمناء{% else %}View Board of Trustees{% endif %}
             </a>
         </div>
@@ -534,7 +534,7 @@
             {% endfor %}
         </div>
         <div class="text-center mt-5">
-            <a href="#" class="btn btn-primary-custom">
+            <a href="{% url 'contact' %}" class="btn btn-primary-custom">
                 {% if LANGUAGE_CODE == 'ar' %}كن شريكاً معنا{% else %}Become a Partner{% endif %}
             </a>
         </div>

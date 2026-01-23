@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // if(cartTotal) cartTotal.textContent = totalPrice + ' جنيه';
+        if(cartTotal) cartTotal.textContent = totalPrice + ' جنيه';
         if(cartCount) cartCount.textContent = totalPrice;
 
         // حفظ السلة في localStorage

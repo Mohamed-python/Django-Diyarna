@@ -48,7 +48,7 @@
             <small class="text-muted">{{ c.progress_percent|floatformat:0 }}% مكتمل</small>
           </div>
 
-          <a href="{% url 'donations:donate' c.id %}" class="btn w-100 donate-btn btn-btnnn">
+          <a href="{% url 'donate' c.id %}" class="btn w-100 donate-btn btn-btnnn">
             تبرع الآن
           </a>
         </div>

@@ -138,7 +138,7 @@
                     <a href="{% url 'home' %}" class="btn btn-outline-primary btn-lg px-4">
                         {% if LANGUAGE_CODE == 'ar' %} العودة للرئيسية {% else %} Back to Home {% endif %}
                     </a>
-                    <a href="{% url 'volunteers:volunteer' %}" class="btn btn-success btn-lg px-4">
+                    <a href="{% url 'volunteer' %}" class="btn btn-success btn-lg px-4">
                         {% if LANGUAGE_CODE == 'ar' %} التسجيل كمتطوع {% else %} Register as Volunteer {% endif %}
                     </a>
                 </div>
@@ -217,12 +217,10 @@
         createConfetti();
         
         // تشغيل صوت نجاح خفيف (اختياري)
-        const audio = new Audio('data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEAQB8AAEAfAAABAAgAZGF0YQ');
+        const audio = new Audio("{% static 'sounds/success.mp3' %}");
         audio.volume = 0.3;
-        audio.play().catch(e => console.log("Audio play failed (optional)"));
+        audio.play().catch(e => console.log());
         
-        // رسالة ترحيب في الكونسول
-        console.log("%c🎉 تهانينا! لقد أصبحت جزءًا من فريق التطوع 🎉", "color: #28a745; font-size: 16px; font-weight: bold;");
     });
 </script>
 {% endblock %}

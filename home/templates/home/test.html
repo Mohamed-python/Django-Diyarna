@@ -6,6 +6,98 @@
 
 
 
+<iframe
+    src="https://payments.kashier.io/session/6972a5c2e4f1820012bd6c28?mode=test"
+    width="100%"
+    height="700"
+    frameborder="0"
+    style="border:none;"
+    allowpaymentrequest
+></iframe>
+
+
+
+
+
+
+
+
+
+
+<script>
+
+function listenToKashierPayment(onResult) {
+    window.addEventListener("message", function (event) {
+        if (!event.origin.includes("kashier.io")) {
+            return;
+        }
+        const data = event.data;
+        console.log("Kashier Response:", data);
+
+    
+        if (typeof onResult === "function") {
+            onResult(data);
+        }
+    }, false);
+}
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+const var_csrftoken = getCookie('csrftoken');
+
+
+
+const KASHIER_WEBHOOK_URL = "{% url 'kashier_webhook' %}";
+listenToKashierPayment(function(response) {
+    let payload = {
+        event: response.message === "success" ? "PAYMENT_SUCCESS" : "PAYMENT_FAILED",
+        data: response.params
+    };
+
+    fetch(KASHIER_WEBHOOK_URL, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": var_csrftoken
+        },
+        body: JSON.stringify(payload)
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log("Webhook Response from Django:", data);
+        if (payload.event === "PAYMENT_SUCCESS") {
+            console.log('Done PAYMENT_SUCCESS')
+            // Done
+            // window.location.href = "{% url 'donations_success' %}";
+            // order_completed()
+
+        } else {
+            alert("فشل الدفع ❌");
+        }
+    })
+    .catch(err => {
+        console.error("Error sending Webhook:", err);
+    });
+});
+</script>
+
+
+
+
+
 
 
 

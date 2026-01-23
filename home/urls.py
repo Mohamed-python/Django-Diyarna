@@ -8,10 +8,13 @@ from donations.views import donations_list
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('test/', views.test, name='test'),
+
     path('checkout/', include('donations.urls')), # الدفع
     path('donations/', donations_list, name='donations'),
     # path('<int:id>', views.news_detail),
     path('about/', views.about, name='about'),
     path('board/', views.board, name='board'),
-    path('test/', views.test, name='test'),
+    path('contact/', views.contact, name='contact'),
+    path('contact/success/', views.contact_success, name='contact_success'),
 ]

@@ -4,7 +4,6 @@
 
 {% block extra_css %}
 <style>
-/* متغيرات الألوان الرئيسية */
 :root {
     --primary-color: #02c3eb;
     --primary-dark: #02a8cc;
@@ -25,7 +24,6 @@
     --transition: all 0.3s ease;
 }
 
-/* إعادة تعيين CSS للغة العربية */
 [dir="rtl"] {
     text-align: right;
     direction: rtl;
@@ -36,14 +34,14 @@
     direction: ltr;
 }
 
-/* تصميم رئيسي للداشبورد */
+
 .dashboard-wrapper {
     min-height: 100vh;
     background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 100%);
     padding: 20px;
 }
 
-/* شريط الترحيب */
+
 .dashboard-header {
     background: var(--primary-gradient);
     border-radius: var(--radius-lg);
@@ -673,7 +671,6 @@
     font-family: inherit;
 }
 
-/* إصلاح مشكلة هوامش البوتستراب */
 [dir="rtl"] .row {
     margin-right: 0 !important;
     margin-left: 0 !important;
@@ -681,6 +678,13 @@
 
 [dir="rtl"] .g-4 {
     gap: 1.5rem !important;
+}
+
+
+
+h1.welcome-title {
+    text-align: center;
+    margin-left: 10px;
 }
 </style>
 {% endblock %}
@@ -698,19 +702,9 @@
                 </div>
                 <div>
                     <h1 class="welcome-title">
-                        {% if LANGUAGE_CODE == 'ar' %}
-                            مرحباً بعودتك، {{ request.user.username }}
-                        {% else %}
-                            Welcome back, {{ request.user.username }}
-                        {% endif %}
+                        Welcome back, {{ request.user.username }}
                     </h1>
-                    <p class="welcome-subtitle">
-                        {% if LANGUAGE_CODE == 'ar' %}
-                            إحصائيات وأداء النظام الشامل
-                        {% else %}
-                            Comprehensive system statistics and performance
-                        {% endif %}
-                    </p>
+                    
                 </div>
             </div>
             <div class="date-display">

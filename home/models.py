@@ -40,3 +40,18 @@ class Board(models.Model):
 
 
 
+
+
+class Contact(models.Model):
+    name = models.CharField(max_length=100, verbose_name="Name")
+    email = models.EmailField(verbose_name="Email")
+    subject = models.CharField(max_length=150, blank=True, verbose_name="Subject")
+    message = models.TextField(verbose_name="Message")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+
+
+

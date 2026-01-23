@@ -1,0 +1,1361 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+/* متغيرات الألوان الرئيسية */
+:root {
+    --primary-color: #02c3eb;
+    --primary-dark: #02a8cc;
+    --primary-light: rgba(2, 195, 235, 0.1);
+    --primary-gradient: linear-gradient(135deg, #02c3eb, #02a8cc);
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --light-bg: #f8f9fa;
+    --white: #ffffff;
+    --shadow: 0 8px 25px rgba(2, 195, 235, 0.1);
+    --shadow-lg: 0 15px 35px rgba(2, 195, 235, 0.15);
+    --radius-lg: 20px;
+    --radius-md: 12px;
+    --radius-sm: 8px;
+    --transition: all 0.3s ease;
+}
+
+[dir="rtl"] {
+    text-align: right;
+    direction: rtl;
+    /* font-family: 'Cairo', sans-serif !important; */
+}
+
+[dir="ltr"] {
+    text-align: left;
+    direction: ltr;
+}
+
+[dir="rtl"] .form-control,
+[dir="rtl"] .form-select,
+[dir="rtl"] textarea {
+    text-align: right;
+    direction: rtl;
+}
+
+[dir="ltr"] .form-control,
+[dir="ltr"] .form-select,
+[dir="ltr"] textarea {
+    text-align: left;
+    direction: ltr;
+}
+
+[dir="rtl"] .form-control::placeholder,
+[dir="rtl"] textarea::placeholder {
+    text-align: right;
+}
+
+[dir="ltr"] .form-control::placeholder,
+[dir="ltr"] textarea::placeholder {
+    text-align: left;
+}
+
+/* الهيرو */
+.contact-hero {
+    background: var(--primary-gradient);
+    color: white;
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 60px;
+}
+
+.contact-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    font-family: 'Cairo', sans-serif !important;
+}
+
+.hero-subtitle {
+    font-size: 1.3rem;
+    opacity: 0.9;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+/* محتوى الصفحة */
+.contact-content {
+    padding: 40px 0;
+}
+
+.contact-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* معلومات الاتصال */
+.contact-info-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 40px;
+    box-shadow: var(--shadow);
+    height: fit-content;
+}
+
+.info-header {
+    margin-bottom: 40px;
+}
+
+.info-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.info-description {
+    color: var(--secondary-color);
+    line-height: 1.6;
+}
+
+/* بطاقات المعلومات */
+.info-card {
+    background: var(--light-bg);
+    border-radius: var(--radius-md);
+    padding: 25px;
+    margin-bottom: 20px;
+    transition: var(--transition);
+    border-left: 4px solid transparent;
+}
+
+.info-card:hover {
+    transform: translateX(5px);
+    border-left-color: var(--primary-color);
+}
+
+[dir="rtl"] .info-card:hover {
+    transform: translateX(-5px);
+    border-left-color: transparent;
+    border-right-color: var(--primary-color);
+}
+
+.info-card-icon {
+    width: 50px;
+    height: 50px;
+    background: var(--primary-light);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    font-size: 24px;
+}
+
+.info-card-title {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.info-card-text {
+    color: var(--secondary-color);
+    line-height: 1.5;
+}
+
+.info-card-text a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.info-card-text a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* وسائل التواصل الاجتماعي */
+.social-section {
+    margin-top: 40px;
+}
+
+.social-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.social-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+}
+
+.social-btn {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--light-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 20px;
+    transition: var(--transition);
+    border: 2px solid transparent;
+}
+
+.social-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+}
+
+.social-btn.facebook:hover {
+    background: #1877f2;
+    border-color: #1877f2;
+}
+
+.social-btn.twitter:hover {
+    background: #1da1f2;
+    border-color: #1da1f2;
+}
+
+.social-btn.instagram:hover {
+    background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
+    border-color: transparent;
+}
+
+.social-btn.linkedin:hover {
+    background: #0077b5;
+    border-color: #0077b5;
+}
+
+.social-btn.youtube:hover {
+    background: #ff0000;
+    border-color: #ff0000;
+}
+
+/* نموذج الاتصال */
+.contact-form-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 40px;
+    box-shadow: var(--shadow);
+}
+
+.form-header {
+    margin-bottom: 40px;
+}
+
+.form-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.form-subtitle {
+    color: var(--secondary-color);
+    line-height: 1.6;
+}
+
+/* رسائل النموذج */
+.alert-messages {
+    margin-bottom: 30px;
+}
+
+.alert {
+    padding: 15px 20px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 15px;
+    border: 1px solid transparent;
+}
+
+.alert-success {
+    background-color: #d1fae5;
+    border-color: #a7f3d0;
+    color: #065f46;
+}
+
+.alert-danger {
+    background-color: #fef2f2;
+    border-color: #fecaca;
+    color: #dc2626;
+}
+
+.alert-warning {
+    background-color: #fffbeb;
+    border-color: #fde68a;
+    color: #92400e;
+}
+
+.alert-info {
+    background-color: #e0f2fe;
+    border-color: #bae6fd;
+    color: #0369a1;
+}
+
+/* حقول النموذج */
+.form-floating-custom {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.form-control-custom {
+    width: 100%;
+    padding: 18px 20px;
+    border: 2px solid #e2e8f0;
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    transition: var(--transition);
+    background: var(--light-bg);
+    color: #333;
+}
+
+.form-control-custom:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background: white;
+    box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.form-label-custom {
+    position: absolute;
+    top: -10px;
+    {% if LANGUAGE_CODE == 'ar' %}
+    right: 15px;
+    {% else %}
+    left: 15px;
+    {% endif %}
+    background: white;
+    padding: 0 10px;
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: var(--transition);
+    pointer-events: none;
+}
+
+.form-control-custom:placeholder-shown + .form-label-custom {
+    top: 18px;
+    font-size: 1rem;
+    color: #94a3b8;
+    background: transparent;
+}
+
+.form-control-custom:focus + .form-label-custom {
+    top: -10px;
+    font-size: 0.9rem;
+    color: var(--primary-color);
+    background: white;
+}
+
+textarea.form-control-custom {
+    min-height: 150px;
+    resize: vertical;
+}
+
+/* زر الإرسال */
+.submit-btn {
+    width: 100%;
+    padding: 18px;
+    background: var(--primary-gradient);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(2, 195, 235, 0.3);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+.submit-btn i {
+    font-size: 20px;
+}
+
+.submit-btn.loading i {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* الخريطة التفاعلية */
+.map-section {
+    margin-top: 80px;
+    padding: 40px 0;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 40px;
+    position: relative;
+    padding-bottom: 20px;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--primary-gradient);
+    border-radius: 2px;
+}
+
+[dir="rtl"] .section-title::after {
+    left: auto;
+    right: 50%;
+    transform: translateX(50%);
+}
+
+.map-container {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    height: 500px;
+    position: relative;
+}
+
+#contact-map {
+    width: 100%;
+    height: 100%;
+}
+
+.map-overlay {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: white;
+    padding: 20px;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow);
+    max-width: 300px;
+    z-index: 1000;
+}
+
+[dir="rtl"] .map-overlay {
+    left: auto;
+    right: 20px;
+}
+
+.map-info {
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.map-info h4 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.map-info p {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.map-info i {
+    color: var(--primary-color);
+    width: 20px;
+}
+
+/* إحصائيات سريعة */
+.quick-stats {
+    margin-top: 60px;
+    padding: 40px 0;
+    background: var(--light-bg);
+    border-radius: var(--radius-lg);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.stat-box {
+    text-align: center;
+    padding: 30px;
+    background: var(--white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.stat-box:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--primary-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    color: var(--primary-color);
+    font-size: 24px;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.stat-label {
+    color: var(--secondary-color);
+    font-size: 1rem;
+}
+
+/* فريق الدعم */
+.support-team {
+    margin-top: 80px;
+    padding: 40px 0;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.team-member {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 30px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.team-member:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+}
+
+.member-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    background: var(--primary-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.member-name {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.member-role {
+    color: var(--primary-color);
+    font-weight: 500;
+    margin-bottom: 15px;
+    font-size: 1rem;
+}
+
+.member-contact {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+}
+
+.member-contact a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.member-contact a:hover {
+    text-decoration: underline;
+}
+
+/* CTA */
+.contact-cta {
+    margin-top: 80px;
+    padding: 80px 0;
+    background: var(--primary-gradient);
+    color: white;
+    text-align: center;
+    border-radius: var(--radius-lg);
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+.cta-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.cta-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.cta-description {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.cta-btn {
+    background: white;
+    color: var(--primary-color);
+    padding: 15px 40px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: var(--transition);
+    border: 2px solid transparent;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cta-btn:hover {
+    background: transparent;
+    color: white;
+    border-color: white;
+    transform: translateY(-3px);
+}
+
+.cta-btn.secondary {
+    background: transparent;
+    color: white;
+    border-color: white;
+}
+
+.cta-btn.secondary:hover {
+    background: white;
+    color: var(--primary-color);
+}
+
+/* تصميم متجاوب */
+@media (max-width: 992px) {
+    .contact-wrapper {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .hero-title {
+        font-size: 2.8rem;
+    }
+    
+    .social-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .contact-info-card,
+    .contact-form-card {
+        padding: 30px;
+    }
+    
+    .info-title,
+    .form-title {
+        font-size: 1.8rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .map-overlay {
+        position: relative;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: 20px;
+        max-width: none;
+    }
+    
+    .cta-title {
+        font-size: 2rem;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .cta-btn {
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .contact-hero {
+        padding: 60px 0;
+    }
+    
+    .hero-title {
+        font-size: 1.8rem;
+    }
+    
+    .contact-info-card,
+    .contact-form-card {
+        padding: 20px;
+    }
+    
+    .social-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .team-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* أنيميشن */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s ease forwards;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="contact-page" dir="{% if LANGUAGE_CODE == 'ar' %}rtl{% else %}ltr{% endif %}">
+    
+    <section class="contact-hero">
+        <div class="hero-content fade-in-up">
+            <h1 class="hero-title">
+                {% if LANGUAGE_CODE == 'ar' %}
+                    تواصل معنا
+                {% else %}
+                    Get in Touch
+                {% endif %}
+            </h1>
+            <p class="hero-subtitle">
+                {% if LANGUAGE_CODE == 'ar' %}
+                    نحن هنا للإجابة على جميع استفساراتك ومساعدتك في أي وقت. تواصل معنا عبر أي من الطرق التالية.
+                {% else %}
+                    We're here to answer all your questions and assist you anytime. Contact us through any of the following methods.
+                {% endif %}
+            </p>
+        </div>
+    </section>
+
+    <div class="contact-content">
+        <div class="contact-wrapper">
+            
+            <div class="contact-info-card fade-in-up" style="animation-delay: 0.2s;">
+                <div class="info-header">
+                    <h2 class="info-title">
+                        <i class="fas fa-info-circle"></i>
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            معلومات التواصل
+                        {% else %}
+                            Contact Info
+                        {% endif %}
+                    </h2>
+                    <p class="info-description">
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            تواصل معنا عبر أي من الطرق التالية، وسنرد عليك في أسرع وقت ممكن.
+                        {% else %}
+                            Contact us through any of the following methods, and we'll get back to you as soon as possible.
+                        {% endif %}
+                    </p>
+                </div>
+
+                <!-- العنوان -->
+                <div class="info-card">
+                    <div class="info-card-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3 class="info-card-title">
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            عنوان المؤسسة
+                        {% else %}
+                            Foundation Address
+                        {% endif %}
+                    </h3>
+                    <p class="info-card-text">
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            7أ شارع روضة الاهرام - الدور الاول - الرماية - الهرم - مصر
+                        {% else %}
+                            7A Rawdat Al-Ahram Street - First Floor - Al-Remaya - Al-Haram - Egypt                            
+                        {% endif %}
+                    </p>
+                </div>
+
+                <!-- الهاتف -->
+                <div class="info-card">
+                    <div class="info-card-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h3 class="info-card-title">
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            أرقام الهاتف
+                        {% else %}
+                            Phone Numbers
+                        {% endif %}
+                    </h3>
+                    <p class="info-card-text">
+                        <a href="tel:+0233771578">0233771578</a><br>
+                        <a href="tel:+01026855550">01026855550</a>
+                    </p>
+                </div>
+
+                <!-- البريد الإلكتروني -->
+                <div class="info-card">
+                    <div class="info-card-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3 class="info-card-title">
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            البريد الإلكتروني
+                        {% else %}
+                            Email Address
+                        {% endif %}
+                    </h3>
+                    <p class="info-card-text">
+                        <a href="mailto:info@diornaw.org">info@Diyarna.org</a><br>
+                        <a href="mailto:support@diornaw.org">support@Diyarna.org</a>
+                    </p>
+                </div>
+
+                <!-- ساعات العمل -->
+                <div class="info-card">
+                    <div class="info-card-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="info-card-title">
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            ساعات العمل
+                        {% else %}
+                            Working Hours
+                        {% endif %}
+                    </h3>
+                    <p class="info-card-text">
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            الأحد - الخميس: 9 ص - 5 م<br>
+                            الجمعة والسبت: مغلق
+                        {% else %}
+                            Sunday - Thursday: 9 AM - 5 PM<br>
+                            Friday & Saturday: Closed
+                        {% endif %}
+                    </p>
+                </div>
+
+                <!-- وسائل التواصل الاجتماعي -->
+                <div class="social-section">
+                    <h3 class="social-title">
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            تابعنا على
+                        {% else %}
+                            Follow Us
+                        {% endif %}
+                    </h3>
+                    <div class="social-grid">
+                        <a href="#" class="social-btn facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-btn twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-btn instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-btn linkedin">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="social-btn youtube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form-card fade-in-up" style="animation-delay: 0.4s;">
+                <div class="form-header">
+                    <h2 class="form-title">
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            أرسل لنا رسالة
+                        {% else %}
+                            Send Us a Message
+                        {% endif %}
+                    </h2>
+                    <p class="form-subtitle">
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            املأ النموذج التالي وسنقوم بالرد عليك خلال 24 ساعة.
+                        {% else %}
+                            Fill out the form below and we'll respond within 24 hours.
+                        {% endif %}
+                    </p>
+                </div>
+
+                <!-- رسائل التنبيه -->
+                {% if messages %}
+                <div class="alert-messages">
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <!-- النموذج -->
+                <form method="post" class="contact-form">
+                    {% csrf_token %}
+
+                    <!-- الاسم -->
+                    <div class="form-floating-custom">
+                        <input type="text" 
+                               name="name" 
+                               id="id_name" 
+                               class="form-control-custom"
+                               placeholder="{% if LANGUAGE_CODE == 'ar' %}الاسم الكامل{% else %}Full Name{% endif %}"
+                               required>
+                        <label for="id_name" class="form-label-custom">
+                        </label>
+                    </div>
+
+                    <!-- البريد الإلكتروني -->
+                    <div class="form-floating-custom">
+                        <input type="email" 
+                               name="email" 
+                               id="id_email" 
+                               class="form-control-custom"
+                               placeholder="{% if LANGUAGE_CODE == 'ar' %}البريد الإلكتروني{% else %}Email Address{% endif %}"
+                               required>
+                        <label for="id_email" class="form-label-custom">
+                        </label>
+                    </div>
+
+                    <!-- الموضوع -->
+                    <div class="form-floating-custom">
+                        <input type="text" 
+                               name="subject" 
+                               id="id_subject" 
+                               class="form-control-custom"
+                               placeholder="{% if LANGUAGE_CODE == 'ar' %}موضوع الرسالة{% else %}Message Subject{% endif %}"
+                               required>
+                        <label for="id_subject" class="form-label-custom">
+                        </label>
+                    </div>
+
+                    <!-- الرسالة -->
+                    <div class="form-floating-custom">
+                        <textarea name="message" 
+                                  id="id_message" 
+                                  class="form-control-custom"
+                                  placeholder="{% if LANGUAGE_CODE == 'ar' %}اكتب رسالتك هنا...{% else %}Type your message here...{% endif %}"
+                                  rows="6"
+                                  required></textarea>
+                        <label for="id_message" class="form-label-custom">
+                        </label>
+                    </div>
+
+                    <!-- نوع الاستفسار -->
+                    <div class="form-floating-custom">
+                        <select name="inquiry_type" id="id_inquiry_type" class="form-control-custom">
+                            <option value="" selected disabled>
+                                {% if LANGUAGE_CODE == 'ar' %}اختر نوع الاستفسار{% else %}Select Inquiry Type{% endif %}
+                            </option>
+                            <option value="general">
+                                {% if LANGUAGE_CODE == 'ar' %}استفسار عام{% else %}General Inquiry{% endif %}
+                            </option>
+                            <option value="donation">
+                                {% if LANGUAGE_CODE == 'ar' %}استفسار عن التبرعات{% else %}Donation Inquiry{% endif %}
+                            </option>
+                            <option value="volunteer">
+                                {% if LANGUAGE_CODE == 'ar' %}استفسار عن التطوع{% else %}Volunteer Inquiry{% endif %}
+                            </option>
+                            <option value="partnership">
+                                {% if LANGUAGE_CODE == 'ar' %}استفسار عن الشراكة{% else %}Partnership Inquiry{% endif %}
+                            </option>
+                            <option value="support">
+                                {% if LANGUAGE_CODE == 'ar' %}طلب دعم{% else %}Support Request{% endif %}
+                            </option>
+                            <option value="other">
+                                {% if LANGUAGE_CODE == 'ar' %}أخرى{% else %}Other{% endif %}
+                            </option>
+                        </select>
+                        <label for="id_inquiry_type" class="form-label-custom">
+                            {% if LANGUAGE_CODE == 'ar' %}نوع الاستفسار{% else %}Inquiry Type{% endif %}
+                        </label>
+                    </div>
+
+                    <!-- زر الإرسال -->
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        <span>
+                            {% if LANGUAGE_CODE == 'ar' %}
+                                إرسال الرسالة
+                            {% else %}
+                                Send Message
+                            {% endif %}
+                        </span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <section class="quick-stats fade-in-up" style="animation-delay: 0.8s;">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            دعم متاح
+                        {% else %}
+                            Available Support
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-number">24h</div>
+                    <div class="stat-label">
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            وقت الرد
+                        {% else %}
+                            Response Time
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            نسبة الرضا
+                        {% else %}
+                            Satisfaction Rate
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            فريق الدعم
+                        {% else %}
+                            Support Team
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="contact-cta fade-in-up" style="animation-delay: 1.2s;">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">
+                    {% if LANGUAGE_CODE == 'ar' %}
+                        مستعد لتغيير حياة شخص؟
+                    {% else %}
+                        Ready to Change Someone's Life?
+                    {% endif %}
+                </h2>
+                <p class="cta-description">
+                    {% if LANGUAGE_CODE == 'ar' %}
+                        انضم إلينا في رحلة العطاء والتأثير الإيجابي في المجتمع. كل تبرع يحدث فرقاً حقيقياً.
+                    {% else %}
+                        Join us in the journey of giving and positive impact on society. Every donation makes a real difference.
+                    {% endif %}
+                </p>
+                <div class="cta-buttons">
+                    <a href="{% url 'home' %}" class="cta-btn">
+                        <i class="fas fa-hand-holding-heart"></i>
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            تبرع الآن
+                        {% else %}
+                            Donate Now
+                        {% endif %}
+                    </a>
+                    <a href="{% url 'volunteer' %}" class="cta-btn secondary">
+                        <i class="fas fa-hands-helping"></i>
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            كن متطوعاً
+                        {% else %}
+                            Become a Volunteer
+                        {% endif %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+{% block extra_js %}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const isRTL = '{{ LANGUAGE_CODE }}' === 'ar';
+    
+    // إعداد الخريطة
+    const map = L.map('contact-map').setView([30.0444, 31.2357], 13); // إحداثيات القاهرة
+    
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors',
+        maxZoom: 18,
+    }).addTo(map);
+    
+    // إضافة علامة على الخريطة
+    const marker = L.marker([30.0444, 31.2357]).addTo(map);
+    marker.bindPopup(`
+        <b>${isRTL ? 'مؤسسة ديارنا للتنمية' : 'Diornaw Development Foundation'}</b><br>
+        ${isRTL ? 'شارع النصر، مدينة نصر' : 'Al Nasr Street, Nasr City'}<br>
+        ${isRTL ? 'القاهرة، مصر' : 'Cairo, Egypt'}
+    `).openPopup();
+    
+    // إضافة دائرة حول الموقع
+    L.circle([30.0444, 31.2357], {
+        color: '#02c3eb',
+        fillColor: '#02c3eb',
+        fillOpacity: 0.2,
+        radius: 500
+    }).addTo(map);
+    
+    // تحسين النموذج
+    const contactForm = document.querySelector('.contact-form');
+    const submitBtn = document.getElementById('submitBtn');
+    
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            // التحقق من المدخلات
+            const requiredFields = this.querySelectorAll('[required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.style.borderColor = '#ef4444';
+                    field.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.1)';
+                    
+                    // إزالة التأثير بعد 3 ثواني
+                    setTimeout(() => {
+                        field.style.borderColor = '';
+                        field.style.boxShadow = '';
+                    }, 3000);
+                }
+            });
+            
+            if (!isValid) {
+                e.preventDefault();
+                
+                // إظهار رسالة خطأ
+                if (!document.querySelector('.form-error')) {
+                    const errorDiv = document.createElement('div');
+                    errorDiv.className = 'alert alert-danger form-error';
+                    errorDiv.innerHTML = `
+                        <i class="fas fa-exclamation-circle me-2"></i>
+                        ${isRTL ? 'يرجى ملء جميع الحقول المطلوبة' : 'Please fill all required fields'}
+                    `;
+                    this.insertBefore(errorDiv, this.firstChild);
+                    
+                    setTimeout(() => {
+                        errorDiv.remove();
+                    }, 5000);
+                }
+            } else {
+                // إضافة تأثير التحميل
+                submitBtn.classList.add('loading');
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = `
+                    <span>${isRTL ? 'جاري الإرسال...' : 'Sending...'}</span>
+                    <i class="fas fa-spinner"></i>
+                `;
+            }
+        });
+        
+        // إضافة تأثير للحقول
+        const formInputs = contactForm.querySelectorAll('.form-control-custom');
+        formInputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'translateY(-2px)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'translateY(0)';
+            });
+        });
+    }
+    
+    // تأثيرات التمرير
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animated');
+            }
+        });
+    }, observerOptions);
+    
+    document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+    
+    // إضافة تأثير لأزرار التواصل الاجتماعي
+    const socialBtns = document.querySelectorAll('.social-btn');
+    socialBtns.forEach(btn => {
+        btn.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px) scale(1.1)';
+        });
+        
+        btn.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+    
+    // تأثير لأرقام الإحصائيات
+    const statNumbers = document.querySelectorAll('.stat-number');
+    statNumbers.forEach(stat => {
+        const target = parseInt(stat.textContent);
+        let current = 0;
+        const increment = target / 50;
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                current = target;
+                clearInterval(timer);
+            }
+            stat.textContent = Math.round(current);
+        }, 30);
+    });
+});
+</script>
+{% endblock %}
+{% endblock %}

@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block extra_css %}
+<style>
+    :root {
+        --main-color: #02c3eb;
+    }
+
+    .success-card {
+        border-radius: 20px;
+        padding: 50px 40px;
+        background: #fff;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    }
+
+    .success-icon {
+        width: 90px;
+        height: 90px;
+        margin: 0 auto 20px;
+        background: rgba(2, 195, 235, 0.15);
+        color: var(--main-color);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 42px;
+    }
+
+    .success-title {
+        color: var(--main-color);
+        font-weight: 700;
+    }
+
+    .btn-main {
+        background-color: var(--main-color);
+        border-color: var(--main-color);
+        color: #fff;
+        padding: 10px 30px;
+        border-radius: 30px;
+        font-weight: 600;
+    }
+
+    .btn-main:hover {
+        background-color: #01a9cc;
+        border-color: #01a9cc;
+        color: #fff;
+    }
+    .btn-outline-main {
+        border: 2px solid var(--main-color);
+        color: var(--main-color);
+        padding: 0 30px;          /* نشيل padding الرأسي */
+        height: 44px;             /* ارتفاع ثابت */
+        border-radius: 30px;
+        font-weight: 600;
+        background-color: transparent;
+
+        display: inline-flex;     /* الحل هنا */
+        align-items: center;      /* توسيط رأسي */
+        justify-content: center;  /* توسيط أفقي */
+    }
+
+    .btn-outline-main:hover {
+        background-color: var(--main-color);
+        color: #fff;
+    }
+
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7 col-md-9">
+            <div class="success-card text-center">
+
+                <div class="success-icon">
+                    <i class="fas fa-check"></i>
+                </div>
+
+                <h2 class="success-title mb-3">
+                    {% if LANGUAGE_CODE == 'ar' %}
+                        تم إرسال رسالتك بنجاح
+                    {% else %}
+                        Message Sent Successfully
+                    {% endif %}
+                </h2>
+
+                <p class="text-muted mb-4">
+                    {% if LANGUAGE_CODE == 'ar' %}
+                        شكرًا لتواصلك معنا، سنقوم بمراجعة رسالتك والرد عليك في أقرب وقت ممكن.
+                    {% else %}
+                        Thank you for reaching out. We’ve received your message and will respond shortly.
+                    {% endif %}
+                </p>
+
+                <div class="d-flex justify-content-center gap-3 flex-wrap">
+                    <a href="{% url 'home' %}" class="btn btn-main">
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            الصفحة الرئيسية
+                        {% else %}
+                            Home
+                        {% endif %}
+                    </a>
+
+                    <a href="{% url 'contact' %}" class="btn btn-outline-secondary rounded-pill px-4">
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            تواصل معنا
+                        {% else %}
+                            Contact Us
+                        {% endif %}
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

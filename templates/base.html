@@ -135,7 +135,7 @@
 
 
     <!-- اسم الموقع -->
-    <a class="navbar-brand fw-bold" href="/">
+    <a class="navbar-brand fw-bold" href="{% url 'home' %}">
       {% if LANGUAGE_CODE == 'ar' %}ديارنا{% else %}Diyarna{% endif %}
     </a>
 
@@ -197,7 +197,7 @@
 
 
         <li class="nav-item">
-          <a class="nav-link active" href="/volunteer">
+          <a class="nav-link active" href="{% url 'volunteer' %}">
             {% if LANGUAGE_CODE == 'ar' %}تطوع{% else %}Volunteer{% endif %}
           </a>
         </li>
@@ -222,6 +222,10 @@
           
           </ul>
         </li>
+
+        <!--  -->
+        
+
 
         <!-- التبرعات -->
         <!-- <li class="nav-item dropdown">
@@ -257,6 +261,12 @@
               </a>
             </li>
           </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url 'contact' %}">
+            {% if LANGUAGE_CODE == 'ar' %}تواصل معنا{% else %}Contact{% endif %}
+          </a>
         </li>
 
         <!-- لوحة التحكم (للمسجل فقط) -->
@@ -509,10 +519,10 @@ document.addEventListener('DOMContentLoaded', function () {
           {% if LANGUAGE_CODE == 'ar' %}الخدمات{% else %}Services{% endif %}
         </h5>
         <ul class="list-unstyled footer-links">
-          <li><a href="/events">{% if LANGUAGE_CODE == 'ar' %}الفعاليات{% else %}Events{% endif %}</a></li>
+          <li><a href="#">{% if LANGUAGE_CODE == 'ar' %}الفعاليات{% else %}Events{% endif %}</a></li>
           <li><a href="/projects">{% if LANGUAGE_CODE == 'ar' %}أنشطة ديارنا{% else %}Diyarna Activities{% endif %}</a></li>
-          <li><a href="/donate">{% if LANGUAGE_CODE == 'ar' %}تبرع الآن{% else %}Donate Now{% endif %}</a></li>
-          <li><a href="/">{% if LANGUAGE_CODE == 'ar' %}حساباتنا البنكية{% else %}Our Bank Accounts{% endif %}</a></li>
+          <li><a href="#">{% if LANGUAGE_CODE == 'ar' %}تبرع الآن{% else %}Donate Now{% endif %}</a></li>
+          <li><a href="#">{% if LANGUAGE_CODE == 'ar' %}حساباتنا البنكية{% else %}Our Bank Accounts{% endif %}</a></li>
           <li><a href="/news">{% if LANGUAGE_CODE == 'ar' %}المركز الإعلامي{% else %}Media Center{% endif %}</a></li>
         </ul>
       </div>
@@ -606,68 +616,43 @@ document.addEventListener('DOMContentLoaded', function () {
 {% block extra_js %}{% endblock %}
 
 
-<script src="{% static 'js/main.js'  %}"></script>
+
+
+
+<!-- ######################################################### -->
 
 <script>
-
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-const csrftoken = getCookie('csrftoken');
-
-
-function order_completed() {
-    let cart = localStorage.getItem('cart');
-
-    cart = cart ? JSON.parse(cart) : [];
-
-    if (cart.length === 0) {
-        alert("السلة فارغة");
-        return;
-    }
-
-    fetch("{% url 'donations:order_completed' %}", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken,
-        },
-        body: JSON.stringify({ cart: cart })
-    })
-    .then(res => res.json())
-    .then(data => {
-        // Delete cart
-        localStorage.removeItem('cart');
-
-        if (data.redirect_url) {
-            window.location.href = data.redirect_url;
-        }
-    })
-    .catch(err => console.error(err));
-}
-
-
 document.addEventListener('DOMContentLoaded', function () {
     const checkoutBtn = document.getElementById('checkout-btn');
 
     if (checkoutBtn) {
         checkoutBtn.addEventListener('click', function () {
-            order_completed();
+            // order_completed();
+            window.location.href = "{% url 'start_payment' %}";
         });
     }
 });
 
+
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
 </html>

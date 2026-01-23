@@ -21,15 +21,21 @@ from django.urls import path, include
 from django.conf.urls.i18n import i18n_patterns
 from accounts.views import dashboard, logout_get, signup
 from django.contrib.auth import views as auth_views
-
-
+from checkout.views import kashier_webhook
 
 urlpatterns = [
+    path("kashier_webhook/", kashier_webhook, name="kashier_webhook"),
+
     path('i18n/', include('django.conf.urls.i18n')),  # تغيير اللغة
 ]
 
 urlpatterns += i18n_patterns(
     path('', include('home.urls')),
+    path('', include('donations.urls')),
+    path('', include('checkout.urls')), #checkout
+
+
+    ##########################################
     path('accounts/', include('accounts.urls')),  # لو عندك app login/signup
     path('products/', include('products.urls')),
     path('donations/', include('donations.urls')),
