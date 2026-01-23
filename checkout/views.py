@@ -18,14 +18,14 @@ from .models import Order
 
 def create_payment_session(amount,customer_email, redirect_url, display='ar'):
     # LIVE 
-    # url = 'https://api.kashier.io/v3/payment/sessions'
-    # SECRET_KEY = "d2825285910dac7ab9f797071b4f6439$84167217b82ca3869f3d5070a05104226186ab1237a0aa5048ddc22ab8783f15b7989a7286fb71c833d38dc0e3ddac1b"
-    # API_KEY = 'd76a6ac4-90bb-4937-b7fd-4f38f912226a'
+    url = 'https://api.kashier.io/v3/payment/sessions'
+    SECRET_KEY = "6c4c9b33147cef528a59d52c2d749dae$8534350d9087e8bd53afdf6250b5927f6b1bb8444eee60e43d98b226ca8233acc90cfe4e791d787ce87696fc2344a7b7"
+    API_KEY = '432e4f5f-511a-4bc9-85c9-7f85570c037b'
 
     #test
-    url = 'https://test-api.kashier.io/v3/payment/sessions'
-    SECRET_KEY = "d2825285910dac7ab9f797071b4f6439$84167217b82ca3869f3d5070a05104226186ab1237a0aa5048ddc22ab8783f15b7989a7286fb71c833d38dc0e3ddac1b"
-    API_KEY = 'd76a6ac4-90bb-4937-b7fd-4f38f912226a'
+    # url = 'https://test-api.kashier.io/v3/payment/sessions'
+    # SECRET_KEY = "d2825285910dac7ab9f797071b4f6439$84167217b82ca3869f3d5070a05104226186ab1237a0aa5048ddc22ab8783f15b7989a7286fb71c833d38dc0e3ddac1b"
+    # API_KEY = 'd76a6ac4-90bb-4937-b7fd-4f38f912226a'
     #####################################################################
     merchantId = "MID-23552-762"
     order = f"ORDER-{int(datetime.utcnow().timestamp())}"
