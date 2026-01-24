@@ -963,15 +963,12 @@
                     <div class="form-group-custom">
                         <label for="totalAmountInput" class="form-label-custom">
                             {% if LANGUAGE_CODE == 'ar' %}
-                                إجمالي التبرع (جنيه مصري)
+                                إجمالي التبرع 
                             {% else %}
-                                Total Donation (Egyptian Pound)
+                                Total Donation
                             {% endif %} *
                         </label>
-                        <input type="number" 
-                               id="totalAmountInput"
-                               name="amount" 
-                               class="form-control-custom"
+                        <input type="number" id="totalAmountInput" name="amount" class="form-control-custom text-center"
                                min="1"
                                required
                                readonly>

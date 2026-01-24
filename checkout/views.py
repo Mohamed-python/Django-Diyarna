@@ -13,8 +13,14 @@ from django.views.decorators.http import require_POST
 from django.utils.timezone import now
 from .models import Order
 # Create your views here.
-# def payment(request):
-#     return render(request, 'Data_Payment.html')
+
+
+
+def checkout(request):
+    return render(request, 'checkout/checkout.html')
+
+def donations_success(request):
+    return render(request, 'checkout/checkout_success.html')
 
 def create_payment_session(amount,customer_email, redirect_url, display='ar'):
     # LIVE 
@@ -69,63 +75,6 @@ def create_payment_session(amount,customer_email, redirect_url, display='ar'):
 
 
 @csrf_exempt
-# def start_payment(request):
-#     if request.method == 'POST':
-#         print(f'start_payment POST')
-#         name = request.POST.get("name")
-#         email = request.POST.get("email")
-#         phone = request.POST.get("phone")
-#         amount = request.POST.get("amount")
-#         cart_data = request.POST.get("cart_data")
-
-#         errors = []
-
-#         if not name:
-#             errors.append("الاسم مطلوب")
-#         if not email:
-#             errors.append("البريد الإلكتروني مطلوب")
-#         if not phone:
-#             errors.append("رقم الهاتف مطلوب")
-#         if not amount:
-#             errors.append("المبلغ غير صالح")
-
-
-#         try:
-#             cart = json.loads(cart_data) if cart_data else []
-#         except json.JSONDecodeError:
-#             errors.append("بيانات السلة غير صالحة")
-
-
-        
-#         # if errors:
-#         #     return redirect('start_payment')
-
-#         # رقم طلب فريد
-#         order_reference = f"ORDER-{int(now().timestamp())}"
-
-#         # هنا مؤقتًا بنعرض الداتا
-#         # الخطوة اللي بعدها: إنشاء Kashier Session
-#         context = {
-#             "name": name,
-#             "email": email,
-#             "phone": phone,
-#             "amount": amount,
-#             "cart": cart,
-#             "order_reference": order_reference
-#         }
-
-#         ###################################
-#         session_id = create_payment_session(
-#             amount = amount,
-#             customer_email = email,
-#             redirect_url = 'https://lisette-notional-wen.ngrok-free.dev/checkout/',
-#         )
-#         print("##################################################################")
-#         if session_id:
-#             return render(request, "checkout/checkout.html", context={'session_id':session_id})
-    
-#     print('ddddddddddddddddddddddddddd')
-#     return render(request, "checkout/start_payment.html")
 def start_payment(request):
     if request.method == "POST":
         name = request.POST.get("name")
@@ -189,18 +138,13 @@ def start_payment(request):
 
     return render(request, "checkout/start_payment.html")
 
-# @csrf_exempt
-def checkout(request):
-    # if request.method == 'POST':
-    #     return render(request, 'checkout/checkout_success.html')
-
-    return render(request, 'checkout/checkout.html')
 
 
 
 
-def donations_success(request):
-    return render(request, 'checkout/checkout_success.html')
+
+
+
 
 
 # 

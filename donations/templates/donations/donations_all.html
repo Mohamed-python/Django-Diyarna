@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% load static %}
 
@@ -11,57 +12,80 @@
 {% block content %}
 
 
-
-<div class="container py-5">
+<div class="container py-5" id="case_1">
 
   <div class="text-center mb-5">
-      <h2 class="fw-bold display-6">الحالات الحالية للتبرع</h2>
-      <p class="text-muted mb-0">اختر حالة وساعد حسب قدرتك</p>
+    <h2 class="fw-bold display-6">{% trans "Humanitarian situations" %}</h2>
+    <p class="text-muted mb-0">{% trans "Choose a case and help according to your ability." %}</p>
   </div>
 
   <div class="row g-4">
     {% for c in cases %}
     <div class="col-md-4 mb-4">
-      <div class="card square-card shadow-sm">
+      <div class="card square-card shadow-sm product-item" 
+           data-id="case-{{ c.id }}" 
+           data-name="{{ c.title }}" 
+           data-price="1" 
+           data-img="{% if c.image %}{{ c.image.url }}{% endif %}" 
+           data-type="cases">
 
         {% if c.image %}
         <img src="{{ c.image.url }}" class="card-img-top" alt="{{ c.title }}">
         {% endif %}
 
         <div class="card-body">
-          <h5 class="case-title">{{ c.title }}</h5>
+          <h5 class="case-title semi-bold fs-5">{{ c.title }}</h5>
 
-          <p class="case-desc">
+          <p class="case-desc c-6 fs-6 mt-2 mb-2">
             {{ c.description|truncatechars:100 }}
           </p>
 
           <div class="mb-2">
             <div class="d-flex justify-content-between small mb-1">
-              <span>جمع: <strong>{{ c.total_donations }}</strong> جنيه</span>
-              <span>الهدف: <strong>{{ c.goal }}</strong> جنيه</span>
+              <span>{% trans "Goal" %}: <strong>{{ c.goal }}</strong> EGP</span>
+              <span>{% trans "Collected" %}: <strong>{{ c.total_donations }}</strong> EGP</span>
             </div>
+
             <div class="progress">
               <div class="progress-bar bg-success" role="progressbar"
                    style="width: {{ c.progress_percent|floatformat:0 }}%;">
               </div>
             </div>
-            <small class="text-muted">{{ c.progress_percent|floatformat:0 }}% مكتمل</small>
+
+            <small class="text-muted">{{ c.progress_percent|floatformat:0 }}% {% trans "Complete" %}</small>
           </div>
 
-          <a href="{% url 'donate' c.id %}" class="btn w-100 donate-btn btn-btnnn">
-            تبرع الآن
-          </a>
-        </div>
+          <div class="d-flex align-items-center gap-2 mt-2">
+            <!-- input يتمدد -->
+            <input
+              type="number"
+              name="amount"
+              min="1"
+              class="form-control form-control-sm flex-grow-1"
+              placeholder="{% trans "0.0 EGP" %}">
 
+            <!-- زرار ثابت الحجم -->
+            <button
+              type="button"
+              class="btn btn-sm btn-btnnn add-to-cart"
+              style="white-space: nowrap;">
+              <i class="fa fa-xs fa-cart-shopping me-1"></i>
+              {% trans "Donate" %}
+            </button>
+          </div>
+
+        </div>
       </div>
     </div>
     {% empty %}
-    <p>لا توجد حالات حالياً</p>
+      <p class="text-center">{% trans "There are no cases currently." %}</p>
     {% endfor %}
   </div>
 
-  
+ 
+
 </div>
+
 
 
 {% endblock %}

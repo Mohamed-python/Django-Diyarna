@@ -11,5 +11,7 @@ urlpatterns = [
     path('order_completed/', views.order_completed, name='order_completed'),
     path('success/', views.donations_success, name='donations_success'),
 
+
+    ######################################################
 ]
 

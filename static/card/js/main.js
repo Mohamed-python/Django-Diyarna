@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-
+    const lang = document.documentElement.getAttribute('data-lang'); // "ar" أو "en"
     // استرجاع السلة من localStorage أو إنشاء مصفوفة جديدة
     let cart = JSON.parse(localStorage.getItem('cart') || '[]');
 
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 </button>
                             </div>
 
-                            <p class="mb-0 fw-bold">${item.price * item.quantity} جنيه</p>
+                            <p class="mb-0 fw-bold">${item.price * item.quantity} ${(lang === 'ar' ? ' جنيه' : ' EGP')}</p>
 
                         </div>
 
@@ -105,8 +105,18 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        if(cartTotal) cartTotal.textContent = totalPrice + ' جنيه';
-        if(cartCount) cartCount.textContent = totalPrice;
+        
+
+        if(cartTotal) {
+            cartTotal.textContent = totalPrice + (lang === 'ar' ? ' جنيه' : ' EGP');
+            cartCount.textContent = totalPrice;
+        }
+        
+
+
+
+        // if(cartTotal) cartTotal.textContent = totalPrice + ' جنيه';
+        // if(cartCount) cartCount.textContent = totalPrice;
 
         // حفظ السلة في localStorage
         localStorage.setItem('cart', JSON.stringify(cart));
@@ -178,6 +188,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
             let quantity = parseInt(amountInput.value) || 1;
+            // let quantity = Math.max(1, parseInt(amountInput.value, 10) || 1);
+
 
             if(quantity <= 0){
                 alert('الرجاء إدخال كمية أكبر من 0');

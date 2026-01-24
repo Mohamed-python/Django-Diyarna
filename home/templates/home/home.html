@@ -30,143 +30,50 @@
 
 {% comment %} سلايد شو {% endcomment %}
 <!-- ############################################################### -->
-
 <section class="features">
-<div id="carouselExampleCaptions"
-     class="carousel slide"
-     data-bs-ride="carousel"
-     data-bs-interval="5000">
+  <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
 
-  <!-- Indicators -->
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0"
-            class="active" aria-current="true"></button>
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"></button>
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"></button>
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3"></button>
-  </div>
-
-  <!-- Slides -->
-  <div class="carousel-inner"
-       style="font-family: 'Cairo', sans-serif;"
-       dir="{% if LANGUAGE_CODE == 'ar' %}rtl{% else %}ltr{% endif %}">
-
-    <!-- Slide 1 -->
-    <div class="carousel-item active">
-      <img src="{% static 'home-slider_show/images/slider-1.jpg' %}"
-           class="d-block w-100" alt="">
-      <div class="overlay"></div>
-      <div class="carousel-caption
-          {% if LANGUAGE_CODE == 'ar' %}text-end{% else %}text-start{% endif %}">
-        <h5>
-          {% if LANGUAGE_CODE == 'ar' %}ديارنا{% else %}Diyarna{% endif %}
-        </h5>
-        <p>
-          {% if LANGUAGE_CODE == 'ar' %}
-            أفضل مكان للتبرع
-          {% else %}
-            The Best Place to Donate
-          {% endif %}
-        </p>
-        <a href="#" class="btn btn-primary btn-btnnn">
-          {% if LANGUAGE_CODE == 'ar' %}تبرع الآن{% else %}Donate Now{% endif %}
-        </a>
-      </div>
+    <!-- Indicators -->
+    <div class="carousel-indicators">
+      {% for slide in slides %}
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ forloop.counter0 }}"
+                class="{% if forloop.first %}active{% endif %}" 
+                aria-current="{% if forloop.first %}true{% endif %}"></button>
+      {% endfor %}
     </div>
 
-    <!-- Slide 2 -->
-    <div class="carousel-item">
-      <img src="{% static 'home-slider_show/images/slider-2.jpg' %}"
-           class="d-block w-100" alt="">
-      <div class="overlay"></div>
-      <div class="carousel-caption
-          {% if LANGUAGE_CODE == 'ar' %}text-end{% else %}text-start{% endif %}">
-        <h5>
-          {% if LANGUAGE_CODE == 'ar' %}أمل الغد{% else %}Hope for Tomorrow{% endif %}
-        </h5>
-        <p>
-          {% if LANGUAGE_CODE == 'ar' %}
-            شارك في دعم المحتاجين
-          {% else %}
-            Support Those in Need
-          {% endif %}
-        </p>
-        <a href="#" class="btn btn-primary btn-btnnn">
-          {% if LANGUAGE_CODE == 'ar' %}تبرع الآن{% else %}Donate Now{% endif %}
-        </a>
+    <!-- Slides -->
+    <div class="carousel-inner" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}" style="font-family: 'Cairo', sans-serif;">
+      {% for slide in slides %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <img src="{% static slide.image %}" class="d-block w-100" alt="">
+        <div class="overlay"></div>
+
+        <!-- Caption centered -->
+        <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100 text-center">
+          <h5 style="font-family: 'Cairo', sans-serif;">{% trans slide.title %}</h5>
+          <p style="font-family: 'Cairo', sans-serif;">{% trans slide.subtitle %}</p>
+          <a href="#case_1" class="btn btn-primary btn-btnnn mt-2">
+            <i class="fa fa-xs fa-cart-shopping me-1"></i>
+            {% trans "Donate Now" %}
+          </a>
+        </div>
       </div>
+      {% endfor %}
     </div>
 
-    <!-- Slide 3 -->
-    <div class="carousel-item">
-      <img src="{% static 'home-slider_show/images/slider-3.jpg' %}"
-           class="d-block w-100" alt="">
-      <div class="overlay"></div>
-      <div class="carousel-caption
-          {% if LANGUAGE_CODE == 'ar' %}text-end{% else %}text-start{% endif %}">
-        <h5>
-          {% if LANGUAGE_CODE == 'ar' %}يد العطاء{% else %}Hand of Giving{% endif %}
-        </h5>
-        <p>
-          {% if LANGUAGE_CODE == 'ar' %}
-            كن جزءًا من الخير
-          {% else %}
-            Be Part of the Good
-          {% endif %}
-        </p>
-        <a href="#" class="btn btn-primary btn-btnnn">
-          {% if LANGUAGE_CODE == 'ar' %}تبرع الآن{% else %}Donate Now{% endif %}
-        </a>
-      </div>
-    </div>
-
-    <!-- Slide 4 -->
-    <div class="carousel-item">
-      <img src="{% static 'home-slider_show/images/slider-4.jpg' %}"
-           class="d-block w-100" alt="">
-      <div class="overlay"></div>
-      <div class="carousel-caption
-          {% if LANGUAGE_CODE == 'ar' %}text-end{% else %}text-start{% endif %}">
-        <h5>
-          {% if LANGUAGE_CODE == 'ar' %}أمل الغد{% else %}Hope for Tomorrow{% endif %}
-        </h5>
-        <p>
-          {% if LANGUAGE_CODE == 'ar' %}
-            شارك في دعم المحتاجين
-          {% else %}
-            Support Those in Need
-          {% endif %}
-        </p>
-        <a href="#" class="btn btn-primary btn-btnnn">
-          {% if LANGUAGE_CODE == 'ar' %}تبرع الآن{% else %}Donate Now{% endif %}
-        </a>
-      </div>
-    </div>
+    <!-- Controls -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+      <span class="visually-hidden">{% trans "Previous" %}</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+      <span class="visually-hidden">{% trans "Next" %}</span>
+    </button>
 
   </div>
-
-  <!-- Controls -->
-  <button class="carousel-control-prev" type="button"
-          data-bs-target="#carouselExampleCaptions"
-          data-bs-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-    <span class="visually-hidden">
-      {% if LANGUAGE_CODE == 'ar' %}السابق{% else %}Previous{% endif %}
-    </span>
-  </button>
-
-  <button class="carousel-control-next" type="button"
-          data-bs-target="#carouselExampleCaptions"
-          data-bs-slide="next">
-    <span class="carousel-control-next-icon"></span>
-    <span class="visually-hidden">
-      {% if LANGUAGE_CODE == 'ar' %}التالي{% else %}Next{% endif %}
-    </span>
-  </button>
-
-</div>
 </section>
-
 <!-- ############################################################### -->
 
 
@@ -175,9 +82,7 @@
 
 
 
-<!-- <h2> {% trans "Welcome" %} </h2> -->
-
-<!-- إنجازاتنا حتى الآن... -->
+{% comment %} <!-- إنجازاتنا حتى الآن... --> {% endcomment %}
 <section class="features">
   <!-- Counters Section -->
   <div class="container-fluid">
@@ -252,7 +157,6 @@
   </div>
 </section>
 
-<!-- Styles -->
 
 
 
@@ -293,114 +197,93 @@
 
   
   
-<!-- الحالات اللإنسانية -->
-<div class="container py-5">
+{% comment %} <!-- الحالات اللإنسانية --> {% endcomment %}
+<div class="container py-5" id="case_1">
 
   <div class="text-center mb-5">
-    {% if LANGUAGE_CODE == 'ar' %}
-      <h2 class="fw-bold display-6">الحالات الإنسانية</h2>
-      <p class="text-muted mb-0">اختر حالة وساعد حسب قدرتك</p>
-    {% else %}
-    <h2 class="fw-bold display-6">Humanitarian situations</h2>
-        <p class="text-muted mb-0">Choose a case and help according to your ability.</p>
-    {% endif %}
+    <h2 class="fw-bold display-6">{% trans "Humanitarian situations" %}</h2>
+    <p class="text-muted mb-0">{% trans "Choose a case and help according to your ability." %}</p>
   </div>
 
   <div class="row g-4">
-
-   
-
     {% for c in cases %}
     <div class="col-md-4 mb-4">
-    <div class="card square-card shadow-sm product-item" data-id="case-{{ c.id }}" data-name="{{ c.title }}" data-price="1" data-img="{% if c.image %}{{ c.image.url }}{% endif %}" data-type="cases">
+      <div class="card square-card shadow-sm product-item" 
+           data-id="case-{{ c.id }}" 
+           data-name="{{ c.title }}" 
+           data-price="1" 
+           data-img="{% if c.image %}{{ c.image.url }}{% endif %}" 
+           data-type="cases">
+
         {% if c.image %}
         <img src="{{ c.image.url }}" class="card-img-top" alt="{{ c.title }}">
         {% endif %}
 
         <div class="card-body">
-          <h5 class="case-title">{{ c.title }}</h5>
+          <h5 class="case-title semi-bold fs-5">
 
-          <p class="case-desc">
+            {{ c.title }}
+            {% comment %} <a href="{% url 'donate' c.slug %}" class="text-decoration-none text-dark">
+                {{ c.title }}
+            </a> {% endcomment %}
+          </h5>
+
+          <p class="case-desc c-6 fs-6 mt-2 mb-2">
             {{ c.description|truncatechars:100 }}
           </p>
 
           <div class="mb-2">
             <div class="d-flex justify-content-between small mb-1">
-
-              {% if LANGUAGE_CODE == 'ar' %}
-              <span>الهدف: <strong>{{ c.goal }}</strong> جنيه</span>
-              <span>جمع: <strong>{{ c.total_donations }}</strong> جنيه</span>
-              {% else %}
-              <span>Goal: <strong>{{ c.goal }}</strong> EGP</span>
-              <span>Collected: <strong>{{ c.total_donations }}</strong> EGP</span>
-              {% endif %}
-
-
-
-
-              
-              
-
-              
-
-
-
-
-              
-
-
+              <span>{% trans "Goal" %}: <strong>{{ c.goal }}</strong> EGP</span>
+              <span>{% trans "Collected" %}: <strong>{{ c.total_donations }}</strong> EGP</span>
             </div>
+
             <div class="progress">
               <div class="progress-bar bg-success" role="progressbar"
                    style="width: {{ c.progress_percent|floatformat:0 }}%;">
               </div>
             </div>
-            <small class="text-muted">{{ c.progress_percent|floatformat:0 }}% مكتمل</small>
+
+            <small class="text-muted">{{ c.progress_percent|floatformat:0 }}% {% trans "Complete" %}</small>
           </div>
 
-          <div class="d-flex gap-2">
-              <input type="number" name="amount" value="1" min="1" class="form-control form-control-sm" style="width:75px;">
-              <button type="button" class="btn btn-sm btn-btnnn flex-grow-1 add-to-cart">تبرع الآن</button>
+          <div class="d-flex align-items-center gap-2 mt-2">
+            <!-- input يتمدد -->
+            <input
+              type="number"
+              name="amount"
+              min="1"
+              class="form-control form-control-sm flex-grow-1"
+              placeholder="{% trans "0.0 EGP" %}">
+
+            <!-- زرار ثابت الحجم -->
+            <button
+              type="button"
+              class="btn btn-sm btn-btnnn add-to-cart"
+              style="white-space: nowrap;">
+              <i class="fa fa-xs fa-cart-shopping me-1"></i>
+              {% trans "Donate" %}
+            </button>
           </div>
 
-
-          </a>
         </div>
-
       </div>
     </div>
     {% empty %}
-
-    {% if LANGUAGE_CODE == 'ar' %}
-      <p>لا توجد حالات حالياً</p>
-    {% else %}
-    <p>There are no cases currently.</p>
-    {% endif %}
-    
+      <p class="text-center">{% trans "There are no cases currently." %}</p>
     {% endfor %}
   </div>
 
-
-
-
-
   <div class="text-center mt-4" style="direction: ltr;">
     <a href="/donations" class="view-all-btn d-inline-flex align-items-center">
-        
-        {% if LANGUAGE_CODE == 'ar' %}
-          <span>عرض كل الحالات</span>
-        {% else %}
-          <span>View all cases</span>
-        {% endif %}
-
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right ms-2" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 1 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-        </svg>
+      <span>{% trans "View all cases" %}</span>
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right ms-2" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 1 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+      </svg>
     </a>
   </div>
+
 </div>
-
-
 
 
 
@@ -424,133 +307,69 @@
 <!-- ###################################################### -->
 <!-- المنتجات -->
 <div class="container my-5">
-    <h1 class="mb-4 text-center">
-        {% if LANGUAGE_CODE == 'ar' %}
-            المنتجات
-        {% else %}
-            Products
-        {% endif %}
+    <h1 class="c-1 semi-bold section-title m-auto mt-2 mt-md-4 text-center">
+        {% trans "Products" %}
     </h1>
-
 
     <div class="row g-3">
         {% for product in products %}
         <div class="col-md-4">
             <div class="product-item p-3 h-100" 
-                              
-            data-id="{{ product.id }}" 
-            
-
-            
-            
-            {% if LANGUAGE_CODE == 'en' and product.name_en %}
-            data-name="{{ product.name_en }}" 
-            {% else %}
-            data-name="{{ product.name }}" 
-            {% endif %}
-            data-price="{{ product.price }}" 
-
-           
-            
-            
-
-
-
-            data-img="{{ product.display_image.url }}"
-            
-
-            data-type="products"
-            >
+                 data-id="{{ product.id }}" 
+                 data-name="{% if LANGUAGE_CODE == 'en' and product.name_en %}{{ product.name_en }}{% else %}{{ product.name }}{% endif %}" 
+                 data-price="{{ product.price }}" 
+                 data-img="{% if LANGUAGE_CODE == 'en' and product.image_en.url %}{{ product.image_en.url }}{% else %}{{ product.image.url }}{% endif %}" 
+                 data-type="products">
 
                 <div class="d-flex gap-3 align-items-start">
-                    <!-- الصورة --> 
-                     
+                    <!-- الصورة -->
+                    <img src="{% if LANGUAGE_CODE == 'en' and product.image_en.url %}{{ product.image_en.url }}{% else %}{{ product.image.url }}{% endif %}" 
+                         alt="{{ product.name }}" 
+                         class="rounded-circle" style="width:65px; height:65px; object-fit:cover;">
 
-
-
-
-
-
-                      
-                      {% if LANGUAGE_CODE == 'en' and product.image_en.url %}
-                     <img src="{{ product.image_en.url }}" alt="{{ product.image_en.url }}" class="rounded-circle" style="width:65px; height:65px; object-fit:cover;">
-                        {% else %}
-                     <img src="{{ product.image.url }}" alt="{{ product.image.url }}" class="rounded-circle" style="width:65px; height:65px; object-fit:cover;">
-                        {% endif %}
-
-
-
-
-
-
-                    <!-- الاسم -->
+                    <!-- التفاصيل -->
                     <div class="flex-grow-1">
+                        <h6 class="mb-2">
+                            {% if LANGUAGE_CODE == 'en' and product.name_en %}{{ product.name_en }}{% else %}{{ product.name }}{% endif %}
+                        </h6>
 
+                        <small class="d-block mb-1">
+                            {% if LANGUAGE_CODE == 'ar' %}{{ product.price }} ج{% else %}{{ product.price }} EGP{% endif %}
+                        </small>
 
-                      {% if LANGUAGE_CODE == 'en' and product.name_en %}
-                      <h6 class="mb-2"> {{ product.name_en }}</h6>
-                        {% else %}
-                      <h6 class="mb-2"> {{ product.name }}</h6>
-                        {% endif %}
+                        <p class="product-description mb-2">
+                            {% if LANGUAGE_CODE == 'en' and product.description_en %}{{ product.description_en }}{% else %}{{ product.description }}{% endif %}
+                        </p>
 
-                      
-                      
-
-
-                      <!-- السعر -->
-                     {% if LANGUAGE_CODE == 'ar' %}
-                        <small class="d-block mb-1" >{{ product.price }} ج</small>
-
-                     {% else %}
-                        <small class="d-block mb-1" >{{ product.price }} EGP</small>
-
-                     {% endif %}
-
-
-                     <!-- الوصف -->
-                        {% if LANGUAGE_CODE == 'en' and product.description_en %}
-                            <p class="product-description mb-2">{{ product.description_en }}</p>                        
-                        {% else %}
-                            <p class="product-description mb-2">{{ product.description }}</p>                        
-                        {% endif %}
-
-
-                         <!-- Donate  -->
-                        <div class="d-flex gap-2">
+                        <!-- Donate -->
+                        <div class="d-flex align-items-center gap-2">
                             <input type="number" name="amount" value="1" min="1" class="form-control form-control-sm" style="width:75px;">
-                            
-                            {% if LANGUAGE_CODE == 'en' %}
-                            <button type="button" class="btn btn-sm btn-btnnn flex-grow-1 add-to-cart"> Donate </button>
-                            {% else %}
-                            <button type="button" class="btn btn-sm btn-btnnn flex-grow-1 add-to-cart"> تبرع الآن </button>
-                            {% endif %}
+                            <button type="button" class="btn btn-sm btn-btnnn flex-grow-1 add-to-cart">
+                                <i class="fa fa-xs fa-cart-shopping me-1"></i>
+                                {% trans "Donate" %}
+                            </button>
                         </div>
+
                     </div>
                 </div>
+
             </div>
         </div>
         {% endfor %}
     </div>
 
-
-    
     <div class="text-center mt-4" style="direction: ltr;">
-    <a href="/products" class="view-all-btn d-inline-flex align-items-center">
-        <span>
-            {% if LANGUAGE_CODE == 'ar' %}
-                عرض كل المنتجات
-            {% else %}
-                View all products
-            {% endif %}
-        </span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right ms-2" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 1 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-        </svg>
-    </a>
-  </div>
-
+        <a href="/products" class="view-all-btn d-inline-flex align-items-center">
+            <span>{% trans "View all products" %}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right ms-2" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 1 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+            </svg>
+        </a>
+    </div>
 
 </div>
+
+{% comment %} </div> {% endcomment %}
 
 
 
@@ -601,28 +420,29 @@
 
 
 <!-- الأخبار -->
+
 <div class="news-section">
     <div class="container">
 
         <!-- Title -->
         <h2 class="section-title text-center mb-5">
-            {% if LANGUAGE_CODE == 'ar' %}الأخبار{% else %}News{% endif %}
+            {% trans "News" %}
         </h2>
 
         <div class="row">
             {% for news in news_list %}
             <div class="col-12 col-md-6 col-lg-4 mb-4">
                 <div class="card news-card h-100">
-                    
+
                     <!-- الصورة -->
                     {% with img=news.image_by_lang %}
                     {% if img %}
                     <div class="card-img-container">
                         <img src="{{ img.url }}" class="card-img-top" 
-                             alt="{% if LANGUAGE_CODE == 'ar' %}{{ news.title }}{% else %}{{ news.title_en|default:news.title }}{% endif %}" 
+                             alt="{{ news.title|default:news.title_en }}" 
                              loading="lazy">
                         <div class="card-date">
-                            {% if news.publish_date %}{{ news.publish_date|date:"d M Y" }}{% endif %}
+                            {{ news.publish_date|date:"d M Y" }}
                         </div>
                     </div>
                     {% endif %}
@@ -630,60 +450,42 @@
 
                     <div class="card-body">
                         <h5 class="card-title">
-                            {% if LANGUAGE_CODE == 'ar' %}{{ news.title }}{% else %}{{ news.title_en|default:news.title }}{% endif %}
+                            {{ news.title|default:news.title_en }}
                         </h5>
                         <p class="card-text text-muted">
-                            {% if LANGUAGE_CODE == 'ar' %}
-                                {{ news.content|striptags|truncatechars:120 }}
-                            {% else %}
-                                {{ news.content_en|default:news.content|striptags|truncatechars:120 }}
-                            {% endif %}
+                            {{ news.content|striptags|truncatechars:120|default:news.content_en|striptags|truncatechars:120 }}
                         </p>
                     </div>
-                    
+
                     <div class="card-footer bg-transparent border-0">
                         <a href="{% url 'news:news_detail' news.slug %}" class="news-read-btn">
-                            {% if LANGUAGE_CODE == 'ar' %}
-                                اقرأ المزيد 
-                                <i class="fas fa-arrow-left ms-2"></i>
-                            {% else %}
-                                Read More
-                                <i class="fas fa-arrow-right ms-2"></i>
-                            {% endif %}
+                            {% trans "Read More" %}
+                            <i class="fas fa-arrow-right ms-2"></i>
                         </a>
                     </div>
+
                 </div>
             </div>
             {% empty %}
             <div class="col-12 text-center py-5">
                 <div class="no-news-placeholder">
                     <i class="fas fa-newspaper fa-4x mb-4 text-light-gray"></i>
-                    <h4 class="text-muted mb-3">
-                        {% if LANGUAGE_CODE == 'ar' %}لا توجد أخبار حالياً{% else %}No news available{% endif %}
-                    </h4>
-                    <p class="text-muted">
-                        {% if LANGUAGE_CODE == 'ar' %}تابعنا لمعرفة الجديد قريباً{% else %}Stay tuned for updates{% endif %}
-                    </p>
+                    <h4 class="text-muted mb-3">{% trans "No news available" %}</h4>
+                    <p class="text-muted">{% trans "Stay tuned for updates" %}</p>
                 </div>
             </div>
             {% endfor %}
         </div>
 
-        <!-- عرض المزيد / View All News -->
-         <div class="text-center mt-4" style="direction: ltr;">
-          <a href="{% url 'news:news_list' %}" class="view-all-btn d-inline-flex align-items-center">
-              <span>
-                  {% if LANGUAGE_CODE == 'ar' %}
-                    عرض المزيد    
-                    {% else %}
-                    View All News
-                  {% endif %}
-              </span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right ms-2" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 1 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-              </svg>
-          </a>
-        
+        <!-- View All News -->
+        <div class="text-center mt-4" style="direction: ltr;">
+            <a href="{% url 'news:news_list' %}" class="view-all-btn d-inline-flex align-items-center">
+                <span>{% trans "View All News" %}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right ms-2" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 1 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                </svg>
+            </a>
+        </div>
 
         <!-- Pagination -->
         {% if news_list.has_other_pages %}
@@ -694,7 +496,7 @@
                     {% if news_list.has_previous %}
                     <li class="page-item">
                         <a class="page-link" href="?page={{ news_list.previous_page_number }}">
-                            {% if LANGUAGE_CODE == 'ar' %}السابق{% else %}Previous{% endif %}
+                            {% trans "Previous" %}
                         </a>
                     </li>
                     {% endif %}
@@ -714,7 +516,7 @@
                     {% if news_list.has_next %}
                     <li class="page-item">
                         <a class="page-link" href="?page={{ news_list.next_page_number }}">
-                            {% if LANGUAGE_CODE == 'ar' %}التالي{% else %}Next{% endif %}
+                            {% trans "Next" %}
                         </a>
                     </li>
                     {% endif %}
@@ -726,8 +528,6 @@
 
     </div>
 </div>
-
-
 
 
 

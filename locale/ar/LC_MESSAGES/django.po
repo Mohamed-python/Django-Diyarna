@@ -34,3 +34,85 @@ msgstr ""
 
 #~ msgid "Hello %(username)s"
 #~ msgstr "أهلاً %(username)s"
+
+msgid "Diyarna"
+msgstr "ديارنا"
+
+
+msgid "Donate Now"
+msgstr "تبرع الآن"
+
+msgid "Donate"
+msgstr "تبرع"
+
+msgid "Goal"
+msgstr "الهدف"
+
+msgid "Collected"
+msgstr "جمع"
+
+msgid "Complete"
+msgstr "مكتمل"
+
+msgid "0.0 EGP"
+msgstr "0.0 جنيه"
+
+
+
+##################################
+msgid "The Best Place to Donate"
+msgstr "أفضل مكان للتبرع"
+
+msgid "Hope for Tomorrow"
+msgstr "أمل الغد"
+
+msgid "Support Those in Need"
+msgstr "شارك في دعم المحتاجين"
+
+msgid "Hand of Giving"
+msgstr "يد العطاء"
+
+msgid "Be Part of the Good"
+msgstr "كن جزءًا من الخير"
+
+
+msgid "Previous"
+msgstr "السابق"
+
+msgid "Next"
+msgstr "التالي"
+#########################
+msgid "Humanitarian situations"
+msgstr "الحالات الإنسانية"
+
+msgid "Choose a case and help according to your ability."
+msgstr "اختر حالة وساعد حسب قدرتك"
+
+
+msgid "View all cases"
+msgstr "عرض كل الحالات"
+
+msgid "There are no cases currently."
+msgstr "لا توجد حالات حالياً"
+#############################
+msgid "Products"
+msgstr "المنتجات"
+
+msgid "View all products"
+msgstr "عرض كل المنتجات"
+############################
+msgid "News"
+msgstr "الأخبار"
+
+msgid "Read More"
+msgstr "اقرأ المزيد"
+
+msgid "View All News"
+msgstr "عرض المزيد"
+
+
+msgid "No news available"
+msgstr "لا توجد أخبار حالياً"
+
+msgid "Stay tuned for updates"
+msgstr "تابعنا لمعرفة الجديد قريباً"

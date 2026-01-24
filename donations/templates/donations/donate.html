@@ -4,36 +4,34 @@
 {% block content %}
 
 <div class="container py-5" style="direction: rtl;">
-
-    <!-- عنوان الصفحة -->
     <div class="text-center mb-5">
-        <h2 class="fw-bold">التبرع للحالة</h2>
-        <p class="text-muted">ساهم ولو بالقليل، فالقليل يصنع فرقًا</p>
+        <h2 class="fw-bold">{{ case.title }}</h2>
+        <p class="text-muted">{{ case.description }}</p>
     </div>
 
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-6">
 
             <div class="card shadow-lg border-0 rounded-4">
-
                 {% if case.image %}
                 <img src="{{ case.image.url }}" class="card-img-top rounded-top-4" alt="{{ case.title }}">
                 {% endif %}
 
                 <div class="card-body p-4">
 
-                    <!-- بيانات الحالة -->
-                    <h4 class="fw-bold mb-2">{{ case.title }}</h4>
-                    <p class="text-muted">{{ case.description }}</p>
-
                     <div class="mb-4">
                         <strong>الهدف:</strong> {{ case.goal }} جنيه
                     </div>
 
                     <!-- نموذج التبرع -->
-                    <form method="post">
-                        {% csrf_token %}
+                    <form class="donate-form"
+                        data-id="case-{{ case.id }}"
+                        data-name="{{ case.title }}"
+                        data-price="1"
+                        data-img="{% if case.image %}{{ case.image.url }}{% endif %}"
+                        data-type="cases">
 
+                        {% comment %} {% csrf_token %} {% endcomment %}
                         <div class="mb-3">
                             {{ form.name.label_tag }}
                             {{ form.name }}
@@ -44,9 +42,15 @@
                             {{ form.amount }}
                         </div>
 
-                        <button type="submit"
-                                class="btn btn-lg w-100"
-                                style="background-color:#02c3eb; color:#fff;">
+                        <button type="button" class="btn btn-lg w-100 add-to-cart-btn"
+                                style="background-color:#02c3eb; color:#fff;"
+                                data-id="case-{{ case.id }}"
+                                data-name="{{ case.title }}"
+                                data-price="1"
+                                data-img="{% if case.image %}{{ case.image.url }}{% endif %}"
+                                data-type="cases"
+                        >
+                            <i class="fa fa-xs fa-cart-shopping me-1"></i>
                             تأكيد التبرع ❤️
                         </button>
                     </form>
@@ -58,4 +62,56 @@
     </div>
 </div>
 
+{% block extra_js %}
+<script>
+document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const form = btn.closest('.donate-form');
+        const id = form.dataset.id;
+        const name = form.dataset.name;
+        const price = parseFloat(form.dataset.price);
+        const img = form.dataset.img;
+        const type = form.dataset.type;
+
+        const amountInput = form.querySelector('[name="amount"]');
+        const donorInput = form.querySelector('[name="name"]');
+
+        const quantity = parseInt(amountInput.value) || 1;
+        const donorName = donorInput.value || '';
+
+        // استدعاء addToCart الموجود في الملف الأساسي
+        addToCart({
+            id,
+            name,
+            donorName,
+            price,
+            img,
+            type,
+            quantity
+        });
+
+        alert('تمت إضافة التبرع للسلة! ❤️');
+    });
+});
+</script>
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
+

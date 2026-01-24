@@ -28,13 +28,42 @@ def test(request):
 
 
 def home(request):
-
+    slides = [
+        {
+            "image": "home-slider_show/images/slider-1.jpg",
+            "title": "Diyarna",
+            "subtitle": "The Best Place to Donate",
+        },
+        {
+            "image": "home-slider_show/images/slider-2.jpg",
+            "title": "Hope for Tomorrow",
+            "subtitle": "Support Those in Need",
+        },
+        {
+            "image": "home-slider_show/images/slider-3.jpg",
+            "title": "Hand of Giving",
+            "subtitle": "Be Part of the Good",
+        },
+        {
+            "image": "home-slider_show/images/slider-4.jpg",
+            "title": "Hope for Tomorrow",
+            "subtitle": "Support Those in Need",
+        },
+    ]
     #########################################
     #########################################
     cases = Case.objects.order_by('-created_at')[:6]  # جلب كل الحالات
     products = Product.objects.order_by('-created_at')[:6]  # جلب كل المنتجات
     news_list = News.objects.order_by('-published_at')[:3] # جلب الاخبار
-    return render(request, "home/home.html" , {'cases': cases, 'products':products, 'news_list':news_list})
+
+    context={
+        'slides':slides,
+        'cases': cases, 
+        'products':products, 
+        'news_list':news_list
+        }
+
+    return render(request, "home/home.html" , context=context)
 
 
 # مجلس الامناء

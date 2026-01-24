@@ -3,7 +3,7 @@
 
 
 
-<html lang="{% get_current_language as LANGUAGE_CODE %}"{% if LANGUAGE_CODE == 'ar' %} dir="rtl"{% else %} dir="ltr"{% endif %}>
+<html lang="{% get_current_language as LANGUAGE_CODE %}" {% if LANGUAGE_CODE == 'ar' %} dir="rtl"{% else %} dir="ltr"{% endif %} data-lang="{{ LANGUAGE_CODE }}">
 
 
 
@@ -89,7 +89,14 @@
                     <p id="cart-total" class="mb-0 fw-bold">0 EGP</p>
                     {% endif %}
                 </div>
-                <button type="button" id="checkout-btn" class="btn btn-success px-4">تابع عملية التبرع</button>
+                <button type="button" id="checkout-btn" class="btn btn-success px-4">
+                {% if LANGUAGE_CODE == 'ar' %}
+                 تابع عملية التبرع
+                {% else %}
+                Continue Process
+                {% endif %}
+                
+                </button>
             </div>
 
         </div>
@@ -601,24 +608,35 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 <script>
-
-  {% if LANGUAGE_CODE == 'ar' %}
-      get_bt_ar = document.getElementById('bt_ar');
-      get_bt_ar.hidden = true
-  {% else %}
-      get_bt_en = document.getElementById('bt_en');
-      get_bt_en.hidden = true
-  {% endif %}
+  const getlang = document.documentElement.getAttribute('data-lang');
+  get_bt_ar = document.getElementById('bt_ar');
+  get_bt_en = document.getElementById('bt_en');
+  if (getlang === 'ar'){
+    get_bt_ar.hidden = true
+  }else{
+    get_bt_en.hidden = true
+  }
 </script>
 
 
 
-{% block extra_js %}{% endblock %}
 
 
 
 
+<script>
+document.querySelectorAll('.add-to-cart').forEach(button => {
+    button.addEventListener('click', function () {
 
+        const wrapper = this.closest('.d-flex'); // الحاوية
+        const amountInput = wrapper.querySelector('[name="amount"]');
+
+        let quantity = Math.max(1, parseInt(amountInput.value, 10) || 1);
+
+        console.log(quantity);
+    });
+});
+</script>
 <!-- ######################################################### -->
 
 <script>
@@ -653,6 +671,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+{% block extra_js %}{% endblock %}
 
 </body>
 </html>

@@ -52,8 +52,8 @@ def payment(request, donation_id):
     return redirect('checkout')
 
 
-def donate(request, case_id):
-    case = get_object_or_404(Case, id=case_id)
+def donate(request, slug):
+    case = get_object_or_404(Case, slug=slug)
 
     if request.method == 'POST':
         form = DonationForm(request.POST)
