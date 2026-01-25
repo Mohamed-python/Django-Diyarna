@@ -1,5 +1,10 @@
 .\Scripts\Activate.ps1
 
+
+
+python manage.py collectstatic
+
+
 انشاء مشروع كامل 
 django-admin startproject project .
 

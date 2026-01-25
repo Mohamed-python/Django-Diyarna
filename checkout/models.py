@@ -18,4 +18,4 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.order_reference
+        return f"{str(self.amount)} - {self.payment_status}"
