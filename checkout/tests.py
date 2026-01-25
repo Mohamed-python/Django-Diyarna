@@ -108,10 +108,35 @@ def create_payment_session(amount,customer_email, redirect_url, display='ar'):
 
 
 # تجربة التشغيل
-if __name__ == "__main__":
-    create_payment_session(
-        amount="1",
-        customer_email="mogamalcode@gmail.com",
-        redirect_url='https://lisette-notional-wen.ngrok-free.dev/en/kashier_webhook/',
-        # display='en'
-    )
+# if __name__ == "__main__":
+#     create_payment_session(
+#         amount="1",
+#         customer_email="mogamalcode@gmail.com",
+#         redirect_url='https://lisette-notional-wen.ngrok-free.dev/en/kashier_webhook/',
+#         # display='en'
+#     )
+
+
+
+
+
+import requests
+
+headers = {
+    'Accept': 'application/json, text/plain, */*',
+    'Accept-Language': 'en-US,en;q=0.9,ar;q=0.8',
+    'Connection': 'keep-alive',
+    'If-None-Match': 'W/"fd2-pvGtR3AXAbWx0JY0RUsQXxwxqmU"',
+    'Origin': 'https://checkout.kashier.io',
+    'Referer': 'https://checkout.kashier.io/',
+    'Sec-Fetch-Dest': 'empty',
+    'Sec-Fetch-Mode': 'cors',
+    'Sec-Fetch-Site': 'same-site',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36',
+    'sec-ch-ua': '"Google Chrome";v="143", "Chromium";v="143", "Not A(Brand";v="24"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+}
+
+response = requests.get('https://api.kashier.io/public/merchant/MID-23552-762', headers=headers)
+print(response.text)

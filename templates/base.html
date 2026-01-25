@@ -198,9 +198,9 @@
         </li>
 
 
-        <li class="nav-item">
+        {% comment %} <li class="nav-item">
           <a class="nav-link active" href="{% url 'test' %}">TEST</a>
-        </li>
+        </li> {% endcomment %}
 
 
         <li class="nav-item">
@@ -263,7 +263,7 @@
           </a>
           <ul class="dropdown-menu {% if LANGUAGE_CODE == 'ar' %}text-end{% endif %}">
             <li>
-              <a class="dropdown-item" href="{% url 'news:news_list' %}">
+              <a class="dropdown-item" href="{% url 'news_list' %}">
                 {% if LANGUAGE_CODE == 'ar' %}الأخبار{% else %}News{% endif %}
               </a>
             </li>
@@ -604,7 +604,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-<script src="{% static 'card/js/main.js'  %}"></script>
 
 
 <script>
@@ -624,19 +623,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-<script>
-document.querySelectorAll('.add-to-cart').forEach(button => {
-    button.addEventListener('click', function () {
 
-        const wrapper = this.closest('.d-flex'); // الحاوية
-        const amountInput = wrapper.querySelector('[name="amount"]');
-
-        let quantity = Math.max(1, parseInt(amountInput.value, 10) || 1);
-
-        console.log(quantity);
-    });
-});
-</script>
 <!-- ######################################################### -->
 
 <script>
@@ -671,6 +658,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+<script src="{% static 'card/js/main.js'  %}"></script>
 {% block extra_js %}{% endblock %}
 
 </body>

@@ -63,37 +63,12 @@
 </div>
 
 {% block extra_js %}
+
 <script>
-document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-        const form = btn.closest('.donate-form');
-        const id = form.dataset.id;
-        const name = form.dataset.name;
-        const price = parseFloat(form.dataset.price);
-        const img = form.dataset.img;
-        const type = form.dataset.type;
 
-        const amountInput = form.querySelector('[name="amount"]');
-        const donorInput = form.querySelector('[name="name"]');
-
-        const quantity = parseInt(amountInput.value) || 1;
-        const donorName = donorInput.value || '';
-
-        // استدعاء addToCart الموجود في الملف الأساسي
-        addToCart({
-            id,
-            name,
-            donorName,
-            price,
-            img,
-            type,
-            quantity
-        });
-
-        alert('تمت إضافة التبرع للسلة! ❤️');
-    });
-});
 </script>
+
+
 {% endblock %}
 
 

@@ -30,8 +30,11 @@ urlpatterns = [
 ]
 
 urlpatterns += i18n_patterns(
-    path('', include('home.urls')),
-    path('', include('donations.urls')),
+
+
+    # path('', include('home.urls')),
+
+    path('donations/', include('donations.urls')),
     path('', include('checkout.urls')), #checkout
 
 
@@ -39,18 +42,18 @@ urlpatterns += i18n_patterns(
     path('accounts/', include('accounts.urls')),  # لو عندك app login/signup
     path('products/', include('products.urls')),
     path('donations/', include('donations.urls')),
-    path('news/', include('news.urls')),
     path('volunteer/', include('volunteers.urls')),
     path('admin/', admin.site.urls),
     path('profile/', include('user_profile.urls')),  # /profile/
+    path('news/', include('news.urls')),
 
     ###############################################
+    path('', include('home.urls')),
     path('signup/',signup ,name='signup'),
-
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', logout_get, name='logout'),
-
     path('dashboard/', dashboard, name='dashboard'),
+
 )
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

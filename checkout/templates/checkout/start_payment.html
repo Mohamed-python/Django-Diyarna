@@ -1188,14 +1188,7 @@ document.addEventListener('DOMContentLoaded', function() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     
-    // تحديث صفحة عند تغيير السلة
-    window.addEventListener('storage', (event) => {
-        if (event.key === 'cart') {
-            cart = JSON.parse(event.newValue || '[]');
-            updateOrderSummary();
-        }
-    });
-    
+
     // تحديث عند التحميل
     updateOrderSummary();
     

@@ -1,3 +1,7 @@
+
+// 
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const lang = document.documentElement.getAttribute('data-lang'); // "ar" أو "en"
     // استرجاع السلة من localStorage أو إنشاء مصفوفة جديدة
@@ -313,5 +317,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // تحميل السلة عند فتح الصفحة أو إعادة عرض الصفحة بعد errors
     updateCart();
+
 
 });

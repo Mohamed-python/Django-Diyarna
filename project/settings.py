@@ -133,13 +133,13 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'ar'  # أو 'en' حسب افتراضك
 
 # اللغات المتاحة
-USE_I18N = True
 LANGUAGES = [
     ('en', 'English'),
     ('ar', 'Arabic'),
 ]
 
 
+USE_I18N = True
 
 
 TIME_ZONE = 'UTC'

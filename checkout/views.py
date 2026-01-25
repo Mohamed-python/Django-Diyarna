@@ -205,6 +205,7 @@ def kashier_webhook(request):
                 order.transaction_id = transaction_id
                 order.save()
                 process_order(order)
+                print('Done process_order')
 
             return JsonResponse({"status": "ok"})
 

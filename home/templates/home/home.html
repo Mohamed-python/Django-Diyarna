@@ -239,8 +239,8 @@
             </div>
 
             <div class="progress">
-              <div class="progress-bar bg-success" role="progressbar"
-                   style="width: {{ c.progress_percent|floatformat:0 }}%;">
+              <div class="progress-bar" role="progressbar"
+                   style="width: {{ c.progress_percent|floatformat:0 }}%; background: #2b91a7;">
               </div>
             </div>
 
@@ -458,7 +458,7 @@
                     </div>
 
                     <div class="card-footer bg-transparent border-0">
-                        <a href="{% url 'news:news_detail' news.slug %}" class="news-read-btn">
+                        <a href="{% url 'news_detail' news.slug %}" class="news-read-btn">
                             {% trans "Read More" %}
                             <i class="fas fa-arrow-right ms-2"></i>
                         </a>
@@ -479,7 +479,7 @@
 
         <!-- View All News -->
         <div class="text-center mt-4" style="direction: ltr;">
-            <a href="{% url 'news:news_list' %}" class="view-all-btn d-inline-flex align-items-center">
+            <a href="{% url 'news_list' %}" class="view-all-btn d-inline-flex align-items-center">
                 <span>{% trans "View All News" %}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right ms-2" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 1 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
