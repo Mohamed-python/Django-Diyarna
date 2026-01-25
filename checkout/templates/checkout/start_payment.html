@@ -63,8 +63,9 @@
 /* صفحة الدفع */
 .checkout-page {
     min-height: 100vh;
-    background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 100%);
+    background-color: #002f38;
     padding: 60px 0;
+
 }
 
 /* رسائل الخطأ */
@@ -690,13 +691,13 @@
     {% endif %}
 
     <div class="checkout-container">
-        <h1 class="checkout-title fade-in-up">
+        {% comment %} <h1 class="checkout-title fade-in-up">
             {% if LANGUAGE_CODE == 'ar' %}
                 إتمام عملية التبرع
             {% else %}
                 Complete Your Donation
             {% endif %}
-        </h1>
+        </h1> {% endcomment %}
 
         <div class="checkout-grid">
             <!-- ملخص الطلب -->
