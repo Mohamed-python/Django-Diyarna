@@ -1,6 +1,6 @@
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
-
+import getpass
 """
 Django settings for project project.
 
@@ -29,7 +29,13 @@ LOCALE_PATHS = [
 SECRET_KEY = 'django-insecure-&&9e)+r7(!=9l$901tqst4(wz7811^uj1i&ff*e&&)(z-#lo7e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
+username_11 = getpass.getuser()
+if username_11 == "Administrator":
+    DEBUG = True
+else:
+    DEBUG = False
+
 
 # ALLOWED_HOSTS = []
 ALLOWED_HOSTS = ['*']
@@ -164,11 +170,15 @@ STATIC_URL = "/static/"
 #     "/var/www/static/",
 # ]
 
-# STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-STATICFILES_DIRS = [
-    BASE_DIR / "static",   # وضع التطوير
-]
+
+username_11 = getpass.getuser()
+if username_11 == "Administrator":
+    STATICFILES_DIRS = [
+        BASE_DIR / "static",   # وضع التطوير
+    ]
+else:
+    STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -184,8 +194,8 @@ LOGIN_REDIRECT_URL = reverse_lazy('dashboard')
 LOGOUT_REDIRECT_URL = 'login'  
 
 
-#########################################
+################## KASHIER API #######################
 KASHIER_MID = 'MID-23552-762'
 KASHIER_API_KEY = 'd76a6ac4-90bb-4937-b7fd-4f38f912226a'
 KASHIER_MODE = 'test' # 'test' أو 'live'
-# KASHIER_MID = ''
+######################################################

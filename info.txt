@@ -1,5 +1,13 @@
 .\Scripts\Activate.ps1
 
+
+تحديق السيرفر 
+cd ~/اسم_المشروع
+git pull
+ython manage.py collectstatic --noinput
+
+
+
 ترجمه
 django-admin compilemessages
 
