@@ -116,3 +116,16 @@ msgstr "لا توجد أخبار حالياً"
 
 msgid "Stay tuned for updates"
 msgstr "تابعنا لمعرفة الجديد قريباً"
+#####################
+
+
+
+
+
+#: templates/case_detail.html:78
+msgid "Back to all cases"
+msgstr "العودة لكل الحالات"
+
+#: static/js/alert_messages.js:1
+msgid "Added to cart"
+msgstr "تمت الإضافة للسلة"

@@ -1,5 +1,8 @@
 .\Scripts\Activate.ps1
 
+ترجمه
+django-admin compilemessages
+
 
 
 python manage.py collectstatic

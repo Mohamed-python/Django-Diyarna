@@ -15,7 +15,9 @@ from products.models import ProductOrder, Product
 
 ######################################
 
-
+def case_detail(request, slug):
+    case = get_object_or_404(Case, slug=slug)
+    return render(request, 'donations/case_detail.html', {'case': case})
 
 
 # Create your views here.

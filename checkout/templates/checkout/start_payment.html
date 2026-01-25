@@ -28,7 +28,7 @@
 [dir="rtl"] {
     text-align: right;
     direction: rtl;
-    
+
 }
 
 [dir="ltr"] {
@@ -574,11 +574,11 @@
         grid-template-columns: 1fr;
         gap: 30px;
     }
-    
+
     .checkout-title {
         font-size: 2.2rem;
     }
-    
+
     .order-summary-card,
     .checkout-form-card {
         padding: 30px;
@@ -589,40 +589,40 @@
     .checkout-page {
         padding: 40px 0;
     }
-    
+
     .checkout-title {
         font-size: 1.8rem;
         margin-bottom: 30px;
     }
-    
+
     .order-summary-card,
     .checkout-form-card {
         padding: 25px;
     }
-    
+
     .summary-title,
     .form-title {
         font-size: 1.5rem;
     }
-    
+
     .cart-item {
-        flex-direction: column;
+        /*flex-direction: column;*/
         text-align: center;
     }
-    
+
     .item-image {
         margin: 0 0 15px 0;
     }
-    
+
     [dir="rtl"] .item-image {
         margin: 0 0 15px 0;
     }
-    
+
     .item-meta {
         flex-direction: column;
         gap: 10px;
     }
-    
+
     .intention-options {
         grid-template-columns: 1fr;
     }
@@ -632,11 +632,11 @@
     .checkout-container {
         padding: 0 15px;
     }
-    
+
     .checkout-title {
         font-size: 1.6rem;
     }
-    
+
     .order-summary-card,
     .checkout-form-card {
         padding: 20px;
@@ -663,7 +663,7 @@
 
 {% block content %}
 <div class="checkout-page" dir="{% if LANGUAGE_CODE == 'ar' %}rtl{% else %}ltr{% endif %}">
-    
+
     <!-- رسائل الخطأ -->
     {% if errors %}
     <div class="checkout-alerts fade-in-up">
@@ -707,9 +707,9 @@
                     </div>
                     <h2 class="summary-title">
                         {% if LANGUAGE_CODE == 'ar' %}
-                            ملخص الطلب
+                            ملخص التبرع
                         {% else %}
-                            Order Summary
+                            Donation summary
                         {% endif %}
                     </h2>
                 </div>
@@ -835,9 +835,9 @@
                                 Full Name
                             {% endif %} *
                         </label>
-                        <input type="text" 
+                        <input type="text"
                                id="donorName"
-                               name="name" 
+                               name="name"
                                class="form-control-custom"
                                placeholder="{% if LANGUAGE_CODE == 'ar' %}أدخل اسمك الكامل{% else %}Enter your full name{% endif %}"
                                required>
@@ -851,9 +851,9 @@
                                 Email Address
                             {% endif %} *
                         </label>
-                        <input type="email" 
+                        <input type="email"
                                id="donorEmail"
-                               name="email" 
+                               name="email"
                                class="form-control-custom"
                                placeholder="{% if LANGUAGE_CODE == 'ar' %}example@mail.com{% else %}example@mail.com{% endif %}"
                                required>
@@ -867,9 +867,9 @@
                                 Phone Number
                             {% endif %} *
                         </label>
-                        <input type="tel" 
+                        <input type="tel"
                                id="donorPhone"
-                               name="phone" 
+                               name="phone"
                                class="form-control-custom"
                                placeholder="{% if LANGUAGE_CODE == 'ar' %}01012345678{% else %}01012345678{% endif %}"
                                required>
@@ -896,7 +896,7 @@
                                 Choose your donation intention or write your own. This information is for internal use only and will not be made public.
                             {% endif %}
                         </p>
-                        
+
                         <div class="intention-options">
                             <div class="intention-option" data-intention="general">
                                 <div class="option-icon">
@@ -910,7 +910,7 @@
                                     {% endif %}
                                 </div>
                             </div>
-                            
+
                             <div class="intention-option" data-intention="health">
                                 <div class="option-icon">
                                     <i class="fas fa-heartbeat"></i>
@@ -923,7 +923,7 @@
                                     {% endif %}
                                 </div>
                             </div>
-                            
+
                             <div class="intention-option" data-intention="education">
                                 <div class="option-icon">
                                     <i class="fas fa-graduation-cap"></i>
@@ -936,7 +936,7 @@
                                     {% endif %}
                                 </div>
                             </div>
-                            
+
                             <div class="intention-option" data-intention="custom">
                                 <div class="option-icon">
                                     <i class="fas fa-edit"></i>
@@ -950,9 +950,9 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        <textarea name="intention" 
-                                  id="customIntention" 
+
+                        <textarea name="intention"
+                                  id="customIntention"
                                   class="intention-textarea"
                                   placeholder="{% if LANGUAGE_CODE == 'ar' %}اكتب نية تبرعك هنا...{% else %}Write your donation intention here...{% endif %}"
                                   style="display: none;"></textarea>
@@ -963,7 +963,7 @@
                     <div class="form-group-custom">
                         <label for="totalAmountInput" class="form-label-custom">
                             {% if LANGUAGE_CODE == 'ar' %}
-                                إجمالي التبرع 
+                                إجمالي التبرع
                             {% else %}
                                 Total Donation
                             {% endif %} *
@@ -992,10 +992,10 @@
                     <!-- سياسة الخصوصية -->
                     <p class="text-center mt-3" style="color: var(--secondary-color); font-size: 0.9rem;">
                         {% if LANGUAGE_CODE == 'ar' %}
-                            بالنقر على "متابعة الدفع" فإنك توافق على 
+                            بالنقر على "متابعة الدفع" فإنك توافق على
                             <a href="" style="color: var(--primary-color);">شروط الخدمة وسياسة الخصوصية</a>
                         {% else %}
-                            By clicking "Proceed to Payment" you agree to our 
+                            By clicking "Proceed to Payment" you agree to our
                             <a href="" style="color: var(--primary-color);">Terms of Service & Privacy Policy</a>
                         {% endif %}
                     </p>
@@ -1008,7 +1008,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const isRTL = '{{ LANGUAGE_CODE }}' === 'ar';
-    
+
     // عناصر DOM
     const cartItemsContainer = document.getElementById('cartItems');
     const subtotalElement = document.getElementById('subtotal');
@@ -1017,15 +1017,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const cartDataInput = document.getElementById('cartData');
     const checkoutForm = document.getElementById('checkoutForm');
     const submitBtn = document.getElementById('submitBtn');
-    
+
     // عناصر نية التبرع
     const intentionOptions = document.querySelectorAll('.intention-option');
     const customIntentionTextarea = document.getElementById('customIntention');
     const intentionTypeInput = document.getElementById('intentionType');
-    
+
     // جلب بيانات السلة
     let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    
+
     // ترجمة أنواع التبرع
     const intentionTranslations = {
         'general': isRTL ? 'مساعدة عامة' : 'General Assistance',
@@ -1033,12 +1033,12 @@ document.addEventListener('DOMContentLoaded', function() {
         'education': isRTL ? 'مساعدة طالب' : 'Student Assistance',
         'custom': isRTL ? 'نية خاصة' : 'Custom Intention'
     };
-    
+
     // تحديث ملخص الطلب
     function updateOrderSummary() {
         let subtotal = 0;
         let cartItemsHTML = '';
-        
+
         if (cart.length === 0) {
             cartItemsHTML = `
                 <div class="empty-cart text-center py-4">
@@ -1052,12 +1052,12 @@ document.addEventListener('DOMContentLoaded', function() {
             cart.forEach((item, index) => {
                 const itemTotal = (item.price || 0) * (item.quantity || 1);
                 subtotal += itemTotal;
-                
+
                 cartItemsHTML += `
                     <div class="cart-item">
                         <div class="item-image">
-                            ${item.img ? 
-                                `<img src="${item.img}" alt="${item.name}">` : 
+                            ${item.img ?
+                                `<img src="${item.img}" alt="${item.name}">` :
                                 `<div class="item-image-placeholder">
                                     <i class="fas fa-${item.type === 'cases' ? 'heart' : 'box'}"></i>
                                 </div>`
@@ -1076,7 +1076,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 `;
             });
         }
-        
+
         // تحديث العناصر
         cartItemsContainer.innerHTML = cartItemsHTML;
         subtotalElement.textContent = `${subtotal.toFixed(2)} EGP`;
@@ -1084,19 +1084,19 @@ document.addEventListener('DOMContentLoaded', function() {
         totalAmountInput.value = subtotal;
         cartDataInput.value = JSON.stringify(cart);
     }
-    
+
     // إدارة نية التبرع
     intentionOptions.forEach(option => {
         option.addEventListener('click', function() {
             // إزالة التحديد من جميع الخيارات
             intentionOptions.forEach(opt => opt.classList.remove('selected'));
-            
+
             // إضافة التحديد للخيار المختار
             this.classList.add('selected');
-            
+
             const intention = this.dataset.intention;
             intentionTypeInput.value = intention;
-            
+
             // إظهار/إخفاء مربع النص للنية المخصصة
             if (intention === 'custom') {
                 customIntentionTextarea.style.display = 'block';
@@ -1109,41 +1109,41 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-    
+
     // التحقق من صحة النموذج
     checkoutForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        
+
         // التحقق من بيانات السلة
         if (cart.length === 0) {
             showError(isRTL ? 'السلة فارغة. يرجى إضافة تبرعات قبل المتابعة.' : 'Your cart is empty. Please add donations before proceeding.');
             return;
         }
-        
+
         // التحقق من البيانات الشخصية
         const name = document.getElementById('donorName').value.trim();
         const email = document.getElementById('donorEmail').value.trim();
         const phone = document.getElementById('donorPhone').value.trim();
-        
+
         if (!name || !email || !phone) {
             showError(isRTL ? 'يرجى ملء جميع الحقول المطلوبة' : 'Please fill all required fields');
             return;
         }
-        
+
         // التحقق من صحة البريد الإلكتروني
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             showError(isRTL ? 'يرجى إدخال بريد إلكتروني صحيح' : 'Please enter a valid email address');
             return;
         }
-                
-        
+
+
         // التحقق من نية التبرع المخصصة
         if (intentionTypeInput.value === 'custom' && !customIntentionTextarea.value.trim()) {
             showError(isRTL ? 'يرجى كتابة نية التبرع' : 'Please write your donation intention');
             return;
         }
-        
+
         // إضافة تأثير التحميل
         submitBtn.classList.add('loading');
         submitBtn.disabled = true;
@@ -1151,13 +1151,13 @@ document.addEventListener('DOMContentLoaded', function() {
             <span>${isRTL ? 'جاري المعالجة...' : 'Processing...'}</span>
             <i class="fas fa-spinner"></i>
         `;
-        
+
         // إرسال النموذج
         setTimeout(() => {
             this.submit();
         }, 1500);
     });
-    
+
     // عرض رسالة خطأ
     function showError(message) {
         // إزالة أي رسائل خطأ سابقة
@@ -1165,7 +1165,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (existingAlert) {
             existingAlert.remove();
         }
-        
+
         // إنشاء رسالة الخطأ الجديدة
         const alertHTML = `
             <div class="checkout-alerts">
@@ -1179,19 +1179,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>
         `;
-        
+
         // إضافة الرسالة في أعلى الصفحة
         const checkoutPage = document.querySelector('.checkout-page');
         checkoutPage.insertAdjacentHTML('afterbegin', alertHTML);
-        
+
         // تمرير للرسالة
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-    
+
 
     // تحديث عند التحميل
     updateOrderSummary();
-    
+
     // التأكد من وجود قيمة في الحقل المخفي
     if (cart.length > 0) {
         cartDataInput.value = JSON.stringify(cart);

@@ -29,7 +29,7 @@ LOCALE_PATHS = [
 SECRET_KEY = 'django-insecure-&&9e)+r7(!=9l$901tqst4(wz7811^uj1i&ff*e&&)(z-#lo7e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # ALLOWED_HOSTS = []
 ALLOWED_HOSTS = ['*']
@@ -153,7 +153,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
+
+
+
 
 
 # STATICFILES_DIRS = [
@@ -161,10 +164,11 @@ STATIC_URL = '/static/'
 #     "/var/www/static/",
 # ]
 
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-
-# MEDIA_ROOT = BASE_DIR / 'media'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",   # وضع التطوير
+]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

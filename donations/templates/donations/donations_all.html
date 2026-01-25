@@ -29,12 +29,24 @@
            data-img="{% if c.image %}{{ c.image.url }}{% endif %}" 
            data-type="cases">
 
+
+
         {% if c.image %}
-        <img src="{{ c.image.url }}" class="card-img-top" alt="{{ c.title }}">
+        <a href="{% url 'donations:case_detail' c.slug %}" class="text-decoration-none text-dark">
+          <img src="{{ c.image.url }}" class="card-img-top" alt="{{ c.title }}">
+        </a>
         {% endif %}
 
         <div class="card-body">
-          <h5 class="case-title semi-bold fs-5">{{ c.title }}</h5>
+          <h5 class="case-title semi-bold fs-5">
+            
+            <a href="{% url 'donations:case_detail' c.slug %}" class="text-decoration-none" style='color:#009bbd'>
+            {{ c.title }}
+          </a>
+            {% comment %} <a href="{% url 'donate' c.slug %}" class="text-decoration-none text-dark">
+                {{ c.title }}
+            </a> {% endcomment %}
+          </h5>
 
           <p class="case-desc c-6 fs-6 mt-2 mb-2">
             {{ c.description|truncatechars:100 }}
@@ -47,8 +59,8 @@
             </div>
 
             <div class="progress">
-              <div class="progress-bar bg-success" role="progressbar"
-                   style="width: {{ c.progress_percent|floatformat:0 }}%;">
+              <div class="progress-bar" role="progressbar"
+                   style="width: {{ c.progress_percent|floatformat:0 }}%; background: #2b91a7;">
               </div>
             </div>
 
@@ -70,7 +82,7 @@
               class="btn btn-sm btn-btnnn add-to-cart"
               style="white-space: nowrap;">
               <i class="fa fa-xs fa-cart-shopping me-1"></i>
-              {% trans "Donate" %}
+              {% trans "Donate Now" %}
             </button>
           </div>
 
@@ -82,8 +94,7 @@
     {% endfor %}
   </div>
 
- 
-
+  
 </div>
 
 
