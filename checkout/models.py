@@ -8,13 +8,13 @@ class Order(models.Model):
         ("FAILED", "Failed"),
     )
 
-    order_reference = models.CharField(max_length=100, unique=True)
+    merchant_order_id = models.CharField(max_length=100, unique=True)
     email = models.EmailField()
     phone = models.CharField(max_length=20)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     cart_data = models.JSONField()
-    transaction_id = models.CharField(max_length=150, blank=True, null=True)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="PENDING")
+    # transaction_id = models.CharField(max_length=150, blank=True, null=True)
+    payment_status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="PENDING")
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

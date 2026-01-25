@@ -21,10 +21,10 @@ from django.urls import path, include
 from django.conf.urls.i18n import i18n_patterns
 from accounts.views import dashboard, logout_get, signup
 from django.contrib.auth import views as auth_views
-from checkout.views import kashier_webhook
+# from checkout.views import kashier_webhook
 
 urlpatterns = [
-    path("kashier_webhook/", kashier_webhook, name="kashier_webhook"),
+    # path("kashier_webhook/", kashier_webhook, name="kashier_webhook"),
 
     path('i18n/', include('django.conf.urls.i18n')),  # تغيير اللغة
 ]

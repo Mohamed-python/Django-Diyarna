@@ -1,0 +1,664 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block extra_css %}
+<style>
+/* متغيرات الألوان */
+:root {
+    --primary-color: #02c3eb;
+    --primary-dark: #02a8cc;
+    --primary-light: rgba(2, 195, 235, 0.1);
+    --primary-gradient: linear-gradient(135deg, #02c3eb, #02a8cc);
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --danger-light: rgba(220, 53, 69, 0.1);
+    --danger-gradient: linear-gradient(135deg, #dc3545, #c82333);
+    --light-bg: #f8f9fa;
+    --white: #ffffff;
+    --shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 15px 35px rgba(0, 0, 0, 0.15);
+    --radius-lg: 20px;
+    --radius-md: 12px;
+    --radius-sm: 8px;
+    --transition: all 0.3s ease;
+}
+
+/* إصلاحات RTL */
+[dir="rtl"] {
+    text-align: right;
+    direction: rtl;
+    
+}
+
+[dir="ltr"] {
+    text-align: left;
+    direction: ltr;
+}
+
+/* الصفحة الرئيسية */
+.payment-failed-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #fff5f5 0%, #f8fafc 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* تأثيرات الخلفية */
+.payment-failed-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23dc3545' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+/* بطاقة المحتوى */
+.failed-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 50px 40px;
+    box-shadow: var(--shadow-lg);
+    max-width: 500px;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+    border-top: 5px solid var(--danger-color);
+    animation: fadeInUp 0.8s ease;
+    text-align: center;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* أيقونة البكاء */
+.crying-icon {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 30px;
+}
+
+.crying-face {
+    width: 100%;
+    height: 100%;
+    background: var(--danger-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.face-circle {
+    width: 80px;
+    height: 80px;
+    background: white;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.eyes {
+    display: flex;
+    justify-content: space-around;
+    padding: 25px 15px 0;
+}
+
+.eye {
+    width: 16px;
+    height: 16px;
+    background: #333;
+    border-radius: 50%;
+    position: relative;
+}
+
+.eye::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 6px;
+    height: 6px;
+    background: white;
+    border-radius: 50%;
+}
+
+.mouth {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 20px;
+    border-bottom: 4px solid #333;
+    border-radius: 0 0 20px 20px;
+}
+
+.tear {
+    position: absolute;
+    top: 70px;
+    width: 8px;
+    height: 8px;
+    background: var(--primary-color);
+    border-radius: 50% 0 50% 50%;
+    animation: tearDrop 2s infinite;
+}
+
+.tear.left {
+    left: 35px;
+    animation-delay: 0.5s;
+}
+
+.tear.right {
+    right: 35px;
+}
+
+@keyframes tearDrop {
+    0% {
+        transform: translateY(0) scale(0.5);
+        opacity: 0;
+    }
+    30% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(40px) scale(1);
+        opacity: 0;
+    }
+}
+
+/* العنوان والنص */
+.failed-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--danger-color);
+    margin-bottom: 15px;
+    position: relative;
+    display: inline-block;
+}
+
+.failed-title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: var(--danger-gradient);
+    border-radius: 2px;
+}
+
+.failed-subtitle {
+    color: var(--secondary-color);
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.failed-description {
+    color: var(--secondary-color);
+    line-height: 1.8;
+    margin-bottom: 40px;
+    font-size: 1.05rem;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* قائمة الأسباب */
+.reasons-list {
+    background: var(--light-bg);
+    border-radius: var(--radius-md);
+    padding: 25px;
+    margin: 30px 0;
+    text-align: left;
+}
+
+[dir="rtl"] .reasons-list {
+    text-align: right;
+}
+
+.reasons-title {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1rem;
+}
+
+.reasons-title i {
+    color: var(--warning-color);
+}
+
+.reasons-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.reasons-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+    color: var(--secondary-color);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.reasons-list li i {
+    color: var(--danger-color);
+    font-size: 12px;
+    margin-top: 5px;
+    flex-shrink: 0;
+}
+
+.reasons-list li:last-child {
+    margin-bottom: 0;
+}
+
+/* الأزرار */
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.action-btn {
+    min-width: 180px;
+    padding: 16px 30px;
+    border-radius: var(--radius-sm);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    border: 2px solid transparent;
+    text-decoration: none;
+    text-align: center;
+}
+
+.action-btn-primary {
+    background: var(--danger-gradient);
+    color: white;
+}
+
+.action-btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(220, 53, 69, 0.3);
+}
+
+.action-btn-primary:active {
+    transform: translateY(-1px);
+}
+
+.action-btn-secondary {
+    background: transparent;
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.action-btn-secondary:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-3px);
+}
+
+.action-btn-tertiary {
+    background: transparent;
+    color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+.action-btn-tertiary:hover {
+    background: var(--secondary-color);
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* رسالة تشجيعية */
+.encouragement {
+    margin-top: 40px;
+    padding-top: 25px;
+    border-top: 1px solid var(--light-bg);
+}
+
+.encouragement-text {
+    color: var(--secondary-color);
+    font-size: 1rem;
+    font-style: italic;
+    margin-bottom: 15px;
+}
+
+.quote {
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.quote i {
+    color: var(--warning-color);
+}
+
+/* تصميم متجاوب */
+@media (max-width: 768px) {
+    .payment-failed-page {
+        padding: 20px 15px;
+    }
+    
+    .failed-card {
+        padding: 40px 25px;
+    }
+    
+    .crying-icon {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 25px;
+    }
+    
+    .face-circle {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .failed-title {
+        font-size: 1.8rem;
+    }
+    
+    .failed-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    .action-btn {
+        min-width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .failed-card {
+        padding: 30px 20px;
+    }
+    
+    .crying-icon {
+        width: 90px;
+        height: 90px;
+    }
+    
+    .face-circle {
+        width: 65px;
+        height: 65px;
+    }
+    
+    .failed-title {
+        font-size: 1.6rem;
+    }
+    
+    .reasons-list {
+        padding: 20px;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="payment-failed-page" dir="{% if LANGUAGE_CODE == 'ar' %}rtl{% else %}ltr{% endif %}">
+    <div class="failed-card">
+        
+        <!-- أيقونة البكاء -->
+        <div class="crying-icon">
+            <div class="crying-face">
+                <div class="face-circle">
+                    <div class="eyes">
+                        <div class="eye"></div>
+                        <div class="eye"></div>
+                    </div>
+                    <div class="mouth"></div>
+                </div>
+                <div class="tear left"></div>
+                <div class="tear right"></div>
+            </div>
+        </div>
+
+        <!-- العنوان والنص -->
+        <h1 class="failed-title">
+            {% if LANGUAGE_CODE == 'ar' %}
+                فشل عملية الدفع
+            {% else %}
+                Payment Failed
+            {% endif %}
+        </h1>
+        
+        <h3 class="failed-subtitle">
+            {% if LANGUAGE_CODE == 'ar' %}
+                للأسف، لم تكتمل عملية التبرع
+            {% else %}
+                Unfortunately, your donation could not be completed
+            {% endif %}
+        </h3>
+        
+        <p class="failed-description">
+            {% if LANGUAGE_CODE == 'ar' %}
+                حدث خطأ أثناء عملية الدفع. لا تقلق، لم يتم خصم أي مبلغ من حسابك.
+                يمكنك المحاولة مرة أخرى أو التواصل مع فريق الدعم لمساعدتك.
+            {% else %}
+                An error occurred during the payment process. Don't worry, 
+                no amount has been deducted from your account. 
+                You can try again or contact our support team for assistance.
+            {% endif %}
+        </p>
+
+        <!-- قائمة الأسباب المحتملة -->
+        <div class="reasons-list">
+            <h4 class="reasons-title">
+                <i class="fas fa-exclamation-triangle"></i>
+                {% if LANGUAGE_CODE == 'ar' %}
+                    أسباب محتملة للفشل:
+                {% else %}
+                    Possible Reasons for Failure:
+                {% endif %}
+            </h4>
+            <ul>
+                <li>
+                    <i class="fas fa-times-circle"></i>
+                    {% if LANGUAGE_CODE == 'ar' %}
+                        بيانات البطاقة غير صحيحة أو منتهية الصلاحية
+                    {% else %}
+                        Incorrect or expired card information
+                    {% endif %}
+                </li>
+                <li>
+                    <i class="fas fa-times-circle"></i>
+                    {% if LANGUAGE_CODE == 'ar' %}
+                        عدم كفاية الرصيد في البطاقة
+                    {% else %}
+                        Insufficient balance in the card
+                    {% endif %}
+                </li>
+                <li>
+                    <i class="fas fa-times-circle"></i>
+                    {% if LANGUAGE_CODE == 'ar' %}
+                        تجاوز الحد اليومي للبطاقة
+                    {% else %}
+                        Exceeding daily card limit
+                    {% endif %}
+                </li>
+                <li>
+                    <i class="fas fa-times-circle"></i>
+                    {% if LANGUAGE_CODE == 'ar' %}
+                        مشكلة تقنية مؤقتة في بوابة الدفع
+                    {% else %}
+                        Temporary technical issue with payment gateway
+                    {% endif %}
+                </li>
+                <li>
+                    <i class="fas fa-times-circle"></i>
+                    {% if LANGUAGE_CODE == 'ar' %}
+                        انتهاء وقت الجلسة (Session Timeout)
+                    {% else %}
+                        Session timeout
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+
+        <!-- أزرار الإجراءات -->
+        <div class="action-buttons">
+            <a href="{% url 'start_payment' %}" class="action-btn action-btn-primary">
+                <i class="fas fa-redo"></i>
+                {% if LANGUAGE_CODE == 'ar' %}
+                    المحاولة مرة أخرى
+                {% else %}
+                    Try Again
+                {% endif %}
+            </a>
+            
+            
+            
+            <a href="{% url 'contact' %}" class="action-btn action-btn-tertiary">
+                <i class="fas fa-headset"></i>
+                {% if LANGUAGE_CODE == 'ar' %}
+                    تواصل مع الدعم
+                {% else %}
+                    Contact Support
+                {% endif %}
+            </a>
+        </div>
+
+        <!-- رسالة تشجيعية -->
+        <div class="encouragement">
+            <p class="encouragement-text">
+                {% if LANGUAGE_CODE == 'ar' %}
+                    ❤️ تذكر: كل محاولة للخير تُحسب، حتى لو لم تنجح من أول مرة.
+                {% else %}
+                    ❤️ Remember: Every attempt to do good counts, even if it doesn't succeed the first time.
+                {% endif %}
+            </p>
+            <div class="quote">
+                <i class="fas fa-quote-right"></i>
+                <span>
+                    {% if LANGUAGE_CODE == 'ar' %}
+                        "العمل الصالح لا يضيع أبداً"
+                    {% else %}
+                        "Good deeds are never wasted"
+                    {% endif %}
+                </span>
+                <i class="fas fa-quote-left"></i>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+// تأثيرات JavaScript إضافية
+document.addEventListener('DOMContentLoaded', function() {
+    const isRTL = '{{ LANGUAGE_CODE }}' === 'ar';
+    
+    // تأثير ظهور تدريجي
+    const card = document.querySelector('.failed-card');
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(30px)';
+    
+    setTimeout(() => {
+        card.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+    }, 300);
+    
+    // تأثير اهتزاز خفيف للأيقونة
+    const cryingFace = document.querySelector('.crying-face');
+    setInterval(() => {
+        cryingFace.style.transform = 'translateX(2px)';
+        setTimeout(() => {
+            cryingFace.style.transform = 'translateX(-2px)';
+        }, 100);
+        setTimeout(() => {
+            cryingFace.style.transform = 'translateX(0)';
+        }, 200);
+    }, 3000);
+    
+    // تأثير تتبع الدموع
+    const tears = document.querySelectorAll('.tear');
+    tears.forEach((tear, index) => {
+        tear.style.animationDelay = `${index * 0.5}s`;
+    });
+    
+    // إضافة تأثير للأزرار عند التمرير
+    const buttons = document.querySelectorAll('.action-btn');
+    buttons.forEach(button => {
+        button.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-3px)';
+        });
+        
+        button.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+    
+    // رسالة تحفيزية إضافية
+    setTimeout(() => {
+        const encouragement = document.querySelector('.encouragement');
+        encouragement.style.opacity = '0';
+        encouragement.style.transition = 'opacity 0.8s ease';
+        encouragement.style.opacity = '1';
+    }, 1500);
+    
+    // حفظ سبب الفشل محلياً (للمساعدة في التحليل)
+    const failureData = {
+        timestamp: new Date().toISOString(),
+        page: 'payment_failed',
+        sessionId: '{{ session_id|default:"unknown" }}'
+    };
+    
+    try {
+        localStorage.setItem('last_payment_failure', JSON.stringify(failureData));
+    } catch (e) {
+        console.log('Failed to save failure data:', e);
+    }
+});
+</script>
+{% endblock %}

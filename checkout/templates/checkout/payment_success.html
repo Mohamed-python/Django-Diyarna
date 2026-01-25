@@ -70,6 +70,15 @@
 {% endblock %}
 
 {% block content %}
+
+
+{% if pay_success %}
+    <script>
+        localStorage.removeItem('cart');
+    </script>
+{% endif %}
+
+
 <!-- تأثير الكونفيتي -->
 <div class="confetti-container" id="confetti-container"></div>
 

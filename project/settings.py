@@ -175,3 +175,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = reverse_lazy('home')
 LOGOUT_REDIRECT_URL = 'login'  
+
+
+#########################################
+KASHIER_MID = 'MID-23552-762'
+KASHIER_API_KEY = 'd76a6ac4-90bb-4937-b7fd-4f38f912226a'
+KASHIER_MODE = 'test' # 'test' أو 'live'
+# KASHIER_MID = ''
