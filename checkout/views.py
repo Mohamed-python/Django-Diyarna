@@ -15,8 +15,8 @@ from .models import Order
 import time
 # from urllib.parse import urlencode
 # from django.conf import settings
+from .kashier_payment import KashierPayment
 
-from KashierPayment import KashierPayment
 
 def checkout(request):
     return render(request, 'checkout/checkout.html')
@@ -197,7 +197,6 @@ def kashier_callback(request):
 
         return render(request, 'checkout/payment_success.html', context={'pay_success':True})
         # return redirect('payment_success')  # استبدل باسم URL الخاص بك
-    
     
     else:
         donation = Order.objects.filter(
