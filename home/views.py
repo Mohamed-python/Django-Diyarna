@@ -56,6 +56,9 @@ def home(request):
     products = Product.objects.order_by('-created_at')[:6]  # جلب كل المنتجات
     news_list = News.objects.order_by('-published_at')[:3] # جلب الاخبار
 
+
+    ########################
+
     context={
         'slides':slides,
         'cases': cases, 

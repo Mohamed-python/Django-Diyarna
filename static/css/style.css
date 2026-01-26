@@ -45,7 +45,7 @@ button:disabled {
 
 /* المنتجات */
 .product-item {
-    border: 1px solid #eee;
+    /* border: 1px solid #eee; */
     background: #fff;
 }
 

@@ -19,7 +19,8 @@ class Case(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(max_length=200,upload_to=image_upload, verbose_name="صورة الحالة")
     slug = models.SlugField(blank=True, null=True, verbose_name="الرابط النصي من العنوان")
-
+    views_count = models.PositiveIntegerField(default=0)
+    
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title, allow_unicode=True)

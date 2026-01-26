@@ -22,8 +22,10 @@ class News(models.Model):
 
     image = models.ImageField(upload_to=image_upload, verbose_name="صورة الخبر", blank=True, null=True)
     image_en = models.ImageField(upload_to=image_upload, verbose_name="News Picture English", blank=True, null=True)
+    views_count = models.PositiveIntegerField(default=0)
 
     published_at = models.DateTimeField(auto_now_add=True, verbose_name="تاريخ النشر")
+    
     author = models.ForeignKey(
         User,
         on_delete=models.SET_NULL,

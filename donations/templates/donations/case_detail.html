@@ -3,13 +3,11 @@
 {% load static %}
 
 {% block content %}
-<div class="container" id="case_{{ case.id }}">
-  <div class="text-center mb-5">
-  </div>
-
+<div class="container py-5" id="case_{{ case.id }}">
+  
   <div class="row justify-content-center">
     <div class="col-md-6 mb-4">
-      <div class="card shadow-sm product-item" 
+      <div class="card shadow-sm product-item position-relative rounded-4"
            data-id="case-{{ case.id }}" 
            data-name="{{ case.title }}" 
            data-price="1" 
@@ -17,24 +15,34 @@
            data-type="cases">
 
         {% if case.image %}
-        <img src="{{ case.image.url }}" class="card-img-top" alt="{{ case.title }}">
+        <img src="{{ case.image.url }}" class="card-img-top rounded-4 mb-3" alt="{{ case.title }}">
         {% endif %}
 
-        <div class="card-body">
+        <div class="card-body pt-0">
+
           <!-- عنوان الحالة -->
-          <h5 class="case-title semi-bold fs-5">{{ case.title }}</h5>
+          <h5 class="case-title semi-bold fs-5 mb-2">{{ case.title }}</h5>
+
+          <!-- عدد المشاهدات -->
+          <div class="text-muted small mb-3 d-flex align-items-center gap-1">
+            <i class="fa-regular fa-eye"></i>
+            <span>{{ case.views_count }}</span>
+            <span>{% trans "views" %}</span>
+          </div>
 
           <!-- الوصف -->
-          <p class="case-desc c-6 fs-6 mt-2 mb-2">{{ case.description }}</p>
+          <p class="case-desc text-muted fs-6 mb-4" style="line-height:1.7;">
+            {{ case.description }}
+          </p>
 
           <!-- الهدف والمبالغ المحصّلة وشريط التقدم -->
-          <div class="mb-3">
+          <div class="mb-4">
             <div class="d-flex justify-content-between small mb-1">
               <span>{% trans "Goal" %}: <strong>{{ case.goal }}</strong> EGP</span>
               <span>{% trans "Collected" %}: <strong>{{ case.total_donations }}</strong> EGP</span>
             </div>
 
-            <div class="progress mb-1">
+            <div class="progress rounded-pill mb-1" style="height:6px;">
               <div class="progress-bar bg-success" role="progressbar"
                    style="width: {{ case.progress_percent|floatformat:0 }}%;"></div>
             </div>
@@ -43,28 +51,25 @@
           </div>
 
           <!-- أرقام جاهزة -->
-          <div class="mb-2 text-center">
-            <span class="btn btn-outline-secondary btn-sm preset-amount" data-value="100">100</span>
-            <span class="btn btn-outline-secondary btn-sm preset-amount" data-value="150">150</span>
-            <span class="btn btn-outline-secondary btn-sm preset-amount" data-value="200">200</span>
-            <span class="btn btn-outline-secondary btn-sm preset-amount" data-value="250">250</span>
-            <span class="btn btn-outline-secondary btn-sm preset-amount" data-value="300">300</span>
-
-
-
+          <div class="mb-3 text-center d-flex flex-wrap justify-content-center gap-2">
+            <span class="btn btn-outline-secondary btn-sm preset-amount px-3" data-value="100">100</span>
+            <span class="btn btn-outline-secondary btn-sm preset-amount px-3" data-value="150">150</span>
+            <span class="btn btn-outline-secondary btn-sm preset-amount px-3" data-value="200">200</span>
+            <span class="btn btn-outline-secondary btn-sm preset-amount px-3" data-value="250">250</span>
+            <span class="btn btn-outline-secondary btn-sm preset-amount px-3" data-value="300">300</span>
           </div>
 
           <!-- إدخال المبلغ وزر التبرع -->
-          <div class="d-flex align-items-center gap-2">
+          <div class="d-flex align-items-center gap-2 mb-3">
             <input type="number"
                    name="amount"
                    min="1"
-                   value="1"
+                   {% comment %} value="1" {% endcomment %}
                    class="form-control form-control-sm flex-grow-1 text-center"
                    placeholder="{% trans "0.0 EGP" %}">
 
             <button type="button"
-                    class="btn btn-sm btn-btnnn add-to-cart"
+                    class="btn btn-sm btn-btnnn add-to-cart px-3"
                     data-id="case-{{ case.id }}"
                     data-name="{{ case.title }}"
                     data-price="1"
@@ -91,18 +96,38 @@
 <!-- JS لإضافة الحالة للسلة واختيار الأرقام الجاهزة -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const addBtn = document.querySelector('.add-to-cart');
-    const amountInput = addBtn.previousElementSibling;
+    const amountInput = document.querySelector('input[name="amount"]');
 
-
-
-    // أرقام جاهزة
     document.querySelectorAll('.preset-amount').forEach(btn => {
         btn.addEventListener('click', function() {
-            const value = this.dataset.value;
-            amountInput.value = value;
+            amountInput.value = this.dataset.value;
         });
     });
 });
 </script>
+
+<!-- CSS لتحسين المسافات والتنسيق -->
+<style>
+.product-item {
+    border-radius: 16px;
+}
+
+.case-desc {
+    line-height: 1.7;
+}
+
+.preset-amount {
+    border-radius: 20px;
+    min-width: 60px;
+}
+
+.card-body h5 {
+    margin-bottom: 0.5rem;
+}
+
+.add-to-cart {
+    white-space: nowrap;
+}
+</style>
+
 {% endblock %}

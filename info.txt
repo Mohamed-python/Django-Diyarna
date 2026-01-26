@@ -3,6 +3,7 @@
 
 تحديق السيرفر 
 cd ~/اسم_المشروع
+git reset --hard
 git pull
 ython manage.py collectstatic --noinput
 

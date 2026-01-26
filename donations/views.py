@@ -12,11 +12,22 @@ from django.http import JsonResponse
 
 from donations.models import Case, Donation
 from products.models import ProductOrder, Product
+from django.db.models import F
 
 ######################################
 
 def case_detail(request, slug):
     case = get_object_or_404(Case, slug=slug)
+
+    # اضافه العدد
+    # key = f'viewed_order_{case.id}'
+    # if not request.session.get(key):
+    Case.objects.filter(id=case.id).update(
+        views_count=F('views_count') + 1
+    )
+        # request.session[key] = True
+
+
     return render(request, 'donations/case_detail.html', {'case': case})
 
 

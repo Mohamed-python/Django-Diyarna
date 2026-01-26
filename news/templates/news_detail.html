@@ -7,56 +7,66 @@
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-lg-8">
-            <div class="card shadow-sm border-0">
+
+            <div class="card shadow-sm border-0 rounded-4 p-3">
 
                 <!-- العنوان -->
-                <h1 class="news-detail-title mb-4">{{ title }}</h1>
+                <h1 class="news-detail-title mb-3">{{ title }}</h1>
+
 
                 <!-- الصورة -->
                 {% if img %}
                 <img src="{{ img.url }}" 
-                     class="card-img-top mb-4" 
-                     alt="{{ title }}" 
-                     style="width:100%; height:auto; object-fit:cover;">
+                     class="card-img-top mb-1 rounded-4" 
+                     alt="{{ title }}">
                 {% endif %}
 
                 <div class="card-body">
-                    <!-- تاريخ النشر والكاتب -->
+
                     
 
+                    <!-- عدد المشاهدات -->
+                    <div class="text-muted small mb-3 d-flex align-items-center gap-2">
+                        <i class="fa-regular fa-eye"></i>
+                        <span>{{ news.views_count }}</span>
+                        <span>{% trans "views" %}</span>
+                    </div>
+
                     <!-- المحتوى -->
-                    <div class="card-text" style="line-height: 1.8;">
+                    <div class="card-text mb-4" style="line-height: 1.8;">
                         {{ content|linebreaks }}
                     </div>
 
                     <!-- زر العودة -->
-                    <a href="{% url 'news_list' %}" class="btn btn-secondary mt-4">
-                        {% if LANGUAGE_CODE == 'ar' %}
-                            عودة للأخبار
-                        {% else %}
-                            Back to News
-                        {% endif %}
-                    </a>
-                </div>
+                    <div class="text-center">
+                        <a href="{% url 'news_list' %}" class="btn btn-secondary">
+                            {% if LANGUAGE_CODE == 'ar' %}
+                                عودة للأخبار
+                            {% else %}
+                                Back to News
+                            {% endif %}
+                        </a>
+                    </div>
 
+                </div>
             </div>
+
         </div>
     </div>
 </div>
 {% endwith %}
 
-
 <style>
+/* العنوان */
 .news-detail-title {
-    {% comment %} font-family: 'Cairo', sans-serif;  /* الخط العربي الجميل */ {% endcomment %}
     font-weight: 700;
-    font-size: 2rem;                   /* حجم كبير وواضح */
-    color: #222;                        /* لون أسود نظيف */
+    font-size: 2.2rem;                
+    color: #222;                        
     line-height: 1.3;
-    text-align: center;                 /* في المنتصف */
+    margin-bottom: 1rem;
 }
 
-/* تحسين الصورة */
+/* الصورة */
 .card-img-top {
     border-radius: 12px;
     object-fit: cover;
@@ -64,10 +74,32 @@
     width: 100%;
 }
 
-/* تحسين النص */
+/* نص المحتوى */
 .card-text {
     font-size: 1rem;
     color: #444;
+}
+
+/* عدد المشاهدات */
+.text-muted small i {
+    color: #888;
+}
+
+/* زر العودة */
+.btn-secondary {
+    padding: 0.5rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+/* تحسين الكارد */
+.card {
+    padding: 1rem;
+}
+
+/* تحسين المسافات بين العناصر */
+.card-body > * + * {
+    margin-top: 1rem;
 }
 </style>
 
