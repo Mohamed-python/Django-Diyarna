@@ -7,7 +7,397 @@
 
 {% block extra_css %}
 <link href="{% static 'home-slider_show/css/style.css' %}" rel="stylesheet">
+ <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        
+        
+        .artistic-section {
+            background-color: #060606;
+            width: 100%;
 
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 50px 40px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            
+
+        }
+        
+        /* تصميم هندسي في الخلفية */
+        .geometric-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            opacity: 0.15;
+        }
+        
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00b4d8, #0077b6);
+            filter: blur(40px);
+            animation: float 25s infinite linear;
+        }
+        
+        .shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            right: -100px;
+            background: linear-gradient(45deg, #00b4d8, #0096c7);
+            animation-delay: 0s;
+        }
+        
+        .shape:nth-child(2) {
+            width: 250px;
+            height: 250px;
+            bottom: -100px;
+            left: -50px;
+            background: linear-gradient(45deg, #0077b6, #023e8a);
+            animation-delay: -8s;
+            animation-direction: reverse;
+        }
+        
+        .shape:nth-child(3) {
+            width: 200px;
+            height: 200px;
+            top: 50%;
+            left: 10%;
+            background: linear-gradient(45deg, #0096c7, #00b4d8);
+            animation-delay: -15s;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            33% {
+                transform: translate(30px, -50px) rotate(120deg);
+            }
+            66% {
+                transform: translate(-20px, 20px) rotate(240deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+            }
+        }
+        
+        /* المحتوى */
+        .content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+        
+        .main-title {
+            font-size: 4.5rem;
+            {% comment %} font-weight: 800; {% endcomment %}
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #00b4d8 0%, #0077b6 50%, #023e8a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+            line-height: 1.1;
+        }
+        
+        .subtitle {
+            font-size: 1.8rem;
+            color: #90e0ef;
+            margin-bottom: 50px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+        
+        /* فانوس مصمم بطريقة فنية */
+        .artistic-lantern {
+            width: 180px;
+            height: 280px;
+            margin: 0 auto 60px;
+            position: relative;
+            filter: drop-shadow(0 10px 20px rgba(0, 180, 216, 0.3));
+        }
+        
+        .lantern-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            animation: gentle-float 8s infinite ease-in-out;
+        }
+        
+        .lantern-glass {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140px;
+            height: 200px;
+            background: linear-gradient(180deg, 
+                rgba(0, 180, 216, 0.3) 0%, 
+                rgba(0, 119, 182, 0.5) 50%, 
+                rgba(2, 62, 138, 0.7) 100%);
+            border-radius: 70px 70px 20px 20px;
+            overflow: hidden;
+            border: 2px solid rgba(0, 180, 216, 0.4);
+        }
+        
+        .lantern-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 15px,
+                    rgba(255, 255, 255, 0.1) 15px,
+                    rgba(255, 255, 255, 0.1) 20px
+                ),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 15px,
+                    rgba(255, 255, 255, 0.1) 15px,
+                    rgba(255, 255, 255, 0.1) 20px
+                );
+        }
+        
+        .lantern-top, .lantern-bottom {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, #0077b6, #00b4d8);
+            border-radius: 10px;
+            z-index: 2;
+        }
+        
+        .lantern-top {
+            top: 0;
+            width: 50px;
+            height: 20px;
+        }
+        
+        .lantern-bottom {
+            bottom: 0;
+            width: 100px;
+            height: 15px;
+            background: linear-gradient(90deg, #023e8a, #0077b6);
+        }
+        
+        .lantern-light {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 60px;
+            background: radial-gradient(
+                ellipse at center,
+                rgba(0, 180, 216, 0.4) 0%,
+                rgba(0, 119, 182, 0.2) 40%,
+                transparent 70%
+            );
+            filter: blur(15px);
+            animation: pulse-light 4s infinite alternate;
+        }
+        
+        @keyframes gentle-float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-15px) rotate(1deg); }
+            66% { transform: translateY(10px) rotate(-1deg); }
+        }
+        
+        @keyframes pulse-light {
+            0% { opacity: 0.5; transform: translateX(-50%) scale(0.9); }
+            100% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+        }
+        
+        /* النص التشجيعي */
+        .inspirational-text {
+            max-width: 700px;
+            margin: 0 auto 50px;
+            position: relative;
+        }
+        
+        .quote {
+            font-size: 2.2rem;
+            line-height: 1.6;
+            color: #caf0f8;
+            margin-bottom: 30px;
+            font-weight: 300;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+            padding: 0 20px;
+        }
+        
+        .quote:before, .quote:after {
+            content: '"';
+            font-size: 4rem;
+            color: #00b4d8;
+            position: absolute;
+            opacity: 0.5;
+        }
+        
+        .quote:before {
+            top: -20px;
+            right: 0;
+        }
+        
+        .quote:after {
+            bottom: -40px;
+            left: 0;
+        }
+        
+        .call-to-action {
+            display: inline-block;
+            padding: 18px 40px;
+            background: linear-gradient(90deg, #00b4d8, #0077b6);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            letter-spacing: 1px;
+            box-shadow: 
+                0 10px 20px rgba(0, 119, 182, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .call-to-action:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s ease;
+        }
+        
+        .call-to-action:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 15px 30px rgba(0, 119, 182, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+        
+        .call-to-action:hover:before {
+            left: 100%;
+        }
+        
+        /* النجوم */
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        
+        /* التذييل */
+        .footer-note {
+            margin-top: 50px;
+            color: #90e0ef;
+            font-size: 1.1rem;
+            opacity: 0.8;
+            letter-spacing: 0.5px;
+        }
+        
+        /* تصميم متجاوب */
+        @media (max-width: 768px) {
+            .artistic-section {
+                padding: 40px 25px;
+            }
+            
+            .main-title {
+                font-size: 3.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.5rem;
+            }
+            
+            .quote {
+                font-size: 1.8rem;
+                padding: 0 10px;
+            }
+            
+            .artistic-lantern {
+                width: 150px;
+                height: 230px;
+                margin-bottom: 40px;
+            }
+            
+            .lantern-glass {
+                width: 120px;
+                height: 170px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 2.8rem;
+                padding: 5;
+            }
+
+            
+            .subtitle {
+                font-size: 1.3rem;
+                margin-bottom: 40px;
+            }
+            
+            .quote {
+                font-size: 1.5rem;
+            }
+            
+            .call-to-action {
+                padding: 15px 30px;
+                font-size: 1.1rem;
+            }
+            
+            .artistic-lantern {
+                width: 120px;
+                height: 190px;
+            }
+            
+            .lantern-glass {
+                width: 100px;
+                height: 140px;
+            }
+        }
+    </style>
 {% endblock %}
 
 
@@ -166,6 +556,127 @@
 
 
 
+<div class="artistic-section">
+        <!-- الأشكال الهندسية الخلفية -->
+        <div class="geometric-background">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        
+        <!-- النجوم -->
+        <div class="stars" id="stars"></div>
+        
+        <!-- المحتوى الرئيسي -->
+        <div class="content">
+            <h1 class="main-title">رمضان<br>موسم العطاء</h1>
+            <p class="subtitle">شهر الرحمة والمغفرة والعتق من النار</p>
+            
+            <!-- الفانوس الفني -->
+            <div class="artistic-lantern">
+                <div class="lantern-container">
+                    <div class="lantern-top"></div>
+                    <div class="lantern-glass">
+                        <div class="lantern-pattern"></div>
+                    </div>
+                    <div class="lantern-bottom"></div>
+                    <div class="lantern-light"></div>
+                </div>
+            </div>
+            
+            <!-- النص التشجيعي -->
+            <div class="inspirational-text">
+                <p class="quote">
+                    في ليالي رمضان المباركة، تتحول القلوب إلى أوعية للرحمة، 
+                    والأيدي إلى فروع للعطاء، والدنيا إلى مسجد للخير
+                </p>
+                
+                <a href="#ramadan" class="call-to-action">
+                    <i class="fas fa-hands-helping"></i>
+                    شارك في صنع البسمة
+                </a>
+            </div>
+            
+            <!-- تذييل -->
+            <div class="footer-note">
+                كل تبرع هو نجمة تضيء سماء محتاج • رمضان كريم
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // إنشاء النجوم
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const starCount = 80;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // حجم عشوائي
+                const size = Math.random() * 3 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // موقع عشوائي
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // تأخير وتوقيت للوميض
+                star.style.animationDelay = `${Math.random() * 3}s`;
+                star.style.animationDuration = `${Math.random() * 2 + 2}s`;
+                
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // تأثيرات تفاعلية للفانوس
+        function setupLanternInteractivity() {
+            const lantern = document.querySelector('.lantern-container');
+            const section = document.querySelector('.artistic-section');
+            
+            // تأثير عند تحريك الماوس
+            section.addEventListener('mousemove', (e) => {
+                const { left, top, width, height } = section.getBoundingClientRect();
+                const x = (e.clientX - left) / width - 0.5;
+                const y = (e.clientY - top) / height - 0.5;
+                
+                lantern.style.transform = `translateX(-50%) rotate(${x * 5}deg) translateY(${y * 10}px)`;
+            });
+            
+            // إعادة التعيين عند مغادرة الماوس
+            section.addEventListener('mouseleave', () => {
+                lantern.style.transform = 'translateX(-50%)';
+            });
+        }
+        
+        // تأثير كتابة للنص
+        function animateText() {
+            const quote = document.querySelector('.quote');
+            const text = quote.textContent;
+            quote.textContent = '';
+            
+            let i = 0;
+            function typeWriter() {
+                if (i < text.length) {
+                    quote.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 30);
+                }
+            }
+            
+            // بدء الكتابة بعد تأخير بسيط
+            setTimeout(typeWriter, 1000);
+        }
+        
+        // تهيئة الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            setupLanternInteractivity();
+            animateText();
+        });
+</script>
 
 
 
@@ -197,6 +708,8 @@
 
   
   
+
+
 {% comment %} <!-- الحالات اللإنسانية --> {% endcomment %}
 <div class="container py-5" id="case_1">
 
@@ -312,7 +825,7 @@
 
 <!-- ###################################################### -->
 <!-- المنتجات -->
-<div class="container my-5">
+<div class="container my-5" id="ramadan">
     <h1 class="c-1 semi-bold section-title m-auto mt-2 mt-md-4 text-center">
         {% trans "Products" %}
     </h1>

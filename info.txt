@@ -5,7 +5,7 @@
 cd ~/اسم_المشروع
 git reset --hard
 git pull
-ython manage.py collectstatic --noinput
+python manage.py collectstatic --noinput
 
 
 
