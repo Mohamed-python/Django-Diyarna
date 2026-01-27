@@ -3,7 +3,11 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from django.http import JsonResponse
 from donations.models import Case, Donation
-from products.models import ProductOrder, Product
+from products.models import Product
+
+from products.models import Donation as Products_Donations
+
+
 from save_donation_fun import save_case_donation, extract_numbers
 from django.urls import reverse
 # import requests
@@ -189,7 +193,7 @@ def process_order(order):
         elif item.get("dataType") == "products":
             try:
                 product = Product.objects.get(id=extract_numbers(item["id"]))
-                ProductOrder.objects.create(
+                Products_Donations.objects.create(
                     donor_name=donor_name,
                     product=product,
                     quantity=item["quantity"],
@@ -199,7 +203,7 @@ def process_order(order):
                     is_paid = True,
                 )
             except Product.DoesNotExist:
-                ProductOrder.objects.create(
+                Products_Donations.objects.create(
                     donor_name=donor_name,
                     quantity=item["quantity"],
                     total_price=item["price"] * item["quantity"],

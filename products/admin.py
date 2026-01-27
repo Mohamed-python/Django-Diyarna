@@ -1,11 +1,18 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Product, ProductOrder
+from .models import Product, Donation
 
-admin.site.register(Product)
-@admin.register(ProductOrder)
-class ProductOrderAdmin(admin.ModelAdmin):
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    # list_display = ('donor_name', 'quantity', 'total_price')
+    pass
+    
+
+
+
+@admin.register(Donation)
+class DonationAdmin(admin.ModelAdmin):
 
     # exclude = ('payment_method',)
 

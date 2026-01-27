@@ -1,5 +1,7 @@
 from donations.models import Case, Donation
-from products.models import ProductOrder, Product
+from products.models import Product
+from products.models import Donation as Products_Donations
+
 
 #target_amount
 

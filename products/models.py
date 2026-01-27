@@ -44,7 +44,7 @@ class Product(models.Model):
 
 
 
-class ProductOrder(models.Model):
+class Donation(models.Model):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, related_name='orders')
     
     donor_name = models.CharField(max_length=200, blank=True, null=True, default='')

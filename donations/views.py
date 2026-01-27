@@ -11,7 +11,9 @@ from django.urls import reverse
 from django.http import JsonResponse
 
 from donations.models import Case, Donation
-from products.models import ProductOrder, Product
+from products.models import Product
+from products.models import Donation as Products_Donations
+
 from django.db.models import F
 
 ######################################
