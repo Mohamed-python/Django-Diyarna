@@ -16,7 +16,7 @@ import time
 # from urllib.parse import urlencode
 # from django.conf import settings
 from .kashier_payment import KashierPayment
-
+import uuid
 
 def checkout(request):
     return render(request, 'checkout/checkout.html')
@@ -117,7 +117,7 @@ def start_payment(request):
 
         
         ########################################################
-        merchant_order_id = f"Order_{int(time.time())}"
+        merchant_order_id = f"Order_{uuid.uuid4()}"
         
         # إنشاء كائن KashierPayment
         kashier = KashierPayment()
