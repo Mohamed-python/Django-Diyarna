@@ -8,7 +8,7 @@ from django.utils import translation
 
 def image_upload(instance, filename):
     ext = filename.split('.')[-1]
-    return f"cases/{uuid.uuid4()}.{ext}"
+    return f"news/{uuid.uuid4()}.{ext}"
 
 
 
@@ -33,7 +33,6 @@ class News(models.Model):
         related_name='news_posts',
         verbose_name="الناشر"
     )
-
     slug = models.SlugField(blank=True, null=True, allow_unicode=True, verbose_name="الرابط النصي")
     slug_en = models.SlugField(blank=True, null=True, allow_unicode=True, verbose_name="slug_en")
 
