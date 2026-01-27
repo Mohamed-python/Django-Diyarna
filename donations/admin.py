@@ -5,7 +5,7 @@ from .models import Case, Donation
 # Register your models here.
 @admin.register(Case)
 class CaseAdmin(admin.ModelAdmin):
-    exclude = ('slug',)
+    exclude = ('slug','views_count')
     # readonly_fields = (
     #     )
 
