@@ -242,7 +242,8 @@ def process_order(order):
                     quantity=item["quantity"],
                     total_price=item["price"] * item["quantity"],
                     payment_method="kashier",
-                    product_image=item.get("img")
+                    product_image=item.get("img"),
+                    is_paid = True,
                 )
             except Product.DoesNotExist:
                 ProductOrder.objects.create(
