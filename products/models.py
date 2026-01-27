@@ -45,16 +45,12 @@ class Product(models.Model):
 
 
 class ProductOrder(models.Model):
-    PAYMENT_CHOICES = [
-        ('cash', 'كاش'),
-        ('visa', 'فيزا'),
-        ('vodafone', 'فودافون كاش'),
-    ]
+    
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, related_name='orders')
-    buyer_name = models.CharField(max_length=100)
+    buyer_name = models.CharField(max_length=200)
     quantity = models.PositiveIntegerField(default=1)
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
-    payment_method = models.CharField(max_length=20, choices=PAYMENT_CHOICES, blank=True, null=True)
+    payment_method = models.CharField(max_length=200, blank=True, null=True)
     is_paid = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     product_image = models.CharField(max_length=500, blank=True, null=True)  # نخزن رابط الصورة فقط
