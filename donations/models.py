@@ -47,20 +47,13 @@ class Case(models.Model):
 
 # نموذج التبرعات
 class Donation(models.Model):
-    PAYMENT_CHOICES = [
-        ('cash', 'كاش'),
-        ('visa', 'فيزا'),
-        ('vodafone', 'فودافون كاش'),
-    ]
+
     case = models.ForeignKey(Case, on_delete=models.CASCADE, related_name='donations')
     name = models.CharField(max_length=100)
+    donor_name = models.CharField(max_length=200, blank=True, null=True, default='')
+
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-    payment_method = models.CharField(
-        max_length=20,
-        choices=PAYMENT_CHOICES,
-        blank=True,
-        null=True
-    )
+    payment_method = models.CharField(max_length=50, blank=True, null=True)
     is_paid = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
