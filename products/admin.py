@@ -7,10 +7,10 @@ admin.site.register(Product)
 @admin.register(ProductOrder)
 class ProductOrderAdmin(admin.ModelAdmin):
 
-    exclude = ('payment_method',)
+    # exclude = ('payment_method',)
 
     readonly_fields = (
-        # 'payment_method', 
+        'payment_method', 
         'product',
         'buyer_name', 
         'quantity', 

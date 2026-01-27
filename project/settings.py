@@ -196,6 +196,6 @@ LOGOUT_REDIRECT_URL = 'login'
 
 ################## KASHIER API #######################
 KASHIER_MID = 'MID-23552-762'
-KASHIER_API_KEY = 'd76a6ac4-90bb-4937-b7fd-4f38f912226a'
+KASHIER_API_KEY = '3e0be935-8680-474e-8ee6-72811843d0f0'
 KASHIER_MODE = 'test' # 'test' أو 'live'
 ######################################################
