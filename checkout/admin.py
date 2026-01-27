@@ -10,4 +10,4 @@ class OrderAdmin(admin.ModelAdmin):
     # readonly_fields = ('created_at',)  # منع تعديل تاريخ الإنشاء
     exclude = ('amount' ,'payment_status', 'cart_data')
     # fields = ('email','amount')
-    readonly_fields = ('donor_name' ,'amount', 'created_at','payment_status', 'phone', 'email', 'merchant_order_id')
+    readonly_fields = ('amount', 'created_at','payment_status', 'phone', 'email', 'merchant_order_id')
