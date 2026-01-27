@@ -1,5 +1,11 @@
 from django.contrib import admin
 from .models import Case, Donation
+# from django.apps import AppConfig
+
+
+
+
+
 
 # Register your models here.
 admin.site.register(Case)
@@ -9,11 +15,11 @@ admin.site.register(Case)
 @admin.register(Donation)
 class DonationAdmin(admin.ModelAdmin):
 
-    exclude = ('name',)
+    exclude = ('case',)
 
     readonly_fields = (
-        'case',
-        # 'name', 
+        # 'case',
+        'name', 
         'donor_name',
         'amount', 
         'payment_method', 

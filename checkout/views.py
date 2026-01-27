@@ -212,6 +212,6 @@ def process_order(order):
                     is_paid = True,
                 )
     ##################
-    print(f'process_order Done')
+    print('[+] Process Orders Done ')
 
 
