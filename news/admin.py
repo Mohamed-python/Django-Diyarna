@@ -5,7 +5,12 @@ from .models import News
 # Register your models here.
 @admin.register(News)
 class NewsAdmin(admin.ModelAdmin):
+    exclude = ('slug','slug_en', 'views_count','author')
+    # readonly_fields = (
+    #     )
+
     def save_model(self, request, obj, form, change):
         if not obj.author:
             obj.author = request.user
         super().save_model(request, obj, form, change)
+

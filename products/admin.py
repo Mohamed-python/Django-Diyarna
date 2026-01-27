@@ -6,7 +6,8 @@ from .models import Product, Donation
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     # list_display = ('donor_name', 'quantity', 'total_price')
-    pass
+    exclude = ('views_count',)
+
     
 
 
