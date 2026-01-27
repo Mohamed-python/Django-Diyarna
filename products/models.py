@@ -45,9 +45,9 @@ class Product(models.Model):
 
 
 class ProductOrder(models.Model):
-    
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, related_name='orders')
-    buyer_name = models.CharField(max_length=200)
+    
+    donor_name = models.CharField(max_length=200, blank=True, null=True, default='')
     quantity = models.PositiveIntegerField(default=1)
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
     payment_method = models.CharField(max_length=200, blank=True, null=True)

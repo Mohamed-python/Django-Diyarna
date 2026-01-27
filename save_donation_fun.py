@@ -6,9 +6,10 @@ from products.models import ProductOrder, Product
 def extract_numbers(s):
     return ''.join(c for c in s if c.isdigit())
 
-def save_case_donation(id, name, amount, payment_method, is_paid):
+def save_case_donation(donor_name, id, name, amount, payment_method, is_paid):
     case = Case.objects.get(id=extract_numbers(id))
     donation = Donation.objects.create(
+        donor_name=donor_name,
         case=case,
         name=name,
         amount=amount,

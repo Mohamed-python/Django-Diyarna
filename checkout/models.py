@@ -7,7 +7,7 @@ class Order(models.Model):
         ("PAID", "Paid"),
         ("FAILED", "Failed"),
     )
-
+    donor_name = models.CharField(max_length=200, blank=True, null=True)
     merchant_order_id = models.CharField(max_length=100, unique=True)
     email = models.EmailField()
     phone = models.CharField(max_length=20)

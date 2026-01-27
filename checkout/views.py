@@ -27,63 +27,13 @@ def payment_success(request):
 def payment_failed(request):
     return render(request, 'checkout/payment_failed.html')
 
-# def create_payment_session(amount,customer_email, redirect_url, display='ar'):
-#     # LIVE 
-#     url = 'https://api.kashier.io/v3/payment/sessions'
-#     SECRET_KEY = "6c4c9b33147cef528a59d52c2d749dae$8534350d9087e8bd53afdf6250b5927f6b1bb8444eee60e43d98b226ca8233acc90cfe4e791d787ce87696fc2344a7b7"
-#     API_KEY = '432e4f5f-511a-4bc9-85c9-7f85570c037b'
-
-#     #test
-#     # url = 'https://test-api.kashier.io/v3/payment/sessions'
-#     # SECRET_KEY = "d2825285910dac7ab9f797071b4f6439$84167217b82ca3869f3d5070a05104226186ab1237a0aa5048ddc22ab8783f15b7989a7286fb71c833d38dc0e3ddac1b"
-#     # API_KEY = 'd76a6ac4-90bb-4937-b7fd-4f38f912226a'
-#     #####################################################################
-#     merchantId = "MID-23552-762"
-#     order = f"ORDER-{int(datetime.utcnow().timestamp())}"
-#     payload = {
-#         "merchantId": merchantId,   # Merchant ID الحقيقي
-#         "amount": str(amount),                   
-#         "currency": "EGP",
-#         "order": order,
-#         "paymentType": "credit",
-#         "allowedMethods": "card,wallet",
-#         "type": "one-time",
-#         "display": display,
-#         "merchantRedirect": redirect_url,
-#         "interactionSource": "ECOMMERCE",
-#         "enable3DS": True,
-#         "customer": {
-#             "email": customer_email,
-#             "reference": order # 
-#         }
-#     }
-
-#     headers = {
-#         "Authorization": SECRET_KEY,
-#         "api-key": API_KEY,
-#         "Content-Type": "application/json"
-#     }
-
-#     response = requests.post(url, json=payload, headers=headers)
-
-#     if response.status_code in (200, 201):
-#         data = response.json()
-#         print("✅ Session Created Successfully")
-#         print("Session ID:", data["_id"])
-#         print("Session URL:", data["sessionUrl"])
-#         return data["sessionUrl"]
-#     else:
-#         print("❌ Failed to create session")
-#         print("Status:", response.status_code)
-#         print(response.text)
-#         return None
 
 
 @csrf_exempt
 def start_payment(request):
     if request.method == "POST":
 
-        name = request.POST.get("name")
+        donor_name = request.POST.get("name")
         email = request.POST.get("email")
         phone = request.POST.get("phone")
         amount = request.POST.get("amount")
@@ -91,7 +41,7 @@ def start_payment(request):
 
         errors = []
 
-        if not name:
+        if not donor_name:
             errors.append("الاسم مطلوب")
         if not email:
             errors.append("البريد الإلكتروني مطلوب")
@@ -145,6 +95,7 @@ def start_payment(request):
         #     payment_status='pending'
         # )
         donation = Order.objects.create(
+            donor_name=donor_name,
             merchant_order_id=merchant_order_id,
             email=email,
             phone=phone,
@@ -222,10 +173,12 @@ def kashier_callback(request):
 
 def process_order(order):
     cart = order.cart_data
+    donor_name = order.donor_name if order.donor_name else ""
 
     for item in cart:
         if item.get("dataType") == "cases":
             save_case_donation(
+                donor_name=donor_name,
                 id=item["id"],
                 name=item["name"],
                 amount=item["quantity"],
@@ -237,8 +190,8 @@ def process_order(order):
             try:
                 product = Product.objects.get(id=extract_numbers(item["id"]))
                 ProductOrder.objects.create(
+                    donor_name=donor_name,
                     product=product,
-                    buyer_name=item["name"],
                     quantity=item["quantity"],
                     total_price=item["price"] * item["quantity"],
                     payment_method="kashier",
@@ -247,7 +200,7 @@ def process_order(order):
                 )
             except Product.DoesNotExist:
                 ProductOrder.objects.create(
-                    buyer_name=item["name"],
+                    donor_name=donor_name,
                     quantity=item["quantity"],
                     total_price=item["price"] * item["quantity"],
                     payment_method="kashier",

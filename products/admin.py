@@ -12,7 +12,7 @@ class ProductOrderAdmin(admin.ModelAdmin):
     readonly_fields = (
         'payment_method', 
         'product',
-        'buyer_name', 
+        'donor_name', 
         'quantity', 
         'total_price', 
         'created_at',
