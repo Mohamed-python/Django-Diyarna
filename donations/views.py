@@ -26,8 +26,7 @@ def case_detail(request, slug):
         views_count=F('views_count') + 1
     )
         # request.session[key] = True
-
-
+        
     return render(request, 'donations/case_detail.html', {'case': case})
 
 
