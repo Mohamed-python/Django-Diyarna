@@ -41,7 +41,6 @@ urlpatterns += i18n_patterns(
     ##########################################
     path('accounts/', include('accounts.urls')),  # لو عندك app login/signup
     path('products/', include('products.urls')),
-    path('donations/', include('donations.urls')),
     path('volunteer/', include('volunteers.urls')),
     path('admin/', admin.site.urls),
     path('profile/', include('user_profile.urls')),  # /profile/
