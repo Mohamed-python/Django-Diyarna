@@ -101,7 +101,6 @@
     margin-top: 20px;
 }
 
-/* بطاقات الإحصائيات - تعديل خاص للغة العربية */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -135,7 +134,6 @@
     background: var(--primary-gradient);
 }
 
-/* تعديل الهوامش للغة العربية */
 [dir="rtl"] .stat-icon-wrapper {
     margin-right: 0;
     margin-left: auto;
@@ -198,7 +196,6 @@
     color: var(--danger-color);
 }
 
-/* الرسوم البيانية المصغرة */
 .mini-chart {
     height: 60px;
     margin-top: 15px;
@@ -217,7 +214,6 @@
     fill: url(#gradient);
 }
 
-/* بطاقات العرض الرئيسية */
 .main-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -278,7 +274,6 @@
     padding: 20px;
 }
 
-/* قائمة الحالات - تعديل للغة العربية */
 .case-list-item {
     display: flex;
     align-items: center;
@@ -295,7 +290,6 @@
     border-bottom: none;
 }
 
-/* تعديل هوامش الصور للغة العربية */
 [dir="rtl"] .case-image-mini {
     margin-right: 0;
     margin-left: 15px;
@@ -352,7 +346,6 @@
     color: var(--secondary-color);
 }
 
-/* شبكة المنتجات */
 .products-grid-mini {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -401,7 +394,6 @@
     font-size: 0.9rem;
 }
 
-/* قائمة الأخبار - تعديل للغة العربية */
 .news-list-item {
     display: flex;
     gap: 15px;
@@ -468,7 +460,6 @@
     line-height: 1.4;
 }
 
-/* أزرار التنقل السريع */
 .quick-actions {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -536,7 +527,6 @@
     border-color: var(--primary-color);
 }
 
-/* الحالة الفارغة */
 .empty-state {
     text-align: center;
     padding: 40px 20px;
@@ -549,7 +539,6 @@
     color: #dee2e6;
 }
 
-/* تعديل Flexbox للغة العربية */
 [dir="rtl"] .d-flex {
     flex-direction: row-reverse;
 }
@@ -580,7 +569,6 @@
 [dir="rtl"] .ps-4 { padding-right: 0 !important; padding-left: 1.5rem !important; }
 [dir="rtl"] .ps-5 { padding-right: 0 !important; padding-left: 3rem !important; }
 
-/* تصميم متجاوب */
 @media (max-width: 768px) {
     .dashboard-wrapper {
         padding: 10px;
@@ -616,7 +604,6 @@
         grid-template-columns: 1fr;
     }
     
-    /* تعديلات للهواتف في اللغة العربية */
     [dir="rtl"] .news-list-item {
         flex-direction: column;
     }
@@ -634,7 +621,6 @@
     }
 }
 
-/* أنيميشن */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -693,7 +679,6 @@ h1.welcome-title {
 <div class="dashboard-wrapper" 
      dir="{% if LANGUAGE_CODE == 'ar' %}rtl{% else %}ltr{% endif %}">
 
-    <!-- شريط الترحيب -->
     <div class="dashboard-header fade-in-up">
         <div class="welcome-content">
             <div class="d-flex align-items-center flex-wrap">
@@ -714,9 +699,7 @@ h1.welcome-title {
         </div>
     </div>
 
-    <!-- بطاقات الإحصائيات -->
     <div class="stats-grid">
-        <!-- الحالات -->
         <div class="stat-card fade-in-up" style="animation-delay: 0.1s;">
             <div class="d-flex justify-content-between align-items-start">
                 <div>
@@ -747,7 +730,6 @@ h1.welcome-title {
             </div>
         </div>
 
-        <!-- المنتجات -->
         <div class="stat-card fade-in-up" style="animation-delay: 0.2s;">
             <div class="d-flex justify-content-between align-items-start">
                 <div>
@@ -778,7 +760,6 @@ h1.welcome-title {
             </div>
         </div>
 
-        <!-- الأخبار -->
         <div class="stat-card fade-in-up" style="animation-delay: 0.3s;">
             <div class="d-flex justify-content-between align-items-start">
                 <div>
@@ -809,7 +790,6 @@ h1.welcome-title {
             </div>
         </div>
 
-        <!-- التبرعات -->
         <div class="stat-card fade-in-up" style="animation-delay: 0.4s;">
             <div class="d-flex justify-content-between align-items-start">
                 <div>
@@ -843,9 +823,7 @@ h1.welcome-title {
         </div>
     </div>
 
-    <!-- بطاقات العرض الرئيسية -->
     <div class="main-cards">
-        <!-- الحالات الحديثة -->
         <div class="main-card fade-in-up" style="animation-delay: 0.5s;">
             <div class="card-header">
                 <h3><i class="fas fa-heartbeat"></i> {% if LANGUAGE_CODE == 'ar' %}أحدث الحالات{% else %}Recent Cases{% endif %}</h3>
@@ -887,7 +865,6 @@ h1.welcome-title {
             </div>
         </div>
 
-        <!-- المنتجات الحديثة -->
         <div class="main-card fade-in-up" style="animation-delay: 0.6s;">
             <div class="card-header">
                 <h3><i class="fas fa-box"></i> {% if LANGUAGE_CODE == 'ar' %}أحدث المنتجات{% else %}Recent Products{% endif %}</h3>
@@ -923,7 +900,6 @@ h1.welcome-title {
             </div>
         </div>
 
-        <!-- الأخبار الحديثة -->
         <div class="main-card fade-in-up" style="animation-delay: 0.7s;">
             <div class="card-header">
                 <h3><i class="fas fa-newspaper"></i> {% if LANGUAGE_CODE == 'ar' %}آخر الأخبار{% else %}Latest News{% endif %}</h3>
@@ -966,7 +942,6 @@ h1.welcome-title {
         </div>
     </div>
 
-    <!-- أزرار التنقل السريع -->
     <div class="quick-actions">
         <div class="action-card fade-in-up" style="animation-delay: 0.8s;">
             <div class="action-icon">

@@ -5,7 +5,6 @@
 {% block extra_css %}
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
-/* متغيرات الألوان الرئيسية */
 :root {
     --primary-color: #02c3eb;
     --primary-dark: #02a8cc;
@@ -28,7 +27,6 @@
 [dir="rtl"] {
     text-align: right;
     direction: rtl;
-    /* font-family: 'Cairo', sans-serif !important; */
 }
 
 [dir="ltr"] {
@@ -60,7 +58,6 @@
     text-align: left;
 }
 
-/* الهيرو */
 .contact-hero {
     background: var(--primary-gradient);
     color: white;
@@ -103,7 +100,6 @@
     margin-bottom: 30px;
 }
 
-/* محتوى الصفحة */
 .contact-content {
     padding: 40px 0;
 }
@@ -117,7 +113,6 @@
     padding: 0 20px;
 }
 
-/* معلومات الاتصال */
 .contact-info-card {
     background: var(--white);
     border-radius: var(--radius-lg);
@@ -145,7 +140,6 @@
     line-height: 1.6;
 }
 
-/* بطاقات المعلومات */
 .info-card {
     background: var(--light-bg);
     border-radius: var(--radius-md);
@@ -202,7 +196,6 @@
     text-decoration: underline;
 }
 
-/* وسائل التواصل الاجتماعي */
 .social-section {
     margin-top: 40px;
 }
@@ -267,7 +260,6 @@
     border-color: #ff0000;
 }
 
-/* نموذج الاتصال */
 .contact-form-card {
     background: var(--white);
     border-radius: var(--radius-lg);
@@ -291,7 +283,6 @@
     line-height: 1.6;
 }
 
-/* رسائل النموذج */
 .alert-messages {
     margin-bottom: 30px;
 }
@@ -327,7 +318,6 @@
     color: #0369a1;
 }
 
-/* حقول النموذج */
 .form-floating-custom {
     position: relative;
     margin-bottom: 25px;
@@ -387,7 +377,6 @@ textarea.form-control-custom {
     resize: vertical;
 }
 
-/* زر الإرسال */
 .submit-btn {
     width: 100%;
     padding: 18px;
@@ -430,7 +419,6 @@ textarea.form-control-custom {
     100% { transform: rotate(360deg); }
 }
 
-/* الخريطة التفاعلية */
 .map-section {
     margin-top: 80px;
     padding: 40px 0;
@@ -517,7 +505,6 @@ textarea.form-control-custom {
     width: 20px;
 }
 
-/* إحصائيات سريعة */
 .quick-stats {
     margin-top: 60px;
     padding: 40px 0;
@@ -572,7 +559,6 @@ textarea.form-control-custom {
     font-size: 1rem;
 }
 
-/* فريق الدعم */
 .support-team {
     margin-top: 80px;
     padding: 40px 0;
@@ -642,7 +628,6 @@ textarea.form-control-custom {
     text-decoration: underline;
 }
 
-/* CTA */
 .contact-cta {
     margin-top: 80px;
     padding: 80px 0;
@@ -724,7 +709,6 @@ textarea.form-control-custom {
     color: var(--primary-color);
 }
 
-/* تصميم متجاوب */
 @media (max-width: 992px) {
     .contact-wrapper {
         grid-template-columns: 1fr;
@@ -816,7 +800,6 @@ textarea.form-control-custom {
     }
 }
 
-/* أنيميشن */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -878,7 +861,6 @@ textarea.form-control-custom {
                     </p>
                 </div>
 
-                <!-- العنوان -->
                 <div class="info-card">
                     <div class="info-card-icon">
                         <i class="fas fa-map-marker-alt"></i>
@@ -899,7 +881,6 @@ textarea.form-control-custom {
                     </p>
                 </div>
 
-                <!-- الهاتف -->
                 <div class="info-card">
                     <div class="info-card-icon">
                         <i class="fas fa-phone"></i>
@@ -917,7 +898,6 @@ textarea.form-control-custom {
                     </p>
                 </div>
 
-                <!-- البريد الإلكتروني -->
                 <div class="info-card">
                     <div class="info-card-icon">
                         <i class="fas fa-envelope"></i>
@@ -935,7 +915,6 @@ textarea.form-control-custom {
                     </p>
                 </div>
 
-                <!-- ساعات العمل -->
                 <div class="info-card">
                     <div class="info-card-icon">
                         <i class="fas fa-clock"></i>
@@ -958,7 +937,6 @@ textarea.form-control-custom {
                     </p>
                 </div>
 
-                <!-- وسائل التواصل الاجتماعي -->
                 <div class="social-section">
                     <h3 class="social-title">
                         {% if LANGUAGE_CODE == 'ar' %}
@@ -1005,7 +983,6 @@ textarea.form-control-custom {
                     </p>
                 </div>
 
-                <!-- رسائل التنبيه -->
                 {% if messages %}
                 <div class="alert-messages">
                     {% for message in messages %}
@@ -1016,11 +993,9 @@ textarea.form-control-custom {
                 </div>
                 {% endif %}
 
-                <!-- النموذج -->
                 <form method="post" class="contact-form">
                     {% csrf_token %}
 
-                    <!-- الاسم -->
                     <div class="form-floating-custom">
                         <input type="text" 
                                name="name" 
@@ -1032,7 +1007,6 @@ textarea.form-control-custom {
                         </label>
                     </div>
 
-                    <!-- البريد الإلكتروني -->
                     <div class="form-floating-custom">
                         <input type="email" 
                                name="email" 
@@ -1044,7 +1018,6 @@ textarea.form-control-custom {
                         </label>
                     </div>
 
-                    <!-- الموضوع -->
                     <div class="form-floating-custom">
                         <input type="text" 
                                name="subject" 
@@ -1056,7 +1029,6 @@ textarea.form-control-custom {
                         </label>
                     </div>
 
-                    <!-- الرسالة -->
                     <div class="form-floating-custom">
                         <textarea name="message" 
                                   id="id_message" 
@@ -1068,7 +1040,6 @@ textarea.form-control-custom {
                         </label>
                     </div>
 
-                    <!-- نوع الاستفسار -->
                     <div class="form-floating-custom">
                         <select name="inquiry_type" id="id_inquiry_type" class="form-control-custom">
                             <option value="" selected disabled>
@@ -1098,7 +1069,6 @@ textarea.form-control-custom {
                         </label>
                     </div>
 
-                    <!-- زر الإرسال -->
                     <button type="submit" class="submit-btn" id="submitBtn">
                         <span>
                             {% if LANGUAGE_CODE == 'ar' %}
@@ -1223,15 +1193,13 @@ textarea.form-control-custom {
 document.addEventListener('DOMContentLoaded', function() {
     const isRTL = '{{ LANGUAGE_CODE }}' === 'ar';
     
-    // إعداد الخريطة
-    const map = L.map('contact-map').setView([30.0444, 31.2357], 13); // إحداثيات القاهرة
+    const map = L.map('contact-map').setView([30.0444, 31.2357], 13);
     
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors',
         maxZoom: 18,
     }).addTo(map);
     
-    // إضافة علامة على الخريطة
     const marker = L.marker([30.0444, 31.2357]).addTo(map);
     marker.bindPopup(`
         <b>${isRTL ? 'مؤسسة ديارنا للتنمية' : 'Diornaw Development Foundation'}</b><br>
@@ -1239,7 +1207,6 @@ document.addEventListener('DOMContentLoaded', function() {
         ${isRTL ? 'القاهرة، مصر' : 'Cairo, Egypt'}
     `).openPopup();
     
-    // إضافة دائرة حول الموقع
     L.circle([30.0444, 31.2357], {
         color: '#02c3eb',
         fillColor: '#02c3eb',
@@ -1247,13 +1214,11 @@ document.addEventListener('DOMContentLoaded', function() {
         radius: 500
     }).addTo(map);
     
-    // تحسين النموذج
     const contactForm = document.querySelector('.contact-form');
     const submitBtn = document.getElementById('submitBtn');
     
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
-            // التحقق من المدخلات
             const requiredFields = this.querySelectorAll('[required]');
             let isValid = true;
             
@@ -1263,7 +1228,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     field.style.borderColor = '#ef4444';
                     field.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.1)';
                     
-                    // إزالة التأثير بعد 3 ثواني
                     setTimeout(() => {
                         field.style.borderColor = '';
                         field.style.boxShadow = '';
@@ -1274,7 +1238,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!isValid) {
                 e.preventDefault();
                 
-                // إظهار رسالة خطأ
                 if (!document.querySelector('.form-error')) {
                     const errorDiv = document.createElement('div');
                     errorDiv.className = 'alert alert-danger form-error';
@@ -1289,7 +1252,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     }, 5000);
                 }
             } else {
-                // إضافة تأثير التحميل
                 submitBtn.classList.add('loading');
                 submitBtn.disabled = true;
                 submitBtn.innerHTML = `
@@ -1299,7 +1261,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // إضافة تأثير للحقول
         const formInputs = contactForm.querySelectorAll('.form-control-custom');
         formInputs.forEach(input => {
             input.addEventListener('focus', function() {
@@ -1312,7 +1273,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // تأثيرات التمرير
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -1328,7 +1288,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
     
-    // إضافة تأثير لأزرار التواصل الاجتماعي
     const socialBtns = document.querySelectorAll('.social-btn');
     socialBtns.forEach(btn => {
         btn.addEventListener('mouseenter', function() {
@@ -1340,7 +1299,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // تأثير لأرقام الإحصائيات
     const statNumbers = document.querySelectorAll('.stat-number');
     statNumbers.forEach(stat => {
         const target = parseInt(stat.textContent);

@@ -4,7 +4,6 @@
 
 {% block extra_css %}
 <style>
-/* متغيرات الألوان الرئيسية */
 :root {
     --primary-color: #02c3eb;
     --primary-dark: #02a8cc;
@@ -25,11 +24,9 @@
     --transition: all 0.3s ease;
 }
 
-/* إعادة تعيين CSS للغة العربية */
 [dir="rtl"] {
     text-align: right;
     direction: rtl;
-    /* font-family: 'Cairo', sans-serif; */
 }
 
 [dir="ltr"] {
@@ -37,14 +34,12 @@
     direction: ltr;
 }
 
-/* الصفحة الرئيسية */
 .trustees-page {
     min-height: 100vh;
     background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 100%);
     padding-bottom: 50px;
 }
 
-/* الهيرو */
 .trustees-hero {
     background: var(--primary-gradient);
     color: white;
@@ -110,7 +105,6 @@
     opacity: 0.9;
 }
 
-/* معلومات المجلس */
 .trustees-info {
     padding: 60px 0;
     background: var(--white);
@@ -157,7 +151,7 @@
     line-height: 1.8;
 }
 
-/* بطاقات الأعضاء */
+
 .trustees-members {
     padding: 60px 0;
     background: var(--light-bg);
@@ -314,7 +308,6 @@
     transform: translateY(-3px);
 }
 
-/* الهيكل التنظيمي */
 .organization-structure {
     padding: 80px 0;
     background: var(--white);
@@ -412,7 +405,6 @@
     color: var(--secondary-color);
 }
 
-/* اللجان */
 .committees-section {
     padding: 60px 0;
     background: var(--light-bg);
@@ -471,7 +463,6 @@
     font-weight: 500;
 }
 
-/* CTA */
 .trustees-cta {
     padding: 80px 0;
     background: var(--primary-gradient);
@@ -555,7 +546,6 @@
     transform: translateY(-3px);
 }
 
-/* إصلاحات اللغة العربية */
 [dir="rtl"] .hero-stats,
 [dir="rtl"] .members-filter,
 [dir="rtl"] .cta-buttons {
@@ -570,7 +560,6 @@
     flex-direction: row-reverse;
 }
 
-/* تصميم متجاوب */
 @media (max-width: 992px) {
     .hero-title {
         font-size: 2.8rem;
@@ -653,7 +642,6 @@
     }
 }
 
-/* أنيميشن */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -688,7 +676,6 @@
 <div class="trustees-page" 
      dir="{% if LANGUAGE_CODE == 'ar' %}rtl{% else %}ltr{% endif %}">
 
-    <!-- الهيرو -->
     <section class="trustees-hero">
         <div class="container">
             <div class="hero-content fade-in-up">
@@ -739,7 +726,6 @@
         </div>
     </section>
 
-    <!-- معلومات المجلس -->
     <section class="trustees-info">
         <div class="container">
             <div class="section-title fade-in-up">
@@ -821,7 +807,6 @@
         </div>
     </section>
 
-    <!-- أعضاء المجلس -->
     <section class="trustees-members">
         <div class="container">
             <div class="section-title fade-in-up">
@@ -842,7 +827,6 @@
             </div>
 
 
-            <!-- قائمة الأعضاء -->
             <div class="members-grid">
                 {% if board %}
                     {% for itme in board %}
@@ -904,7 +888,6 @@
         </div>
     </section>
 
-    <!-- الهيكل التنظيمي -->
     <section class="organization-structure">
         <div class="container">
             <div class="section-title fade-in-up">
@@ -926,7 +909,6 @@
 
             <div class="structure-wrapper fade-in-up" style="animation-delay: 0.2s;">
                 <div class="structure-tree">
-                    <!-- المستوى الأول -->
                     <div class="structure-level">
                         <div class="structure-node float-animation">
                             <div class="node-title">
@@ -946,7 +928,6 @@
                         </div>
                     </div>
 
-                    <!-- المستوى الثاني -->
                     <div class="structure-level">
                         <div class="structure-node">
                             <div class="node-title">
@@ -966,7 +947,6 @@
                         </div>
                     </div>
 
-                    <!-- المستوى الثالث -->
                     <div class="structure-level">
                         <div class="structure-node">
                             <div class="node-title">
@@ -986,7 +966,6 @@
                         </div>
                     </div>
 
-                    <!-- المستوى الرابع -->
                     <div class="structure-level">
                         <div class="structure-node">
                             <div class="node-title">
@@ -1010,7 +989,6 @@
         </div>
     </section>
 
-    <!-- اللجان -->
     <section class="committees-section">
         <div class="container">
             <div class="section-title fade-in-up">
@@ -1031,7 +1009,6 @@
             </div>
 
             <div class="committees-grid">
-                <!-- لجنة 1 -->
                 <div class="committee-card fade-in-up" style="animation-delay: 0.2s;">
                     <div class="committee-icon">
                         <i class="fas fa-balance-scale"></i>
@@ -1055,7 +1032,6 @@
                     </div>
                 </div>
 
-                <!-- لجنة 2 -->
                 <div class="committee-card fade-in-up" style="animation-delay: 0.4s;">
                     <div class="committee-icon">
                         <i class="fas fa-chart-pie"></i>
@@ -1079,7 +1055,6 @@
                     </div>
                 </div>
 
-                <!-- لجنة 3 -->
                 <div class="committee-card fade-in-up" style="animation-delay: 0.6s;">
                     <div class="committee-icon">
                         <i class="fas fa-project-diagram"></i>
@@ -1106,7 +1081,6 @@
         </div>
     </section>
 
-    <!-- CTA -->
     <section class="trustees-cta">
         <div class="container">
             <div class="cta-content fade-in-up">
@@ -1150,15 +1124,12 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // فلترة الأعضاء
     const filterButtons = document.querySelectorAll('.filter-btn');
     const memberCards = document.querySelectorAll('.member-card');
     
     filterButtons.forEach(button => {
         button.addEventListener('click', function() {
-            // إزالة النشاط من جميع الأزرار
             filterButtons.forEach(btn => btn.classList.remove('active'));
-            // إضافة النشاط للزر المحدد
             this.classList.add('active');
             
             const filterValue = this.getAttribute('data-filter');
@@ -1181,7 +1152,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // تأثير التمرير للبطاقات
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'

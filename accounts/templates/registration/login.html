@@ -5,7 +5,6 @@
 {% block content %}
 <div class="login-container" dir="{% if LANGUAGE_CODE == 'ar' %}rtl{% else %}ltr{% endif %}">
     <div class="login-wrapper">
-        <!-- الجزء الأيسر -->
         <div class="login-left">
             <div class="login-illustration">
                 <div class="login-icon">
@@ -27,7 +26,7 @@
             </div>
         </div>
         
-        <!-- الجزء الأيمن -->
+        
         <div class="login-right">
             <div class="login-form-wrapper">
                 <div class="login-header">
@@ -96,7 +95,6 @@
 </div>
 
 <style>
-/* تصميم الصفحة */
 :root {
     --primary-color: #02c3eb;
     --primary-dark: #029dc3;
@@ -143,7 +141,6 @@ body {
     min-height: 600px;
 }
 
-/* الجزء الأيسر */
 .login-left {
     flex: 1;
     background: linear-gradient(135deg, var(--primary-color), #2dd4bf);
@@ -188,7 +185,6 @@ body {
     margin: 0 auto;
 }
 
-/* الجزء الأيمن */
 .login-right {
     flex: 1;
     padding: 40px;
@@ -219,7 +215,6 @@ body {
     font-size: 16px;
 }
 
-/* النموذج */
 .login-form {
     width: 100%;
 }
@@ -313,7 +308,6 @@ body {
     stroke: var(--primary-color);
 }
 
-/* تذكرني ونسيت كلمة المرور */
 .form-options {
     display: flex;
     justify-content: space-between;
@@ -387,7 +381,6 @@ body {
     text-decoration: underline;
 }
 
-/* زر تسجيل الدخول */
 .login-button {
     width: 100%;
     padding: 17px;
@@ -422,7 +415,7 @@ body {
     stroke: white;
 }
 
-/* الفاصل */
+
 .divider {
     display: flex;
     align-items: center;
@@ -443,7 +436,6 @@ body {
     font-size: 14px;
 }
 
-/* رابط إنشاء حساب جديد */
 .register-link {
     text-align: center;
     font-size: 15px;
@@ -462,7 +454,6 @@ body {
     text-decoration: underline;
 }
 
-/* تصميم متجاوب */
 @media (max-width: 768px) {
     .login-wrapper {
         flex-direction: column;
@@ -505,7 +496,6 @@ body {
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // إظهار/إخفاء كلمة المرور
     const togglePassword = document.querySelector('.toggle-password');
     const passwordInput = document.getElementById('password');
     
@@ -514,7 +504,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);
             
-            // تغيير أيقونة زر إظهار/إخفاء كلمة المرور
             const icon = this.querySelector('svg');
             if (type === 'text') {
                 icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line>';
@@ -524,7 +513,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // إضافة تأثير عند التركيز على الحقول
     const inputs = document.querySelectorAll('input');
     inputs.forEach(input => {
         input.addEventListener('focus', function() {

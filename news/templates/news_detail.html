@@ -10,11 +10,9 @@
 
             <div class="card shadow-sm border-0 rounded-4 p-3">
 
-                <!-- العنوان -->
                 <h1 class="news-detail-title mb-3">{{ title }}</h1>
 
 
-                <!-- الصورة -->
                 {% if img %}
                 <img src="{{ img.url }}" 
                      class="card-img-top mb-1 rounded-4" 
@@ -25,19 +23,16 @@
 
                     
 
-                    <!-- عدد المشاهدات -->
                     <div class="text-muted small mb-3 d-flex align-items-center gap-2">
                         <i class="fa-regular fa-eye"></i>
                         <span>{{ news.views_count }}</span>
                         <span>{% trans "views" %}</span>
                     </div>
 
-                    <!-- المحتوى -->
                     <div class="card-text mb-4" style="line-height: 1.8;">
                         {{ content|linebreaks }}
                     </div>
 
-                    <!-- زر العودة -->
                     <div class="text-center">
                         <a href="{% url 'news_list' %}" class="btn btn-secondary">
                             {% if LANGUAGE_CODE == 'ar' %}
@@ -57,7 +52,6 @@
 {% endwith %}
 
 <style>
-/* العنوان */
 .news-detail-title {
     font-weight: 700;
     font-size: 2.2rem;                
@@ -66,7 +60,6 @@
     margin-bottom: 1rem;
 }
 
-/* الصورة */
 .card-img-top {
     border-radius: 12px;
     object-fit: cover;
@@ -74,30 +67,25 @@
     width: 100%;
 }
 
-/* نص المحتوى */
 .card-text {
     font-size: 1rem;
     color: #444;
 }
 
-/* عدد المشاهدات */
 .text-muted small i {
     color: #888;
 }
 
-/* زر العودة */
 .btn-secondary {
     padding: 0.5rem 1.5rem;
     border-radius: 8px;
     font-weight: 500;
 }
 
-/* تحسين الكارد */
 .card {
     padding: 1rem;
 }
 
-/* تحسين المسافات بين العناصر */
 .card-body > * + * {
     margin-top: 1rem;
 }

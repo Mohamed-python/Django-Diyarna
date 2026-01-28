@@ -79,20 +79,16 @@
 {% endif %}
 
 
-<!-- تأثير الكونفيتي -->
 <div class="confetti-container" id="confetti-container"></div>
 
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-lg-8">
 
-            <!-- بطاقة الشكر -->
             <div class="card shadow-lg p-5 text-center border-0 rounded-4" 
                  style="background: linear-gradient(135deg, #f8f9fa 0%, #e9f5e9 100%);">
 
-                <!-- إيموجي احتفالي -->
             
-                <!-- أيقونة نجاح -->
                 <div class="success-animation mb-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="#28a745" class="bi bi-check-circle" viewBox="0 0 16 16">
                         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -100,7 +96,6 @@
                     </svg>
                 </div>
 
-                <!-- رسالة شكر -->
                 <h2 class="mb-3 text-success fw-bold">
                     {% if LANGUAGE_CODE == 'ar' %}
                         شكراً لتبرعك!
@@ -118,30 +113,8 @@
                     {% endif %}
                 </p>
 
-                <!-- الخطوات القادمة -->
                  
-                <!-- <div class="next-steps {% if LANGUAGE_CODE == 'ar' %}text-end{% else %}text-start{% endif %} mb-4">
-                    <h5 class="fw-bold text-success mb-3">
-                        {% if LANGUAGE_CODE == 'ar' %}
-                            ما الذي سيحدث الآن؟
-                        {% else %}
-                            What happens next?
-                        {% endif %}
-                    </h5>
-
-                    
-                    <ul class="mb-0" style="line-height: 1.6;">
-                        {% if LANGUAGE_CODE == 'ar' %}
-                            <li>ستصلك رسالة تأكيد على بريدك الإلكتروني قريباً</li>
-                            <li>سنتواصل معك إذا كانت هناك أي تحديثات بخصوص التبرع</li>
-                            <li>يمكنك متابعة أخبارنا وفرص التطوع على موقعنا</li>
-                        {% else %}
-                            <li>You will receive a confirmation email shortly</li>
-                            <li>We will contact you if there are any updates regarding your donation</li>
-                            <li>You can follow our news and volunteer opportunities on our website</li>
-                        {% endif %}
-                    </ul>
-                </div> -->
+                
 
                 <div class="d-flex flex-column flex-md-row justify-content-center gap-3 mt-4">
                     <a href="{% url 'home' %}" class="btn btn-outline-primary btn-lg px-4">
@@ -152,7 +125,6 @@
                     </a>
                 </div>
 
-                <!-- معلومة ممتعة -->
                 <div class="fun-fact mt-4" style="font-size: 1rem; color: #555;">
                     {% if LANGUAGE_CODE == 'ar' %}
                         💡 تبرعاتكم تساعد على تحسين حياة الكثير من الناس بشكل مباشر!
@@ -163,7 +135,6 @@
 
             </div>
 
-            <!-- اقتباس تحفيزي -->
             <div class="card border-0 shadow-sm mt-4 p-3 text-center" style="background-color: #e3f2fd;">
                 <blockquote class="blockquote mb-0">
                     {% if LANGUAGE_CODE == 'ar' %}
@@ -186,7 +157,6 @@
 
 {% block extra_js %}
 <script>
-    // إنشاء تأثير الكونفيتي
     function createConfetti() {
         const container = document.getElementById('confetti-container');
         const colors = ['#28a745', '#20c997', '#ffc107', '#fd7e14', '#0dcaf0', '#6f42c1'];
@@ -200,32 +170,27 @@
             confetti.style.animationDelay = Math.random() * 2 + 's';
             container.appendChild(confetti);
             
-            // إزالة الكونفيتي بعد انتهاء الرسوم المتحركة
             setTimeout(() => {
                 confetti.remove();
             }, 5000);
         }
     }
     
-    // مشاركة على واتساب
     function shareOnWhatsApp() {
         const text = "لقد سجلت للعمل التطوعي! انضم إلي في هذه المبادرة الرائعة 🎉";
         const url = window.location.href;
         window.open(`https://wa.me/?text=${encodeURIComponent(text + " " + url)}`, '_blank');
     }
     
-    // مشاركة على تويتر
     function shareOnTwitter() {
         const text = "لقد سجلت للعمل التطوعي! انضم إلي في هذه المبادرة الرائعة 🎉";
         const url = window.location.href;
         window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
     }
     
-    // تفعيل الكونفيتي عند تحميل الصفحة
     document.addEventListener('DOMContentLoaded', function() {
         createConfetti();
         
-        // تشغيل صوت نجاح خفيف (اختياري)
         const audio = new Audio("{% static 'sounds/success.mp3' %}");
         audio.volume = 0.3;
         audio.play().catch(e => console.log());

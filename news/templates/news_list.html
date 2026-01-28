@@ -5,12 +5,10 @@
 
 {% block content %}
 
-<!-- الأخبار -->
 
 <div class="news-section">
     <div class="container">
 
-        <!-- Title -->
         <h2 class="section-title text-center mb-5">
             {% trans "News" %}
         </h2>
@@ -20,7 +18,6 @@
             <div class="col-12 col-md-6 col-lg-4 mb-4">
                 <div class="card news-card h-100">
 
-                    <!-- الصورة -->
                     {% with img=news.image_by_lang %}
                     {% if img %}
                     <div class="card-img-container">
@@ -64,7 +61,6 @@
         </div>
 
         
-        <!-- Pagination -->
         {% if news_list.has_other_pages %}
         <div class="mt-5">
             <nav aria-label="Page navigation">

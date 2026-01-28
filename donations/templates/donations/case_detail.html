@@ -20,22 +20,18 @@
 
         <div class="card-body pt-0">
 
-          <!-- عنوان الحالة -->
           <h5 class="case-title semi-bold fs-5 mb-2">{{ case.title }}</h5>
 
-          <!-- عدد المشاهدات -->
           <div class="text-muted small mb-3 d-flex align-items-center gap-1">
             <i class="fa-regular fa-eye"></i>
             <span>{{ case.views_count }}</span>
             <span>{% trans "views" %}</span>
           </div>
 
-          <!-- الوصف -->
           <p class="case-desc text-muted fs-6 mb-4" style="line-height:1.7;">
             {{ case.description }}
           </p>
 
-          <!-- الهدف والمبالغ المحصّلة وشريط التقدم -->
           <div class="mb-4">
             <div class="d-flex justify-content-between small mb-1">
               <span>{% trans "Goal" %}: <strong>{{ case.goal }}</strong> EGP</span>
@@ -50,7 +46,6 @@
             <small class="text-muted">{{ case.progress_percent|floatformat:0 }}% {% trans "Complete" %}</small>
           </div>
 
-          <!-- أرقام جاهزة -->
           <div class="mb-3 text-center d-flex flex-wrap justify-content-center gap-2">
             <span class="btn btn-outline-secondary btn-sm preset-amount px-3" data-value="100">100</span>
             <span class="btn btn-outline-secondary btn-sm preset-amount px-3" data-value="150">150</span>
@@ -59,7 +54,6 @@
             <span class="btn btn-outline-secondary btn-sm preset-amount px-3" data-value="300">300</span>
           </div>
 
-          <!-- إدخال المبلغ وزر التبرع -->
           <div class="d-flex align-items-center gap-2 mb-3">
             <input type="number"
                    name="amount"
@@ -93,7 +87,6 @@
   </div>
 </div>
 
-<!-- JS لإضافة الحالة للسلة واختيار الأرقام الجاهزة -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const amountInput = document.querySelector('input[name="amount"]');
@@ -106,7 +99,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<!-- CSS لتحسين المسافات والتنسيق -->
 <style>
 .product-item {
     border-radius: 16px;

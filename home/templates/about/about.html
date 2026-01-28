@@ -4,13 +4,12 @@
 {% block content %}
 
 <style>
-    /* ===================== Reset Box Sizing ===================== */
     *, *::before, *::after {
         box-sizing: border-box;
     }
 
     body {
-        overflow-x: hidden; /* يمنع السحب الأفقي */
+        overflow-x: hidden; 
     }
 
     :root {
@@ -25,7 +24,6 @@
         --radius: 16px;
     }
 
-    /* ===================== Hero Section ===================== */
     .about-hero {
         background: linear-gradient(135deg, rgba(2, 195, 235, 0.05) 0%, rgba(2, 195, 235, 0.15) 100%);
         padding: 5rem 0;
@@ -57,7 +55,6 @@
         transform: none;
     }
 
-    /* ===================== Honorary Card ===================== */
     .honorary-card {
         background: var(--white);
         border-radius: var(--radius);
@@ -90,7 +87,6 @@
         margin-bottom: 10px;
     }
 
-    /* ===================== Partner Logos ===================== */
     .partner-logo {
         background: var(--white);
         border-radius: 12px;
@@ -124,7 +120,6 @@
         opacity: 1;
     }
 
-    /* ===================== Mission Box ===================== */
     .mission-box {
         background: var(--white);
         border-radius: var(--radius);
@@ -147,7 +142,6 @@
         font-size: 24px;
     }
 
-    /* ===================== Buttons ===================== */
     .btn-primary-custom {
         background: var(--primary-color);
         border: none;
@@ -181,7 +175,6 @@
         transform: translateY(-3px);
     }
 
-    /* ===================== Stats ===================== */
     .stats-box {
         text-align: center;
         padding: 25px 15px;
@@ -209,7 +202,6 @@
         font-weight: 500;
     }
 
-    /* ===================== Timeline ===================== */
     .timeline-item {
         position: relative;
         padding-left: 40px;
@@ -243,7 +235,6 @@
         display: none;
     }
 
-    /* ===================== Responsive ===================== */
     @media (max-width: 768px) {
         .about-hero {
             padding: 3rem 0;
@@ -305,9 +296,7 @@
     </div>
 </div>
 
-<!-- ===================== باقي الأقسام ===================== -->
 <div class="container py-5" dir="{% if LANGUAGE_CODE == 'ar' %}rtl{% else %}ltr{% endif %}">
-    <!-- قيمنا الأساسية -->
     <section class="mb-5">
         <h2 class="section-title h2 fw-bold">
             {% if LANGUAGE_CODE == 'ar' %}قيمنا الأساسية{% else %}Our Core Values{% endif %}
@@ -343,7 +332,6 @@
         </div>
     </section>
 
-    <!-- باقي الأقسام بنفس النمط، مع الحفاظ على overflow-x hidden وbox-sizing -->
 
 </div>
 

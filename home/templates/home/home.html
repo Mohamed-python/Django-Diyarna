@@ -30,7 +30,6 @@
 
         }
         
-        /* تصميم هندسي في الخلفية */
         .geometric-background {
             position: absolute;
             top: 0;
@@ -93,7 +92,6 @@
             }
         }
         
-        /* المحتوى */
         .content {
             position: relative;
             z-index: 2;
@@ -121,7 +119,6 @@
             letter-spacing: 1px;
         }
         
-        /* فانوس مصمم بطريقة فنية */
         .artistic-lantern {
             width: 180px;
             height: 280px;
@@ -226,7 +223,6 @@
             100% { opacity: 1; transform: translateX(-50%) scale(1.1); }
         }
         
-        /* النص التشجيعي */
         .inspirational-text {
             max-width: 700px;
             margin: 0 auto 50px;
@@ -304,7 +300,6 @@
             left: 100%;
         }
         
-        /* النجوم */
         .stars {
             position: absolute;
             top: 0;
@@ -327,7 +322,6 @@
             50% { opacity: 1; }
         }
         
-        /* التذييل */
         .footer-note {
             margin-top: 50px;
             color: #90e0ef;
@@ -336,7 +330,6 @@
             letter-spacing: 0.5px;
         }
         
-        /* تصميم متجاوب */
         @media (max-width: 768px) {
             .artistic-section {
                 padding: 40px 25px;
@@ -420,11 +413,9 @@
 
 
 {% comment %} سلايد شو {% endcomment %}
-<!-- ############################################################### -->
 <section class="features">
   <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
 
-    <!-- Indicators -->
     <div class="carousel-indicators">
       {% for slide in slides %}
         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ forloop.counter0 }}"
@@ -433,14 +424,12 @@
       {% endfor %}
     </div>
 
-    <!-- Slides -->
     <div class="carousel-inner" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}" style="font-family: 'Cairo', sans-serif;">
       {% for slide in slides %}
       <div class="carousel-item {% if forloop.first %}active{% endif %}">
         <img src="{% static slide.image %}" class="d-block w-100" alt="">
         <div class="overlay"></div>
 
-        <!-- Caption centered -->
         <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100 text-center">
           <h5 style="font-family: 'Cairo', sans-serif;">{% trans slide.title %}</h5>
           <p style="font-family: 'Cairo', sans-serif;">{% trans slide.subtitle %}</p>
@@ -453,7 +442,6 @@
       {% endfor %}
     </div>
 
-    <!-- Controls -->
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
       <span class="carousel-control-prev-icon"></span>
       <span class="visually-hidden">{% trans "Previous" %}</span>
@@ -465,7 +453,6 @@
 
   </div>
 </section>
-<!-- ############################################################### -->
 
 
 
@@ -473,13 +460,10 @@
 
 
 
-{% comment %} <!-- إنجازاتنا حتى الآن... --> {% endcomment %}
 <section class="features">
-  <!-- Counters Section -->
   <div class="container-fluid">
     <div class="row">
 
-      <!-- Left Section -->
       <div class="col-md-4 d-none d-md-block p-4 counters-box" style="background-color: #00d3ff;">
         <div class="d-flex align-items-center justify-content-center h-100">
           <h3 class="ps-2 pt-2 mb-0" style="color: #fff;">
@@ -492,7 +476,6 @@
         </div>
       </div>
 
-      <!-- Right Section -->
       <div class="col-md-8 p-4" style="background-image:url('{% static 'background/1.jpg' %}');">
         <div class="counter-row">
 
@@ -558,22 +541,18 @@
 
 
 <div class="artistic-section">
-        <!-- الأشكال الهندسية الخلفية -->
         <div class="geometric-background">
             <div class="shape"></div>
             <div class="shape"></div>
             <div class="shape"></div>
         </div>
         
-        <!-- النجوم -->
         <div class="stars" id="stars"></div>
         
-        <!-- المحتوى الرئيسي -->
         <div class="content">
             <h1 class="main-title">رمضان<br>موسم العطاء</h1>
             <p class="subtitle">شهر الرحمة والمغفرة والعتق من النار</p>
             
-            <!-- الفانوس الفني -->
             <div class="artistic-lantern">
                 <div class="lantern-container">
                     <div class="lantern-top"></div>
@@ -585,7 +564,6 @@
                 </div>
             </div>
             
-            <!-- النص التشجيعي -->
             <div class="inspirational-text">
                 <p class="quote">
                     في ليالي رمضان المباركة، تتحول القلوب إلى أوعية للرحمة، 
@@ -598,7 +576,6 @@
                 </a>
             </div>
             
-            <!-- تذييل -->
             <div class="footer-note">
                 كل تبرع هو نجمة تضيء سماء محتاج • رمضان كريم
             </div>
@@ -606,7 +583,6 @@
     </div>
 
     <script>
-        // إنشاء النجوم
         function createStars() {
             const starsContainer = document.getElementById('stars');
             const starCount = 80;
@@ -615,16 +591,13 @@
                 const star = document.createElement('div');
                 star.classList.add('star');
                 
-                // حجم عشوائي
                 const size = Math.random() * 3 + 1;
                 star.style.width = `${size}px`;
                 star.style.height = `${size}px`;
                 
-                // موقع عشوائي
                 star.style.left = `${Math.random() * 100}%`;
                 star.style.top = `${Math.random() * 100}%`;
                 
-                // تأخير وتوقيت للوميض
                 star.style.animationDelay = `${Math.random() * 3}s`;
                 star.style.animationDuration = `${Math.random() * 2 + 2}s`;
                 
@@ -632,12 +605,10 @@
             }
         }
         
-        // تأثيرات تفاعلية للفانوس
         function setupLanternInteractivity() {
             const lantern = document.querySelector('.lantern-container');
             const section = document.querySelector('.artistic-section');
             
-            // تأثير عند تحريك الماوس
             section.addEventListener('mousemove', (e) => {
                 const { left, top, width, height } = section.getBoundingClientRect();
                 const x = (e.clientX - left) / width - 0.5;
@@ -646,13 +617,11 @@
                 lantern.style.transform = `translateX(-50%) rotate(${x * 5}deg) translateY(${y * 10}px)`;
             });
             
-            // إعادة التعيين عند مغادرة الماوس
             section.addEventListener('mouseleave', () => {
                 lantern.style.transform = 'translateX(-50%)';
             });
         }
         
-        // تأثير كتابة للنص
         function animateText() {
             const quote = document.querySelector('.quote');
             const text = quote.textContent;
@@ -667,11 +636,9 @@
                 }
             }
             
-            // بدء الكتابة بعد تأخير بسيط
             setTimeout(typeWriter, 1000);
         }
         
-        // تهيئة الصفحة
         document.addEventListener('DOMContentLoaded', function() {
             createStars();
             setupLanternInteractivity();
@@ -711,7 +678,7 @@
   
 
 
-{% comment %} <!-- الحالات اللإنسانية --> {% endcomment %}
+<!-- الحالات اللإنسانية -->
 <div class="container py-5" id="case_1">
 
   <div class="text-center mb-5">
@@ -768,7 +735,6 @@
           </div>
 
           <div class="d-flex align-items-center gap-2 mt-2">
-            <!-- input يتمدد -->
             <input
               type="number"
               name="amount"
@@ -776,7 +742,6 @@
               class="form-control form-control-sm flex-grow-1"
               placeholder="{% trans "0.0 EGP" %}">
 
-            <!-- زرار ثابت الحجم -->
             <button
               type="button"
               class="btn btn-sm btn-btnnn add-to-cart"
@@ -824,8 +789,6 @@
 
 
 
-<!-- ###################################################### -->
-<!-- المنتجات -->
 <div class="container my-5" id="ramadan">
     <h1 class="c-1 semi-bold section-title m-auto mt-2 mt-md-4 text-center">
         {% trans "Products" %}
@@ -842,12 +805,10 @@
                  data-type="products">
 
                 <div class="d-flex gap-3 align-items-start">
-                    <!-- الصورة -->
                     <img src="{% if LANGUAGE_CODE == 'en' and product.image_en.url %}{{ product.image_en.url }}{% else %}{{ product.image.url }}{% endif %}" 
                          alt="{{ product.name }}" 
                          class="rounded-circle" style="width:65px; height:65px; object-fit:cover;">
 
-                    <!-- التفاصيل -->
                     <div class="flex-grow-1">
                         <h6 class="mb-2">
                             {% if LANGUAGE_CODE == 'en' and product.name_en %}{{ product.name_en }}{% else %}{{ product.name }}{% endif %}
@@ -861,7 +822,6 @@
                             {% if LANGUAGE_CODE == 'en' and product.description_en %}{{ product.description_en }}{% else %}{{ product.description }}{% endif %}
                         </p>
 
-                        <!-- Donate -->
                         <div class="d-flex align-items-center gap-2">
                             <input type="number" name="amount" value="1" min="1" class="form-control form-control-sm" style="width:75px;">
                             <button type="button" class="btn btn-sm btn-btnnn flex-grow-1 add-to-cart">
@@ -939,12 +899,10 @@
 
 
 
-<!-- الأخبار -->
 
 <div class="news-section">
     <div class="container">
 
-        <!-- Title -->
         <h2 class="section-title text-center mb-5">
             {% trans "News" %}
         </h2>
@@ -954,7 +912,6 @@
             <div class="col-12 col-md-6 col-lg-4 mb-4">
                 <div class="card news-card h-100">
 
-                    <!-- الصورة -->
                     {% with img=news.image_by_lang %}
                     {% if img %}
                     <div class="card-img-container">
@@ -997,7 +954,6 @@
             {% endfor %}
         </div>
 
-        <!-- View All News -->
         <div class="text-center mt-4" style="direction: ltr;">
             <a href="{% url 'news_list' %}" class="view-all-btn d-inline-flex align-items-center">
                 <span>{% trans "View All News" %}</span>
@@ -1007,7 +963,6 @@
             </a>
         </div>
 
-        <!-- Pagination -->
         {% if news_list.has_other_pages %}
         <div class="mt-5">
             <nav aria-label="Page navigation">

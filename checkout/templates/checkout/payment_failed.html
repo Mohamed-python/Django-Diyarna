@@ -4,7 +4,6 @@
 
 {% block extra_css %}
 <style>
-/* متغيرات الألوان */
 :root {
     --primary-color: #02c3eb;
     --primary-dark: #02a8cc;
@@ -26,7 +25,6 @@
     --transition: all 0.3s ease;
 }
 
-/* إصلاحات RTL */
 [dir="rtl"] {
     text-align: right;
     direction: rtl;
@@ -38,7 +36,6 @@
     direction: ltr;
 }
 
-/* الصفحة الرئيسية */
 .payment-failed-page {
     min-height: 100vh;
     background: linear-gradient(135deg, #fff5f5 0%, #f8fafc 100%);
@@ -50,7 +47,6 @@
     overflow: hidden;
 }
 
-/* تأثيرات الخلفية */
 .payment-failed-page::before {
     content: '';
     position: absolute;
@@ -61,7 +57,6 @@
     background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23dc3545' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
 }
 
-/* بطاقة المحتوى */
 .failed-card {
     background: var(--white);
     border-radius: var(--radius-lg);
@@ -87,7 +82,6 @@
     }
 }
 
-/* أيقونة البكاء */
 .crying-icon {
     position: relative;
     width: 120px;
@@ -195,7 +189,6 @@
     }
 }
 
-/* العنوان والنص */
 .failed-title {
     font-size: 2.2rem;
     font-weight: 700;
@@ -234,7 +227,6 @@
     margin-right: auto;
 }
 
-/* قائمة الأسباب */
 .reasons-list {
     background: var(--light-bg);
     border-radius: var(--radius-md);
@@ -288,7 +280,6 @@
     margin-bottom: 0;
 }
 
-/* الأزرار */
 .action-buttons {
     display: flex;
     gap: 15px;
@@ -352,7 +343,6 @@
     transform: translateY(-3px);
 }
 
-/* رسالة تشجيعية */
 .encouragement {
     margin-top: 40px;
     padding-top: 25px;
@@ -380,7 +370,6 @@
     color: var(--warning-color);
 }
 
-/* تصميم متجاوب */
 @media (max-width: 768px) {
     .payment-failed-page {
         padding: 20px 15px;
@@ -448,7 +437,6 @@
 <div class="payment-failed-page" dir="{% if LANGUAGE_CODE == 'ar' %}rtl{% else %}ltr{% endif %}">
     <div class="failed-card">
         
-        <!-- أيقونة البكاء -->
         <div class="crying-icon">
             <div class="crying-face">
                 <div class="face-circle">
@@ -463,7 +451,6 @@
             </div>
         </div>
 
-        <!-- العنوان والنص -->
         <h1 class="failed-title">
             {% if LANGUAGE_CODE == 'ar' %}
                 فشل عملية الدفع
@@ -491,7 +478,6 @@
             {% endif %}
         </p>
 
-        <!-- قائمة الأسباب المحتملة -->
         <div class="reasons-list">
             <h4 class="reasons-title">
                 <i class="fas fa-exclamation-triangle"></i>
@@ -545,7 +531,6 @@
             </ul>
         </div>
 
-        <!-- أزرار الإجراءات -->
         <div class="action-buttons">
             <a href="{% url 'start_payment' %}" class="action-btn action-btn-primary">
                 <i class="fas fa-redo"></i>
@@ -568,7 +553,6 @@
             </a>
         </div>
 
-        <!-- رسالة تشجيعية -->
         <div class="encouragement">
             <p class="encouragement-text">
                 {% if LANGUAGE_CODE == 'ar' %}
@@ -594,11 +578,9 @@
 </div>
 
 <script>
-// تأثيرات JavaScript إضافية
 document.addEventListener('DOMContentLoaded', function() {
     const isRTL = '{{ LANGUAGE_CODE }}' === 'ar';
     
-    // تأثير ظهور تدريجي
     const card = document.querySelector('.failed-card');
     card.style.opacity = '0';
     card.style.transform = 'translateY(30px)';
@@ -609,7 +591,6 @@ document.addEventListener('DOMContentLoaded', function() {
         card.style.transform = 'translateY(0)';
     }, 300);
     
-    // تأثير اهتزاز خفيف للأيقونة
     const cryingFace = document.querySelector('.crying-face');
     setInterval(() => {
         cryingFace.style.transform = 'translateX(2px)';
@@ -621,13 +602,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 200);
     }, 3000);
     
-    // تأثير تتبع الدموع
     const tears = document.querySelectorAll('.tear');
     tears.forEach((tear, index) => {
         tear.style.animationDelay = `${index * 0.5}s`;
     });
     
-    // إضافة تأثير للأزرار عند التمرير
     const buttons = document.querySelectorAll('.action-btn');
     buttons.forEach(button => {
         button.addEventListener('mouseenter', function() {
@@ -639,7 +618,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // رسالة تحفيزية إضافية
     setTimeout(() => {
         const encouragement = document.querySelector('.encouragement');
         encouragement.style.opacity = '0';
@@ -647,7 +625,6 @@ document.addEventListener('DOMContentLoaded', function() {
         encouragement.style.opacity = '1';
     }, 1500);
     
-    // حفظ سبب الفشل محلياً (للمساعدة في التحليل)
     const failureData = {
         timestamp: new Date().toISOString(),
         page: 'payment_failed',

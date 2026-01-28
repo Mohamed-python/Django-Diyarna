@@ -49,7 +49,6 @@
 </div>
 
 <style>
-/* متغيرات الألوان - نفس ألوان صفحة تسجيل الدخول */
 :root {
     --primary-color: #02c3eb;
     --primary-dark: #029dc3;
@@ -71,7 +70,6 @@ body {
     padding: 0;
 }
 
-/* تصميم الحاوية الرئيسية */
 .logout-container {
     display: flex;
     justify-content: center;
@@ -83,7 +81,6 @@ body {
     overflow: hidden;
 }
 
-/* البطاقة الرئيسية */
 .logout-card {
     background-color: white;
     border-radius: var(--radius);
@@ -108,7 +105,6 @@ body {
     }
 }
 
-/* أيقونة تسجيل الخروج */
 .logout-icon {
     width: 100px;
     height: 100px;
@@ -136,7 +132,6 @@ body {
     stroke: white;
 }
 
-/* العنوان */
 .logout-title {
     color: var(--text-dark);
     font-size: 28px;
@@ -144,7 +139,7 @@ body {
     font-weight: 700;
 }
 
-/* الرسالة */
+
 .logout-message {
     color: var(--text-light);
     font-size: 18px;
@@ -152,7 +147,6 @@ body {
     line-height: 1.7;
 }
 
-/* أزرار الإجراءات */
 .logout-actions {
     display: flex;
     flex-direction: column;
@@ -225,7 +219,6 @@ body {
     stroke: var(--primary-color);
 }
 
-/* تذييل الصفحة */
 .logout-footer {
     padding-top: 25px;
     border-top: 1px solid var(--border-color);
@@ -236,7 +229,6 @@ body {
     font-size: 16px;
 }
 
-/* تأثيرات الخلفية المتحركة */
 .logout-animation {
     position: absolute;
     top: 0;
@@ -289,7 +281,6 @@ body {
     }
 }
 
-/* تصميم متجاوب */
 @media (max-width: 768px) {
     .logout-card {
         padding: 40px 30px;
@@ -341,7 +332,6 @@ body {
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // إضافة تأثيرات تفاعلية للأزرار
     const buttons = document.querySelectorAll('.login-again-btn, .home-btn');
     
     buttons.forEach(button => {
@@ -362,15 +352,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // تأثيرات للدوائر المتحركة
     const circles = document.querySelectorAll('.circle');
     
     circles.forEach((circle, index) => {
-        // إضافة تأخيرات مختلفة لكل دائرة
         circle.style.animationDelay = `${index * 2}s`;
     });
     
-    // تأثيرات عند تحميل الصفحة
     setTimeout(() => {
         document.querySelector('.logout-card').classList.add('loaded');
     }, 300);

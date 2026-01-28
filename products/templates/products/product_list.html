@@ -2,7 +2,6 @@
 {% load static i18n %}
 
 {% block content %}
-<!-- المنتجات -->
 <div class="container my-5">
     <h1 class="mb-4 text-center">
         {% if LANGUAGE_CODE == 'ar' %}
@@ -43,7 +42,6 @@
             >
 
                 <div class="d-flex gap-3 align-items-start">
-                    <!-- الصورة --> 
                      
 
 
@@ -63,7 +61,6 @@
 
 
 
-                    <!-- الاسم -->
                     <div class="flex-grow-1">
 
 
@@ -77,7 +74,6 @@
                       
 
 
-                      <!-- السعر -->
                      {% if LANGUAGE_CODE == 'ar' %}
                         <small class="d-block mb-1" >{{ product.price }} ج</small>
 
@@ -87,7 +83,6 @@
                      {% endif %}
 
 
-                     <!-- الوصف -->
                         {% if LANGUAGE_CODE == 'en' and product.description_en %}
                             <p class="product-description mb-2">{{ product.description_en }}</p>                        
                         {% else %}
@@ -95,7 +90,6 @@
                         {% endif %}
 
 
-                         <!-- Donate  -->
                         <div class="d-flex gap-2">
                             <input type="number" name="amount" value="1" min="1" class="form-control form-control-sm" style="width:75px;">
                             

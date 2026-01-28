@@ -5,7 +5,6 @@
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-lg-8 col-xl-6">
-            <!-- رأس الصفحة -->
             <div class="text-center mb-4">
                 <h1 class="h2 fw-bold text-primary mb-3">
                     {% if LANGUAGE_CODE == 'ar' %}نموذج التطوع{% else %}Volunteer Form{% endif %}
@@ -24,7 +23,6 @@
                     <form method="post" novalidate id="volunteerForm">
                         {% csrf_token %}
 
-                        <!-- قسم المعلومات الأساسية -->
                         <div class="mb-4">
                             <h5 class="mb-3 text-primary border-bottom pb-2">
                                 {% if LANGUAGE_CODE == 'ar' %}المعلومات الشخصية{% else %}Personal Information{% endif %}
@@ -32,7 +30,6 @@
 
 
 
-                            <!-- الاسم -->
                             <div class="mb-3">
                                 <label for="{{ form.name.id_for_label }}" class="form-label fw-medium">
                                     {{ form.name.label }}
@@ -47,7 +44,6 @@
                                 {% endif %}
                             </div>
 
-                            <!-- البريد الإلكتروني -->
                             <div class="mb-3">
                                 <label for="{{ form.email.id_for_label }}" class="form-label fw-medium">
                                     {{ form.email.label }}
@@ -62,7 +58,6 @@
                                 {% endif %}
                             </div>
 
-                            <!-- رقم الهاتف -->
                             <div class="mb-4">
                                 <label for="{{ form.phone.id_for_label }}" class="form-label fw-medium">
                                     {{ form.phone.label }}
@@ -78,13 +73,12 @@
                             </div>
                         </div>
 
-                        <!-- قسم نوع التطوع -->
+
                         <div class="mb-4">
                             <h5 class="mb-3 text-primary border-bottom pb-2">
                                 {% if LANGUAGE_CODE == 'ar' %}تفاصيل التطوع{% else %}Volunteer Details{% endif %}
                             </h5>
 
-                            <!-- نوع التطوع -->
                             <div class="mb-3">
                                 <label for="{{ form.volunteer_type.id_for_label }}" class="form-label fw-medium d-block">
                                     {{ form.volunteer_type.label }}
@@ -99,7 +93,6 @@
                                 {% endif %}
                             </div>
 
-                            <!-- عدد أعضاء المجموعة -->
                             <div class="mb-4" id="group_size_div" style="display:none;">
                                 <label for="{{ form.group_size.id_for_label }}" class="form-label fw-medium">
                                     {{ form.group_size.label }}
@@ -127,7 +120,6 @@
                             </div>
                         </div>
 
-                        <!-- زر التسجيل -->
                         <div class="mt-4 pt-3 border-top">
                             <button type="submit" class="btn btn-primary btn-lg w-100 py-3">
                                 {% if LANGUAGE_CODE == 'ar' %}تسجيل التطوع{% else %}Submit Volunteer{% endif %}
@@ -138,7 +130,6 @@
                 </div>
             </div>
 
-            <!-- معلومات إضافية -->
             <div class="mt-4 text-center">
                 <p class="text-muted small">
                     <i class="fas fa-info-circle me-1"></i>
@@ -154,50 +145,42 @@
 </div>
 
 
-<!-- JavaScript بسيط وفعال -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const volunteerType = document.getElementById('id_volunteer_type');
     const groupDiv = document.getElementById('group_size_div');
     const groupSizeInput = document.getElementById('id_group_size');
 
-    // دالة لتبديل حقل المجموعة
     function toggleGroupSize() {
         if(volunteerType.value === 'group') {
             groupDiv.style.display = 'block';
             
-            // جعل الحقل مطلوب عند الظهور
             if (groupSizeInput) {
                 groupSizeInput.required = true;
                 if (!groupSizeInput.value) {
-                    groupSizeInput.value = '2'; // قيمة افتراضية
+                    groupSizeInput.value = '2'; 
                 }
             }
         } else {
             groupDiv.style.display = 'none';
             
-            // إزالة الإلزام عند الاختفاء
             if (groupSizeInput) {
                 groupSizeInput.required = false;
             }
         }
     }
 
-    // إضافة الأحداث
     if (volunteerType) {
         volunteerType.addEventListener('change', toggleGroupSize);
         
-        // التحقق من القيمة عند التحميل
         window.addEventListener('load', function() {
             toggleGroupSize();
         });
     }
 
-    // التحقق من النموذج قبل الإرسال
     const form = document.getElementById('volunteerForm');
     if (form) {
         form.addEventListener('submit', function(e) {
-            // إذا كان نوع التطوع "مجموعة" وحقل الحجم فارغ
             if (volunteerType.value === 'group' && groupSizeInput && (!groupSizeInput.value || groupSizeInput.value < 2)) {
                 e.preventDefault();
                 alert('يرجى إدخال عدد أفراد المجموعة (2 أشخاص على الأقل)');
@@ -205,7 +188,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // إضافة تأثير للزر أثناء الإرسال
             const submitBtn = form.querySelector('button[type="submit"]');
             if (submitBtn) {
                 submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> جاري التسجيل...';
@@ -216,7 +198,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<!-- أنماط CSS بسيطة -->
 <style>
 
 
