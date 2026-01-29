@@ -3,6 +3,13 @@
 
 
 document.addEventListener('DOMContentLoaded', () => {
+    // فتح مودال السلة
+    // const chatBubble = document.getElementById("chat-bubble");
+    
+    
+
+
+    
     const lang = document.documentElement.getAttribute('data-lang'); // "ar" أو "en"
     // استرجاع السلة من localStorage أو إنشاء مصفوفة جديدة
     let cart = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -214,23 +221,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-            // فتح مودال السلة
             const cartModalEl = document.getElementById('cartModal');
             const modal = bootstrap.Modal.getOrCreateInstance(cartModalEl);
-            // 
-            const chatBubble = document.getElementById("chat-bubble");
-            // إخفاء زر الشات عند فتح المودال
-            cartModalEl.addEventListener('show.bs.modal', () => {
-                chatBubble.style.display = "none";
-            });
-
-            // إظهار زر الشات عند غلق المودال
-            cartModalEl.addEventListener('hidden.bs.modal', () => {
-                chatBubble.style.display = "flex";
-            });
-            // 
-
-
             modal.show();
 
 
