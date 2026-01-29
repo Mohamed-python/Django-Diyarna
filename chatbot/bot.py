@@ -17,22 +17,22 @@ def get_bot_reply(message):
         return (
             "مؤسسة ديارنا مؤسسة غير ربحية تعمل على دعم المحتاجين والمشاريع الخيرية ❤️. "
             "لمزيد من المعلومات زور موقعنا: "
-            '<a href="https://www.diyarna.org/" target="_blank">www.diyarna.org</a>'
+            '<a href="https://mgzpython.pythonanywhere.com/" target="_blank">www.diyarna.org</a>'
         )
 
     # روابط التبرع
     elif "تبرع" in message or "donate" in message:
         return (
             "تقدر تدعم مشاريعنا الخيرية من خلال صفحة التبرعات: "
-            '<a href="https://www.diyarna.org/donations" target="_blank">تبرع الآن</a> 💖'
+            '<a href="https://mgzpython.pythonanywhere.com/donations" target="_blank">تبرع الآن</a> 💖'
         )
 
     # معلومات التواصل
     elif "تواصل" in message or "contact" in message:
         return (
             "تقدر تتواصل معنا عبر البريد أو الهاتف:\n"
-            "📧 info@diyarna.org\n"
-            "📞 01026855550"
+            "info@diyarna.org\n"
+            "📞 01026855550\n"
         )
 
     # الرد الافتراضي
