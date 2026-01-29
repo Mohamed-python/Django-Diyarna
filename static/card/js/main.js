@@ -179,6 +179,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // إضافة عنصر للسلة
     document.querySelectorAll('.add-to-cart').forEach(btn => {
+
+        
+
         btn.addEventListener('click', e => {
             const parent = e.target.closest('.product-item');
             const id = parent.dataset.id;
@@ -209,10 +212,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
             updateCart();
 
+
+
             // فتح مودال السلة
             const cartModalEl = document.getElementById('cartModal');
             const modal = bootstrap.Modal.getOrCreateInstance(cartModalEl);
+            // 
+            const chatBubble = document.getElementById("chat-bubble");
+            // إخفاء زر الشات عند فتح المودال
+            cartModalEl.addEventListener('show.bs.modal', () => {
+                chatBubble.style.display = "none";
+            });
+
+            // إظهار زر الشات عند غلق المودال
+            cartModalEl.addEventListener('hidden.bs.modal', () => {
+                chatBubble.style.display = "flex";
+            });
+            // 
+
+
             modal.show();
+
+
+            
+
+
         });
     });
 
