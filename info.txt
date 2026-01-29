@@ -6,7 +6,7 @@ cd ~/اسم_المشروع
 git reset --hard
 git pull
 python manage.py collectstatic --noinput
-source /home/mgzpython/.virtualenvs/diyarna/bin/activate
+source /home/mgzpython/.virtualenvs/diyarna/bin/activate | 
 
 
 ترجمه
