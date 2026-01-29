@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Chat Bot</title>
+</head>
+<body>
+    <h2>Chat Bot 🤖</h2>
+
+    <div>
+        {% for msg in messages %}
+            <p><b>أنت:</b> {{ msg.user_message }}</p>
+            <p><b>البوت:</b> {{ msg.bot_reply }}</p>
+            <hr>
+        {% endfor %}
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="message" placeholder="اكتب رسالتك..." required>
+        <button type="submit">إرسال</button>
+    </form>
+</body>
+</html>

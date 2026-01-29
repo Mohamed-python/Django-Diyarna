@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'news',
     'volunteers', # تطوع
     'checkout',
+    'chatbot',
 
 ]
 

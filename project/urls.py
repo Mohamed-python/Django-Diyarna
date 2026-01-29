@@ -36,6 +36,7 @@ urlpatterns += i18n_patterns(
 
     path('donations/', include('donations.urls')),
     path('', include('checkout.urls')), #checkout
+    path("chat/", include("chatbot.urls")),
 
 
     ##########################################
